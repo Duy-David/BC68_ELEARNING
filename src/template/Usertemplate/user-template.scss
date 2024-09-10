@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "Macan";
+  src: url("../../assets/fonts/macan-regular.woff2") format("woff2");
+  //   font-weight: normal;
+  //   font-style: normal;
+}
+@font-face {
+  font-family: "Macan-light";
+  src: url("../../assets/fonts/macan-light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Macan-bold";
+  src: url("../../assets/fonts/macan-bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Macan-semibold";
+  src: url("../../assets/fonts/macan-semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Domaine Display";
+  src: url("../../assets/fonts/domaine-display-web-regular.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Domaine Display_bold";
+  src: url("../../assets/fonts/domaine-display-web-bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Domaine Display_medium-italic";
+  src: url("../../assets/fonts/domaine-display-web-medium-italic.woff2")
+    format("woff2");
+}
+
+body,
+.font-macan {
+  font-family: Macan, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  &.bold {
+    font-family: Macan-bold, Macan-semibold, "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+  }
+  &.semibold {
+    font-family: Macan-semibold, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  &.light {
+    font-family: Macan-light, Macan, "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+  }
+}
+.font-ddisplay {
+  font-family: "Domaine Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  &.bold {
+    font-family: "Domaine Display_bold", "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+  }
+  &.medium-italic {
+    font-family: "Domaine Display_medium-italic", "Helvetica Neue", Helvetica,
+      Arial, sans-serif;
+  }
+}
+
+.banner-bg {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(36.72%, #003912),
+    color-stop(141.43%, #19aa64)
+  );
+  background: linear-gradient(180deg, #003912 36.72%, #19aa64 141.43%);
+  border-radius: 12px;
+}

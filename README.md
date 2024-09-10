@@ -1,4 +1,7 @@
-Phiên bản node là v20.14npm.0
+Đây là dự án ELEARNINHG React sử dụng vite. 
+
+
+Phiên bản node là v20.14.0
 
 - Một số thư viện cài đặt bên trong dự án:
   - Thư viện axios (done)
@@ -8,6 +11,9 @@ Phiên bản node là v20.14npm.0
   - Thư viện redux-toolkit (done)
   - Thư viện formik và yup để quản lí form và validation (done)
   - Thư viện antd cho xây dựng UI (done)
+  - Thư viện react-toastify cho thông báo  (done)
+  - Thư viện lottie-react cho việc chạy animation (done)
+  - Thư viện fontansome cho việc chạy animation (done)
 
 
 
