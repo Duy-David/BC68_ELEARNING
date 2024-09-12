@@ -1,0 +1,12 @@
+.course-title span::after {
+    content: "";
+    position: absolute;
+    width: 91px;
+    height: 12px;
+    bottom: -41%;
+    left: 9%;
+    z-index: -1;
+    transform: translate(-45px);
+    // background-color: #ffc221;
+    background-image: url(./public/svg/AboutUS/headline-curve.svg);
+  }

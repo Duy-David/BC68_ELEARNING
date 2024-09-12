@@ -5,6 +5,7 @@ import { pathDefault } from "../common/path";
 import HomePage from "../pages/Home/HomePage";
 import Register from "../pages/Register/Register";
 import LoginPage from "../pages/LoginPage/LoginPage";
+import CourseCatelogies from "../pages/CourseCatelogies/CourseCatelogies";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -15,6 +16,10 @@ const useRoutesCustom = () => {
         {
           path: "",
           element: <HomePage />,
+        },
+        {
+          path: "/course-catelogies/:maDanhMuc",
+          element: <CourseCatelogies />,
         },
       ],
     },

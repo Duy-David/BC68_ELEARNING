@@ -8,7 +8,7 @@ const Usertemplate = () => {
   return (
     <div className="container mx-auto">
       <Header />
-      <main className="px-3 sm:px-5">
+      <main className="">
         {/*  */}
         <Outlet />
       </main>

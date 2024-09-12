@@ -13,7 +13,8 @@ Phiên bản node là v20.14.0
   - Thư viện antd cho xây dựng UI (done)
   - Thư viện react-toastify cho thông báo  (done)
   - Thư viện lottie-react cho việc chạy animation (done)
-  - Thư viện fontansome cho việc chạy animation (done)
+  - Thư viện fontansome cho việc lấy icon  (done)
+  - Thư viện react-slick cho việc chay carousel(done)
 
 
 
