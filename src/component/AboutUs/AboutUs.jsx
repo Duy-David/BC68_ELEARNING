@@ -3,7 +3,7 @@ import "./aboutUs.scss";
 import Slider from "react-slick";
 import "../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../node_modules/slick-carousel/slick/slick-theme.css";
-import icon from "../../../public/svg/AboutUS/carousel.svg";
+import icon from "../../../svg/AboutUS/carousel.svg";
 
 const AboutUs = () => {
   let settings = {
@@ -36,42 +36,42 @@ const AboutUs = () => {
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Oliver Beddows",
       position: "Designer, Manchester",
-      image: "./public/png/avatar-01.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-01.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Code Quality",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Madley Pondor",
       position: "Reporter, San Diego",
-      image: "/public/png/avatar-02.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-02.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Customer Support",
       text: "Very good and fast support during the week. They know what you need, exactly when you need it.",
       name: "Mina Hollace",
       position: "Reporter, London",
-      image: "/public/png/avatar-03.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-03.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Great quality!",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Luvic Dubble",
       position: "Designer, Manchester",
-      image: "/public/png/avatar-04.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-04.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Great quality!",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Oliver Beddows",
       position: "Designer, Manchester",
-      image: "/public/png/avatar-01.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-01.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Code Quality",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Madley Pondor",
       position: "Reporter, San Diego",
-      image: "/public/png/avatar-02.png", // Thay ảnh phù hợp nếu có
+      image: "/png/avatar-02.png", // Thay ảnh phù hợp nếu có
     },
   ];
 
@@ -106,7 +106,11 @@ const AboutUs = () => {
                       <h3 className="text-lg font-bold text-blue-600">
                         {testimonial.title}
                       </h3>
-                      <img src={icon} alt="Carousel Icon" className="testimonial-img"  />
+                      <img
+                        src={icon}
+                        alt="Carousel Icon"
+                        className="testimonial-img"
+                      />
                     </div>
 
                     <p className="mt-4 text-gray-600">{testimonial.text}</p>

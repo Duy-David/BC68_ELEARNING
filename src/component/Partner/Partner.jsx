@@ -4,33 +4,33 @@ const Partner = () => {
   const partners = [
     {
       name: "State University",
-      logo: "/public/png/partners/client-logo-01.png",
+      logo: "/png/partners/client-logo-01.png",
     },
-    { name: "Student Chat", logo: "/public/png/partners/client-logo-02.png" },
-    { name: "Best College", logo: "/public/png/partners/client-logo-03.png" },
-    { name: "Owl Sign", logo: "/public/png/partners/client-logo-04.png" },
-    { name: "Owlbook", logo: "/public/png/partners/client-logo-05.png" },
-    { name: "Creative Book", logo: "/public/png/partners/client-logo-06.png" },
-    { name: "Space Writing", logo: "/public/png/partners/client-logo-07.png" },
+    { name: "Student Chat", logo: "/png/partners/client-logo-02.png" },
+    { name: "Best College", logo: "/png/partners/client-logo-03.png" },
+    { name: "Owl Sign", logo: "/png/partners/client-logo-04.png" },
+    { name: "Owlbook", logo: "/png/partners/client-logo-05.png" },
+    { name: "Creative Book", logo: "/png/partners/client-logo-06.png" },
+    { name: "Space Writing", logo: "/png/partners/client-logo-07.png" },
     {
       name: "Education First",
-      logo: "/public/png/partners/client-logo-08.png",
+      logo: "/png/partners/client-logo-08.png",
     },
     {
       name: "Bright Minds High School",
-      logo: "/public/png/partners/client-logo-09.png",
+      logo: "/png/partners/client-logo-09.png",
     },
     {
       name: "Bright Minds High School",
-      logo: "/public/png/partners/client-logo-10.png",
+      logo: "/png/partners/client-logo-10.png",
     },
     {
       name: "Bright Minds High School",
-      logo: "/public/png/partners/client-logo-11.png",
+      logo: "/png/partners/client-logo-11.png",
     },
     {
       name: "Bright Minds High School",
-      logo: "/public/png/partners/client-logo-12.png",
+      logo: "/png/partners/client-logo-12.png",
     },
   ];
   return (

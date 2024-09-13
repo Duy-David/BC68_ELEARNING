@@ -7,8 +7,7 @@ const Instructor = () => {
       description:
         "Top instructors from around the world teach millions of students on EduMall.",
       buttonText: "Start teaching today",
-      imageSrc:
-        "../../../public/png/Instructor/banner-image-group-teachers.png", // Replace with actual image path
+      imageSrc: "../../../png/Instructor/banner-image-group-teachers.png", // Replace with actual image path
       altText: "Instructors",
       background: "#F6F3ED",
     },
@@ -17,7 +16,7 @@ const Instructor = () => {
       description:
         "Create an account to receive our newsletter, course recommendations, and promotions.",
       buttonText: "Register for free",
-      imageSrc: "../../../public/png/Instructor/banner-image-laptop.png", // Replace with actual image path
+      imageSrc: "../../../png/Instructor/banner-image-laptop.png", // Replace with actual image path
       altText: "Access Education",
       background: "#EEF0F4",
     },
@@ -36,7 +35,9 @@ const Instructor = () => {
               <h3 className="text-xl font-bold text-gray-900">
                 {feature.title}
               </h3>
-              <p className="mt-4 text-sm text-gray-600">{feature.description}</p>
+              <p className="mt-4 text-sm text-gray-600">
+                {feature.description}
+              </p>
               <button className="mt-6 px-6 py-3 bg-blue-600 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-md  transition duration-300">
                 {feature.buttonText}
               </button>

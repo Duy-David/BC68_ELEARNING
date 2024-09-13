@@ -7,4 +7,7 @@ export const quanLyKhoaHocService = {
    getDanhMucKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
   },
+  getThongTinKhoaHoc: (maKhoaHoc) => {
+    return http.get(`/QuanLyKhoaHocQuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
+  },
 };
