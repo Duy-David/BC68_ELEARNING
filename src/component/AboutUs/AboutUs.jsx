@@ -36,42 +36,42 @@ const AboutUs = () => {
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Oliver Beddows",
       position: "Designer, Manchester",
-      image: "/png/avatar-01.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-01.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Code Quality",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Madley Pondor",
       position: "Reporter, San Diego",
-      image: "/png/avatar-02.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-02.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Customer Support",
       text: "Very good and fast support during the week. They know what you need, exactly when you need it.",
       name: "Mina Hollace",
       position: "Reporter, London",
-      image: "/png/avatar-03.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-03.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Great quality!",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Luvic Dubble",
       position: "Designer, Manchester",
-      image: "/png/avatar-04.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-04.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Great quality!",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Oliver Beddows",
       position: "Designer, Manchester",
-      image: "/png/avatar-01.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-01.png", // Thay ảnh phù hợp nếu có
     },
     {
       title: "Code Quality",
       text: "I wanted to place a review since their support helped me within a day or so, which is nice! Thanks and 5 stars!",
       name: "Madley Pondor",
       position: "Reporter, San Diego",
-      image: "/png/avatar-02.png", // Thay ảnh phù hợp nếu có
+      image: "./png/avatar-02.png", // Thay ảnh phù hợp nếu có
     },
   ];
 
