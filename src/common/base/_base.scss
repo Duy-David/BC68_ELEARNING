@@ -127,6 +127,7 @@ mark {
   padding: 0 0 10px 0;
   background-color: transparent;
   display: inline-block;
+  z-index: 0;
   &::after {
     content: "";
     position: absolute;
@@ -142,8 +143,8 @@ mark {
     mask-repeat: no-repeat;
     -webkit-mask-size: contain;
     mask-size: contain;
-    -webkit-mask-image: url(./assets/svg/headline-curve.svg);
-    mask-image: url(./assets/svg/headline-curve.svg);
+    -webkit-mask-image: url(/assets/svg/headline-curve.svg);
+    mask-image: url(/assets/svg/headline-curve.svg);
   }
 }
 
