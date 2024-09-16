@@ -12,6 +12,8 @@ import { setValueUser } from "../../redux/authSlice";
 import { NotificationContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { pathDefault } from "../../common/path";
+import * as yup from "yup";
+import { notiValidate } from "../../common/notiValidate";
 
 const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +71,16 @@ const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
         );
       }
     },
+    validationSchema: yup.object({
+      taiKhoan: yup.string().required(notiValidate.empty),
+      matKhau: yup
+        .string()
+        .required(notiValidate.empty)
+        .matches(
+          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^~`;,.()?&#])[A-Za-z\d@$!%*^~`;,.()?&#]{8,}$/,
+          notiValidate.password
+        ),
+    }),
   });
 
   return (
