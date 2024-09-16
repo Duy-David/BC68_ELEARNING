@@ -6,9 +6,9 @@ import "./user-template.scss";
 
 const Usertemplate = () => {
   return (
-    <div className="container mx-auto test">
+    <div className="mx-auto">
       <Header />
-      <main className="px-3 sm:px-5">
+      <main>
         {/*  */}
         <Outlet />
       </main>

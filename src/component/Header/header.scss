@@ -1,0 +1,345 @@
+@import "./../../common/helpers/variables";
+@import "./../../common/helpers/animations";
+
+.header_section {
+  background-color: #fff;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+  padding: 10px 0;
+  &.sticky {
+    animation: sticky 1s;
+  }
+
+  .header_wrapper {
+    .divider {
+      position: relative;
+      padding: 10px 0 10px 28px;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 1px;
+        height: 40px;
+        background: #d9dee3;
+        transform: translateY(-50%);
+      }
+    }
+    .header_logo {
+    }
+    .header_category {
+      //   display: flex;
+      //   align-items: center;
+      width: fit-content;
+      .ant-btn {
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 500;
+        border: none;
+        padding: 0;
+      }
+      .category_icon {
+        margin-right: 7px;
+      }
+      &:hover {
+        .ant-btn,
+        .category_icon svg {
+          color: $primary-color;
+          fill: $primary-color;
+        }
+      }
+    }
+    .header_inner {
+      .header_search {
+        max-width: 400px;
+        position: relative;
+        // width: 100%;
+        padding: 0 10px;
+        label {
+          display: none;
+        }
+        .inputWrapper input {
+          color: $black-color;
+          background: #f2f2f2;
+          border: 1px solid #f2f2f2;
+          font-weight: 500;
+          height: 60px;
+          padding: 3px 20px;
+          padding-right: 65px;
+          font-size: 14px;
+          width: 100%;
+          border-radius: 5px;
+          transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+          &:focus {
+            background-color: #fff;
+            border: 1px solid $primary-color;
+          }
+        }
+        .serach_btn {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          width: 60px;
+          height: 60px;
+          border: 0;
+          background-color: transparent;
+          color: #0071dc;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          font-size: 20px;
+          &:hover {
+            background-color: $primary-color;
+            color: #fff;
+          }
+        }
+      }
+      nav.header_navBar {
+        .dropDown_menu {
+          li {
+            a {
+              padding: 8px 16px;
+              font-weight: 500;
+              line-height: 1.6;
+              color: $black-color;
+              //   display: block;
+              //   position: relative;
+              &.active {
+                color: $primary-color;
+                span::before {
+                  width: 100%;
+                  background-color: $primary-color;
+                  left: 0;
+                  right: auto;
+                }
+              }
+              span {
+                position: relative;
+                padding: 4px 0;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  left: auto;
+                  right: 0;
+                  bottom: 0;
+                  height: 2px;
+                  width: 0;
+                  background: transparent;
+                  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+                }
+              }
+              svg {
+                width: 10px;
+                padding: 0 5px;
+              }
+            }
+            &:hover {
+              a {
+                color: $primary-color;
+                span::before {
+                  width: 100%;
+                  background-color: $primary-color;
+                  left: 0;
+                  right: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+      .header_cart {
+        .header_cart_btn {
+          position: relative;
+          svg {
+            height: 20px;
+          }
+          span {
+            position: absolute;
+            top: -6px;
+            right: -14px;
+            padding: 0 4px;
+            min-width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 50%;
+            color: #fff;
+            background: $primary-color;
+            font-weight: 500;
+            font-size: 12px;
+            text-align: center;
+          }
+        }
+      }
+      .header_user {
+        &.divider {
+          padding-left: 0 !important;
+        }
+      }
+
+      /**=== Header mobile toggle ===**/
+      .header_toggle {
+        .toggleNav_btn {
+        }
+        .toggleSearch_btn {
+        }
+      }
+    }
+  }
+}
+
+/**=== Fix css AntDesign ===**/
+// nav menu header
+.menuHome {
+  ul.ant-dropdown-menu {
+    display: grid;
+    // align-items: center;
+    gap: 15px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 20px;
+    li.ant-dropdown-menu-item {
+      svg {
+        width: 24px;
+        height: 24px;
+        padding: 8px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+        margin-right: 10px;
+      }
+      a {
+        color: $black-color;
+        text-wrap: wrap;
+      }
+      &:hover {
+        svg {
+          color: $primary-color;
+          background-color: transparent;
+        }
+        a {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+// mini cart
+.header_cart_content {
+  .header_cart__list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 70vh;
+    .header_cart__item {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      padding: 10px 17px 10px 10px;
+      border-radius: 5px;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      .header_cart__close {
+        position: absolute;
+        top: 0;
+        right: -4px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .header_cart__thumbnail {
+      }
+      .header_cart__caption {
+        padding-left: 10px;
+        .header_cart__name {
+        }
+        .header_cart__quantity {
+        }
+      }
+    }
+  }
+  .header_cart__footer {
+  }
+}
+
+.amount,
+.header_cart__total {
+  font-weight: 700;
+}
+.separator {
+  font-size: 75%;
+}
+
+// user modal popover
+.header_user_modal {
+  input:not([type="checkbox"]) {
+    height: 50px;
+    background-color: #f8f8f8;
+    border: 1px solid #f8f8f8;
+    &:focus {
+      background-color: #fff;
+      border: 1px solid $primary-color;
+      &::placeholder {
+        font-size: 12px;
+        padding-left: 20px;
+        color: #e1e1e1;
+      }
+    }
+  }
+  .ant-modal-content {
+    padding: 20px 40px;
+    .ant-modal-header {
+      text-align: center;
+      .ant-modal-title {
+        font-size: 32px;
+        line-height: 1.5;
+        margin: 0 0 8px;
+      }
+    }
+    .ant-modal-body {
+      .modal-description {
+        text-align: center;
+
+        a,
+        button {
+          position: relative;
+          color: $black-color;
+          padding: 0;
+          background: none;
+          border: 0;
+
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #e7e7e7;
+            transform-origin: right;
+            transform: scaleX(1) translateZ(0);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+          }
+          &::after {
+            background-color: $primary-color;
+            transform-origin: left;
+            transform: scaleX(0) translateZ(0);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+          }
+
+          &:hover {
+            color: $primary-color;
+            &::before {
+              transform: scaleX(0) translateZ(0);
+              transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            &::after {
+              transform: scaleX(1) translateZ(0);
+              transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+            }
+          }
+        }
+      }
+    }
+    .ant-modal-footer {
+    }
+  }
+}
