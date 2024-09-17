@@ -104,7 +104,7 @@ const itemsMenuHome = [
 
 const NavBarMenu = () => {
   return (
-    <ul className="dropDown_menu flex items-center gap-4">
+    <ul className="dropDown_menu flex items-center gap-1 lg:gap-4">
       <li>
         <Dropdown
           overlayClassName="menuHome"

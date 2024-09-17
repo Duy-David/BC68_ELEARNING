@@ -46,7 +46,11 @@ const Header = () => {
   };
 
   return (
-    <header className={`header_section ${isFixedHeader ? "sticky top-0" : ""}`}>
+    <header
+      className={`header_section px-3 z-50 ${
+        isFixedHeader ? "sticky top-0" : ""
+      }`}
+    >
       <div className="container">
         <div className="header_wrapper flex items-center justify-center">
           <div className="header_logo mr-7">
@@ -64,16 +68,16 @@ const Header = () => {
           </div>
 
           <div className="header_inner flex items-center">
-            <div className="header_search relative">
+            <div className="header_search relative hidden sm:block">
               <FormSearchBar />
             </div>
-            <nav className="header_navBar">
+            <nav className="header_navBar hidden lg:block">
               <NavBarMenu />
             </nav>
-            <div className="header_cart ml-5 mr-7">
+            <div className="header_cart ml-1 mr-3 lg:ml-5 lg:mr-7">
               <CartPopOver />
             </div>
-            <div className="header_user divider">
+            <div className="header_user divider hidden lg:block">
               <button onClick={openLogin} className="btn hover:text-blue-600">
                 Log In
               </button>
@@ -99,6 +103,7 @@ const Header = () => {
               <button className="toggleNav_btn">---</button>
               <button className="toggleSearch_btn">...</button>
             </div>
+            <div className="">{/* <NavBarMenu /> */}</div>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const HeaderCategory = () => {
         <div className="category_icon">
           <IconCategory />
         </div>
-        Category
+        <span className="category_text">Category</span>
       </Button>
     </Dropdown>
   );
