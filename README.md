@@ -15,7 +15,7 @@ Phiên bản node là v20.14.0
   - Thư viện lottie-react cho việc chạy animation (done)
   - Thư viện fontansome cho việc lấy icon  (done)
   - Thư viện react-slick cho việc chay carousel(done)
-
+  -  thư viện lottie-react cho việc sữ dụng animaition
 
 
 Ghi chú về các thư mục trong dự án

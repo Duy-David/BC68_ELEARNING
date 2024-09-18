@@ -18,22 +18,22 @@ const CourseCard = ({ course }) => {
       </div>
 
       {/* Course Content */}
-      <div className="p-4 h-36">
+      <div className="p-5">
         {/* Course Level */}
         <span className="inline-block bg-yellow-100 text-yellow-600 text-xs font-semibold px-2 py-1 rounded-full">
         Beginner
         </span>
 
         {/* Course Title */}
-        <h3 className="text-sm font-bold mt-2 mb-1">
+        <h3 className="text-sm font-bold mt-2 mb-1 h-1/2">
         {course.tenKhoaHoc}
         </h3>
 
         {/* Course Instructor */}
-        <p className="text-xl font-medium mb-1">{course.nguoiTao.hoTen}</p>
+        <p className="text-sm font-medium mb-2">Giảng viên: {course.nguoiTao.hoTen}</p>
 
         {/* Course view */}
-        <p className="text-lg font-bold text-green-500">Số khóa học đã bán: {course.luotXem}</p>
+        <p className="text-lg font-bold text-green-500"> Lượt xem: {course.luotXem}</p>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Register from "../pages/Register/Register";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import CourseCatelogies from "../pages/CourseCatelogies/CourseCatelogies";
 import DetailCourse from "../pages/DetailCourse/DetailCourse";
+import PersonalInformation from "../pages/PersonalInformation/PersonalInformation";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -25,6 +26,10 @@ const useRoutesCustom = () => {
         {
           path:  "/course-catelogies/detail-course/:maKhoaHoc",
           element: <DetailCourse/>
+        },
+        {
+          path: "/personal-infornation/:hoTen",
+          element: <PersonalInformation/>
         },
       ],
     },

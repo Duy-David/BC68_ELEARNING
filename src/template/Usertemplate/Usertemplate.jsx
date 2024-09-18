@@ -6,7 +6,7 @@ import "./user-template.scss";
 
 const Usertemplate = () => {
   return (
-    <div className="container mx-auto">
+    <div className=" mx-auto">
       <Header />
       <main className="">
         {/*  */}

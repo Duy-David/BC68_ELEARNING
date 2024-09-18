@@ -1,47 +1,109 @@
 import React, { useEffect, useState } from "react";
-import Iconheaders from "../Icon/Iconheaders";
-// import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
-import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
+import "./header.scss";
+import HeaderCategory from "../HeaderCategory/HeaderCategory";
+import FormSearchBar from "../FormSearchBar/FormSearchBar";
+import NavBarMenu from "./NavBarMenu";
+import CartPopOver from "./CartPopOver";
+import LoginPage from "../../pages/LoginPage/LoginPage";
+import Register from "../../pages/Register/Register";
 import { Link } from "react-router-dom";
+
 const Header = () => {
-  const [listCourseCategory, setListCoursCategory] = useState([]);
+  const [isFixedHeader, setIsFixedHeader] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
+
   useEffect(() => {
-    quanLyKhoaHocService
-      .getDanhMucKhoaHoc()
-      .then((res) => {
-        console.log(res.data);
-        setListCoursCategory(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsFixedHeader(true);
+      } else {
+        setIsFixedHeader(false);
+      }
+    };
+
+    //theo dõi event scroll để chạy hàm handleScroll
+    window.addEventListener("scroll", handleScroll);
+    // Xóa sự kiện scroll trên unmount của useEffect
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
-  const items = listCourseCategory.map((category, index) => ({
-    label: (
-      <Link
-      to={`/course-catelogies/:${category.maDanhMuc}`}
-    >
-      {category.tenDanhMuc}
-    </Link>
-    ),
-    // key: category.maDanhMuc,
-    key: index,
-  }));
+
+  const openLogin = () => {
+    setIsLogin(true);
+    setIsRegister(false);
+  };
+  const closeLogin = () => {
+    setIsLogin(false);
+  };
+
+  const openRegister = () => {
+    setIsRegister(true);
+    setIsLogin(false);
+  };
+  const closeRegiter = () => {
+    setIsRegister(false);
+  };
+
   return (
-    <div>
-      <Dropdown
-        menu={{
-          items,
-        }}
-      >
-        <a onClick={(e) => e.preventDefault()}>
-          <Space>
-            <Iconheaders />
-          </Space>
-        </a>
-      </Dropdown>
-    </div>
+    <header className={`header_section ${isFixedHeader ? "sticky top-0 z-10" : ""}`}>
+      <div className="container">
+        <div className="header_wrapper flex items-center justify-center">
+          <div className="header_logo mr-7">
+            <Link to="/">
+              <img
+                className="h-[32px] w-[148px]"
+                src="../../../public/logo.svg"
+                alt=""
+              />
+            </Link>
+          </div>
+
+          <div className="header_category divider">
+            <HeaderCategory />
+          </div>
+
+          <div className="header_inner flex items-center">
+            <div className="header_search relative">
+              <FormSearchBar />
+            </div>
+            <nav className="header_navBar">
+              <NavBarMenu />
+            </nav>
+            <div className="header_cart ml-5 mr-7">
+              <CartPopOver />
+            </div>
+            <div className="header_user divider">
+              <button onClick={openLogin} className="btn hover:text-blue-600">
+                Log In
+              </button>
+              <button
+                onClick={openRegister}
+                className="btn text-blue-800 white bg-blue-600/25 hover:bg-blue-600 hover:text-white"
+              >
+                Sign Up
+              </button>
+              <LoginPage
+                isModalOpen={isLogin} // Trạng thái mở/đóng modal
+                handleCancel={closeLogin} // Hàm đóng modal
+                openRegister={openRegister} // Chuyển sang Modal đăng ký
+              />
+              <Register
+                isModalOpen={isRegister} // Trạng thái mở/đóng modal
+                handleCancel={closeRegiter} // Hàm đóng modal
+                openLogin={openLogin} // Chuyển sang Modal đăng nhập
+              />
+            </div>
+            {/* Header mobile toggle */}
+            <div className="header_toggle">
+              <button className="toggleNav_btn">---</button>
+              <button className="toggleSearch_btn">...</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
 
