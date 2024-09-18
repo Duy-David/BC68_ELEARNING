@@ -9,10 +9,18 @@
 html,
 body {
   border: none !important;
+<<<<<<< HEAD
 }
 
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
+=======
+  background-color: #f8f8f8;
+}
+
+body {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+>>>>>>> origin/devCong
   font-size: 14px;
   font-weight: 400;
   line-height: 1.75;
@@ -64,7 +72,13 @@ button {
 a,
 button,
 img,
+<<<<<<< HEAD
 input {
+=======
+input,
+input::placeholder,
+svg {
+>>>>>>> origin/devCong
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -118,8 +132,101 @@ hr {
   border-top-width: 2px;
 }
 
+<<<<<<< HEAD
+=======
+mark {
+  position: relative;
+  color: #0071dc;
+  padding: 0 0 10px 0;
+  background-color: transparent;
+  display: inline-block;
+  z-index: 0;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 91px;
+    height: 12px;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    transform: translate(-45px);
+    background-color: $secondary-color;
+    -webkit-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-image: url(/assets/svg/headline-curve.svg);
+    mask-image: url(/assets/svg/headline-curve.svg);
+  }
+}
+
+.btn {
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  height: 52px;
+  line-height: 52px;
+  padding: 0 30px;
+  border: 0px;
+  box-shadow: none;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 8px;
+}
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: #fff;
+
+  &:hover {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    color: $black-color;
+  }
+}
+.line_deco {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  span {
+    padding: 3px 15px;
+    background: #fff;
+    position: relative;
+    z-index: 10;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-index: 0;
+  }
+  &::before {
+    right: 10%;
+  }
+}
+
+>>>>>>> origin/devCong
 @media only screen and (max-width: 767px) {
   br {
     display: none;
   }
 }
+<<<<<<< HEAD
+=======
+
+/**=== Fix font AntDesign ===**/
+.header_category .ant-btn,
+.ant-dropdown,
+.ant-popover,
+.ant-modal,
+.ant-modal-content {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+}
+>>>>>>> origin/devCong

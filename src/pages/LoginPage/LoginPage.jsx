@@ -10,25 +10,14 @@ import { setLocalStorage } from "../../util/util";
 import { useDispatch, useSelector } from "react-redux";
 import { setValueUser } from "../../redux/authSlice";
 import { NotificationContext } from "../../App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { pathDefault } from "../../common/path";
 import * as yup from "yup";
 import { notiValidate } from "../../common/notiValidate";
 
-const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
-  // const handleCancel = () => {
-  //   setIsModalOpen(false);
-  // };
-
+const LoginPage = ({ handleCancel, openRegister }) => {
   const dispatch = useDispatch();
+  const { setStatusModal } = useSelector((store) => store.headerSlice);
   const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
 
@@ -76,10 +65,10 @@ const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
       matKhau: yup
         .string()
         .required(notiValidate.empty)
-        // .matches(
-        //   /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^~`;,.()?&#])[A-Za-z\d@$!%*^~`;,.()?&#]{8,}$/,
-        //   notiValidate.password
-        // ),
+        .matches(
+          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^~`;,.()?&#])[A-Za-z\d@$!%*^~`;,.()?&#]{8,}$/,
+          notiValidate.password
+        ),
     }),
   });
 
@@ -88,15 +77,17 @@ const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
       {/* <button onClick={showModal} className="btn hover:text-blue-600">
         Log In
       </button> */}
+
       <Modal
         wrapClassName="header_user_modal"
         title="Login"
-        open={isModalOpen}
+        open={setStatusModal.isLogin}
         onOk={handleCancel}
         onCancel={handleCancel}
         cancelButtonProps={{ disabled: "true" }}
         okButtonProps={{ disabled: "true" }}
         footer={null}
+        centered={true}
         destroyOnClose={true}
         afterClose={handleReset}
       >
@@ -147,7 +138,7 @@ const LoginPage = ({ isModalOpen, handleCancel, openRegister }) => {
               </label>
             </div>
             <div className="modal-description">
-              <a href="javascript:void(0)">Forgot your password?</a>
+              <Link>Forgot your password?</Link>
             </div>
           </div>
 

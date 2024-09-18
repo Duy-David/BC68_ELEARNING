@@ -27,8 +27,6 @@
     .header_logo {
     }
     .header_category {
-      //   display: flex;
-      //   align-items: center;
       width: fit-content;
       .ant-btn {
         font-size: 16px;
@@ -52,7 +50,6 @@
       .header_search {
         max-width: 400px;
         position: relative;
-        // width: 100%;
         padding: 0 10px;
         label {
           display: none;
@@ -218,6 +215,13 @@
       }
     }
   }
+
+  // menuHome on Mobile
+  &.isMobile {
+    ul.ant-dropdown-menu {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
 }
 
 // mini cart
@@ -340,6 +344,209 @@
       }
     }
     .ant-modal-footer {
+    }
+  }
+}
+
+/**=== fix responsive header ===**/
+.header_section {
+  .header_logo {
+  }
+  .header_category {
+    button {
+      .category_icon {
+      }
+      .category_text {
+      }
+    }
+  }
+  .header_inner {
+    .header_search {
+    }
+    nav.header_navBar {
+    }
+    .header_user {
+      button {
+      }
+    }
+  }
+}
+
+// ===========
+.header_category {
+  button {
+    .category_icon {
+    }
+    .category_text {
+      display: none;
+    }
+  }
+}
+
+.header_user {
+  .btn {
+    font-size: 13px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 15px;
+    border-radius: 5px;
+  }
+}
+
+//  fix < sm-screen
+@media (min-width: 415px) {
+}
+@media (min-width: 558px) {
+  .headerNavMenu_mobile {
+    .ant-popover-inner-content {
+      .header_search {
+        min-width: 277px;
+      }
+    }
+  }
+}
+@media (min-width: 598px) {
+  .headerNavMenu_mobile {
+    .ant-popover-inner-content {
+      .header_search {
+        min-width: 300px;
+      }
+    }
+  }
+}
+// sm-screen
+@media (min-width: 640px) {
+}
+// md-screen
+@media (min-width: 768px) {
+  .header_category {
+    button {
+      .category_icon {
+      }
+      .category_text {
+        display: inline-block !important;
+      }
+    }
+  }
+}
+// lg-screen
+@media (min-width: 1024px) {
+}
+// xl-screen
+@media (min-width: 1280px) {
+  .header_user {
+    .btn {
+      font-size: 15px;
+      height: 52px;
+      line-height: 52px;
+      padding: 0 30px;
+      border-radius: 8px;
+    }
+  }
+}
+// 2xl-screen
+@media (min-width: 1536px) {
+}
+
+.headerNavMenu_mobile {
+  .ant-popover-inner-content {
+    height: 50vh;
+    overflow-y: auto;
+    ul.dropDown_menu {
+      li svg {
+        width: 10px;
+        padding: 0 5px;
+      }
+    }
+  }
+}
+
+.headerNavMenu_mobile_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0;
+  z-index: 50;
+  transition: all 0.5s;
+}
+
+// user profile
+.userOnline .ant-space-item:has(.iconUser) {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #1dbf4e;
+  }
+}
+.headerUserProfile {
+  ul.ant-dropdown-menu {
+    li.ant-dropdown-menu-item {
+      &:first-child {
+        margin-top: 10px;
+      }
+      &:last-child {
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+// =====================
+.headerNavMenu_mobile {
+  .ant-popover-inner-content {
+    .header_search {
+      max-width: 400px;
+      position: relative;
+      // padding: 0 px;
+      margin-top: 20px;
+      label {
+        display: none;
+      }
+      .inputWrapper input {
+        color: $black-color;
+        background: #f2f2f2;
+        border: 1px solid #f2f2f2;
+        font-weight: 500;
+        height: 60px;
+        padding: 3px 20px;
+        padding-right: 65px;
+        font-size: 14px;
+        width: 100%;
+        border-radius: 5px;
+        transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+        &:focus {
+          background-color: #fff;
+          border: 1px solid $primary-color;
+        }
+      }
+      .serach_btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        border: 0;
+        background-color: transparent;
+        color: #0071dc;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        font-size: 20px;
+        &:hover {
+          background-color: $primary-color;
+          color: #fff;
+        }
+      }
     }
   }
 }

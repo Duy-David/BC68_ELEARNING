@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
 const Categories = () => {
   return (
-    <div>Categories</div>
-  )
-}
+    <div>
+      Categories
+      <h2>
+        Top <mark>Categories</mark>
+      </h2>
+    </div>
+  );
+};
 
-export default Categories
+export default Categories;
