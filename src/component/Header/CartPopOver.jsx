@@ -108,6 +108,7 @@ const CartPopOver = () => {
       title={false}
       content={content}
       arrow={false}
+      trigger="click"
     >
       <a href="javascript:void(0)" className="header_cart_btn">
         <FontAwesomeIcon icon={faBasketShopping} />

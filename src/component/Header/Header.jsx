@@ -6,11 +6,21 @@ import NavBarMenu from "./NavBarMenu";
 import CartPopOver from "./CartPopOver";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import Register from "../../pages/Register/Register";
+import NavBarMobile from "./NavBarMobile";
+import IconLogo from "./IconLogo";
+import { useDispatch, useSelector } from "react-redux";
+import { setStatusModal } from "../../redux/headerSlice";
+import { Link } from "react-router-dom";
+import { pathDefault } from "../../common/path";
+import { getLocalStorage } from "../../util/util";
+import LoggedInUserInfo from "./LoggedInUserInfo";
 
 const Header = () => {
+  const getUserRedux = useSelector((store) => store.authSlice);
+  const isLoggedIn = !!getUserRedux.user;
+
+  const dispatch = useDispatch();
   const [isFixedHeader, setIsFixedHeader] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,20 +39,36 @@ const Header = () => {
     };
   }, []);
 
+  // Đưa trạng thái Modal User lên redux
   const openLogin = () => {
-    setIsLogin(true);
-    setIsRegister(false);
+    dispatch(
+      setStatusModal({
+        isLogin: true,
+        isRegister: false,
+      })
+    );
   };
   const closeLogin = () => {
-    setIsLogin(false);
+    dispatch(
+      setStatusModal({
+        isLogin: false,
+      })
+    );
   };
-
   const openRegister = () => {
-    setIsRegister(true);
-    setIsLogin(false);
+    dispatch(
+      setStatusModal({
+        isLogin: false,
+        isRegister: true,
+      })
+    );
   };
-  const closeRegiter = () => {
-    setIsRegister(false);
+  const closeRegister = () => {
+    dispatch(
+      setStatusModal({
+        isRegister: false,
+      })
+    );
   };
 
   return (
@@ -52,15 +78,11 @@ const Header = () => {
       }`}
     >
       <div className="container">
-        <div className="header_wrapper flex items-center justify-center">
+        <div className="header_wrapper flex items-center justify-center md:justify-between">
           <div className="header_logo mr-7">
-            <a href="/">
-              <img
-                className="h-[32px] w-[148px]"
-                src="./assets/svg/logo.svg"
-                alt=""
-              />
-            </a>
+            <Link to={pathDefault.homePage}>
+              <IconLogo />
+            </Link>
           </div>
 
           <div className="header_category divider">
@@ -77,33 +99,39 @@ const Header = () => {
             <div className="header_cart ml-1 mr-3 lg:ml-5 lg:mr-7">
               <CartPopOver />
             </div>
-            <div className="header_user divider hidden lg:block">
-              <button onClick={openLogin} className="btn hover:text-blue-600">
-                Log In
-              </button>
-              <button
-                onClick={openRegister}
-                className="btn text-blue-800 white bg-blue-600/25 hover:bg-blue-600 hover:text-white"
-              >
-                Sign Up
-              </button>
-              <LoginPage
-                isModalOpen={isLogin} // Trạng thái mở/đóng modal
-                handleCancel={closeLogin} // Hàm đóng modal
-                openRegister={openRegister} // Chuyển sang Modal đăng ký
-              />
-              <Register
-                isModalOpen={isRegister} // Trạng thái mở/đóng modal
-                handleCancel={closeRegiter} // Hàm đóng modal
-                openLogin={openLogin} // Chuyển sang Modal đăng nhập
-              />
-            </div>
+            {/* check đăng nhập */}
+            {isLoggedIn ? (
+              <LoggedInUserInfo />
+            ) : (
+              <>
+                <div className="header_user divider hidden lg:block">
+                  <button
+                    onClick={openLogin}
+                    className="btn hover:text-blue-600"
+                  >
+                    Log In
+                  </button>
+                  <button
+                    onClick={openRegister}
+                    className="btn text-blue-800 white bg-blue-600/25 hover:bg-blue-600 hover:text-white"
+                  >
+                    Sign Up
+                  </button>
+                  <LoginPage
+                    handleCancel={closeLogin} // Hàm đóng modal
+                    openRegister={openRegister} // Chuyển sang Modal đăng ký
+                  />
+                  <Register
+                    handleCancel={closeRegister} // Hàm đóng modal
+                    openLogin={openLogin} // Chuyển sang Modal đăng nhập
+                  />
+                </div>
+              </>
+            )}
             {/* Header mobile toggle */}
-            <div className="header_toggle">
-              <button className="toggleNav_btn">---</button>
-              <button className="toggleSearch_btn">...</button>
+            <div className="header_toggle block lg:hidden">
+              <NavBarMobile />
             </div>
-            <div className="">{/* <NavBarMenu /> */}</div>
           </div>
         </div>
       </div>

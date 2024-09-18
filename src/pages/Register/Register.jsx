@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import InputCustom from "../../component/Input/InputCustom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const Register = ({ isModalOpen, handleCancel, openLogin }) => {
+const Register = ({ handleCancel, openLogin }) => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const showModal = () => {
   //   setIsModalOpen(true);
@@ -13,6 +15,8 @@ const Register = ({ isModalOpen, handleCancel, openLogin }) => {
   // const handleCancel = () => {
   //   setIsModalOpen(false);
   // };
+  const { setStatusModal } = useSelector((store) => store.headerSlice);
+
   return (
     <>
       {/* <button
@@ -25,10 +29,11 @@ const Register = ({ isModalOpen, handleCancel, openLogin }) => {
         width="670px"
         wrapClassName="header_user_modal"
         title="Sign Up"
-        open={isModalOpen}
+        open={setStatusModal.isRegister}
         onOk={handleCancel}
         onCancel={handleCancel}
         footer={null}
+        centered={true}
         // destroyOnClose
       >
         <p class="modal-description mb-6">
@@ -39,7 +44,7 @@ const Register = ({ isModalOpen, handleCancel, openLogin }) => {
               openLogin();
             }}
           >
-            Log in
+            Login
           </button>
         </p>
 
@@ -86,7 +91,7 @@ const Register = ({ isModalOpen, handleCancel, openLogin }) => {
             <label className="cursor-pointer" for="agree_privacy">
               Accept the{" "}
               <span className="modal-description">
-                <a href="javascript:void(0)">Terms and Privacy Policy</a>
+                <Link>Terms and Privacy Policy</Link>
               </span>
             </label>
           </div>
@@ -94,7 +99,7 @@ const Register = ({ isModalOpen, handleCancel, openLogin }) => {
             className="w-full bg-blue-500 text-white text-[16px] font-semibold px-5 py-4 rounded-lg hover:bg-yellow-500 hover:text-[#252525] col-span-2"
             type="submit"
           >
-            Log In
+            Register
           </button>
         </form>
       </Modal>

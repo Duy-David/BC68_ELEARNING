@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const FormSearchBar = () => {
   return (
-    <form className="flex items-center ">
+    <form className="">
       <InputCustom placeHolder={"Search..."} classWrapper="inputWrapper" />
       <button type="submit" className="serach_btn">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
