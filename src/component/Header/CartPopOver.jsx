@@ -5,6 +5,7 @@ import { faBasketShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/cartSlice";
+import { pathChildren, pathDefault } from "../../common/path";
 
 const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -62,18 +63,33 @@ const CartPopOver = () => {
           <p>${totalAmount.toFixed(2)}</p>
         </div>
         <div className="py-2 flex justify-between gap-2">
-          <Link
-            to={`personal-infornation/${user.taiKhoan}`}
-            className="btn btn-primary"
-          >
-            View cart
-          </Link>
-          <Link
-            to={`personal-infornation/${user.taiKhoan}`}
-            className="btn btn-primary"
-          >
-            Checkout
-          </Link>
+          {user ? (
+            <>
+              {" "}
+              <Link
+                to={`personal-infornation/${user.taiKhoan}`}
+                className="btn btn-primary"
+              >
+                View cart
+              </Link>
+              <Link
+                to={`personal-infornation/${user.taiKhoan}`}
+                className="btn btn-primary"
+              >
+                Checkout
+              </Link>
+            </>
+          ) : (
+            <>
+              {" "}
+              <Link to={"/"} className="btn btn-primary">
+                View cart
+              </Link>
+              <Link to={"/"} className="btn btn-primary">
+                Checkout
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>
@@ -98,7 +114,7 @@ const CartPopOver = () => {
           <span>{cartItems.length}</span>
         </Link>
       ) : (
-        <Link to={`/`} className="header_cart_btn">
+        <Link to={"/"} className="header_cart_btn">
           {" "}
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>
