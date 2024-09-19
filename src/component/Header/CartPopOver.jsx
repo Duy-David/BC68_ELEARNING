@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Popover } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBasketShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -6,28 +6,41 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/cartSlice";
 import { pathChildren, pathDefault } from "../../common/path";
-
+import { setStatusModal } from "../../redux/headerSlice";
 const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
-
+  // const { setStatusModal } = useSelector((state) => state.headerSlice);
   const { cartItems, totalAmount } = useSelector((state) => state.cartSlice);
   console.log(cartItems);
   const dispatch = useDispatch();
   const handleRemoveFromCart = (courseId) => {
     dispatch(removeFromCart(courseId));
   };
-
+  const [visible, setVisible] = useState(false);
+  const handleVisibleChange = (newVisible) => {
+    setVisible(newVisible);
+  };
+  
+  const openLogin = () => {
+    dispatch(
+      setStatusModal({
+        isLogin: true,
+        isRegister: false,
+      }),
+      setVisible(false)
+    );
+  };
   const content = (
     <>
       <div className="p-4">
-        <ul className="header_cart__list overflow-y-auto max-h-[70vh]">
+        <ul className="grid grid-cols-4 gap-6">
           {cartItems.map((course, index) => {
             console.log(course);
             return (
               <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
                 <li
                   key={index}
-                  className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4"
+                  className="flex justify-between items-center shadow-md mb-4 border-b border-gray-200 pb-4"
                 >
                   <div className="w-20 h-20">
                     <img
@@ -66,12 +79,7 @@ const CartPopOver = () => {
           {user ? (
             <>
               {" "}
-              <Link
-                to={`personal-infornation/${user.taiKhoan}`}
-                className="btn btn-primary"
-              >
-                View cart
-              </Link>
+             
               <Link
                 to={`personal-infornation/${user.taiKhoan}`}
                 className="btn btn-primary"
@@ -82,12 +90,10 @@ const CartPopOver = () => {
           ) : (
             <>
               {" "}
-              <Link to={"/"} className="btn btn-primary">
-                View cart
-              </Link>
-              <Link to={"/"} className="btn btn-primary">
+              
+              <button className="btn btn-primary"   onClick={openLogin}>
                 Checkout
-              </Link>
+              </button>
             </>
           )}
         </div>
@@ -104,21 +110,23 @@ const CartPopOver = () => {
       content={content}
       arrow={false}
       trigger="click"
+      visible={visible} 
+      onVisibleChange={handleVisibleChange}
     >
       {user ? (
         <Link
-          to={`/personal-infornation/${user.taiKhoan}`}
+        
           className="header_cart_btn"
         >
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>
         </Link>
       ) : (
-        <Link to={"/"} className="header_cart_btn">
+        <button   className="header_cart_btn "   >
           {" "}
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>
-        </Link>
+        </button>
       )}
     </Popover>
   );
