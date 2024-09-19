@@ -15,4 +15,14 @@ export const quanLyKhoaHocService = {
       headers: { token },
     });
   },
+  postGhiDanhKhoaHoc: (data, token) => {
+    return http.post(`/QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
+      headers: { token },
+    });
+  },
+  postGhiDanhKhoaHoc: (data, token) => {
+    return http.post(`/QuanLyKhoaHoc/HuyGhiDanh`, data, {
+      headers: { token },
+    });
+  },
 };

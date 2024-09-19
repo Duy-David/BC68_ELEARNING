@@ -29,3 +29,15 @@ Ghi chú về các thư mục trong dự án
 - service : chứa các setup về xử lí api
 - template : chứa các component đóng vai trò là mẫu layout được sử dụng ở nhiều trang
 - utils : chứa các hàm xử lí sử dụng ở nhiều thành phần trong dự án
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,7 @@ import Instructor from "../../component/Instructor/Instructor";
 import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
+import { pathDefault } from "../../common/path";
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
@@ -18,14 +19,16 @@ const PersonalInformation = () => {
     loop: true,
   };
   const { View } = useLottie(options);
-  const userInfo = {
-    Account: user.taiKhoan,
-    Email: user.email,
-    "Full Name": user.hoTen,
-    Phone: user.soDT,
-    "Group Code": user.maNhom,
-    Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
-  };
+  const userInfo = user
+  ? {
+      Account: user.taiKhoan,
+      Email: user.email,
+      "Full Name": user.hoTen,
+      Phone: user.soDT,
+      "Group Code": user.maNhom,
+      Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
+    }
+  : {};
   const userFields = Object.entries(userInfo);
   const items = [
     {
@@ -77,6 +80,8 @@ const PersonalInformation = () => {
     if (user) {
       // Điều hướng đến URL với hoTen bằng user.taiKhoan
       navigate(`/personal-infornation/${user.taiKhoan}`);
+    }else {
+      navigate(`/${pathDefault.login}`)
     }
   }, [user, navigate]);
   const [tabPosition, setTabPosition] = useState("left");

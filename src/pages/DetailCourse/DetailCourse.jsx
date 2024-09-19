@@ -7,6 +7,7 @@ import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
   const learningObjectives = [
@@ -20,6 +21,7 @@ const DetailCourse = () => {
     "Know how different pieces of data logically relate to one another.",
   ];
   const [detailCourse, setDetailCourse] = useState(null);
+
   useEffect(() => {
     quanLyKhoaHocService
       .getThongTinKhoaHoc(maKhoaHoc)
@@ -31,7 +33,7 @@ const DetailCourse = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [maKhoaHoc]);
   const courseEnrolled = {
     maKhoaHoc: "",
     taiKhoan: "",
@@ -39,7 +41,12 @@ const DetailCourse = () => {
   if (!detailCourse) {
     return <div>Loading...</div>;
   }
+  console.log(detailCourse)
+  // const dispatch = useDispatch();
 
+  // const handleAddToCart = () => {
+  //   dispatch(addToCart(detailCourse));
+ // };
   return (
     <>
       <div className="container">
@@ -170,7 +177,7 @@ const DetailCourse = () => {
           </div>
           <div className=" my-5 col-span-2 md:col-span-1  ">
             <div className=" sticky top-4 md:top-16 bg-white p-4  col-span-1">
-              <CourseInfo />
+              <CourseInfo  detailCourse={detailCourse}/>
             </div>
           </div>
         </div>

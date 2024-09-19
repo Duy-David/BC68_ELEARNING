@@ -81,7 +81,7 @@ const AboutUs = () => {
         <div className="mx-auto grid grid-cols-4 ">
           <div className="text-left mb-8 col-span-1">
             <h2 className="text-3xl font-semibold relative text-gray-900 about-title">
-              People Say <br /> About <span className="">EduMall</span>
+              People Say <br /> About <mark className="">EduMall</mark>
             </h2>
             <p className="mt-8 text-base text-gray-600 ">
               One-stop solution for any eLearning center, online courses. People

@@ -138,7 +138,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
               </label>
             </div>
             <div className="modal-description">
-              <Link>Forgot your password?</Link>
+              <Link to={"/"}>Forgot your password?</Link>
             </div>
           </div>
 

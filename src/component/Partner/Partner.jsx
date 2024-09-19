@@ -40,9 +40,9 @@ const Partner = () => {
           <div className="text-left mb-8 col-span-1">
             <h2 className="text-3xl font-semibold relative text-gray-900 partner-title">
               Who Will You <br />
-              Learn <span className="">With?</span>
+              Learn <mark className="">With?</mark>
             </h2>
-            <p className="mt-8 text-base text-gray-600 ">
+            <p className="mt-8 text-base text-gray-600 pr-4">
               You can list your partners or instructors's brands here to show
               off your site's reputation and students can trust you more.
             </p>
