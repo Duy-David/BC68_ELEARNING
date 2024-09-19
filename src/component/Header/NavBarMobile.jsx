@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setStatusModal } from "../../redux/headerSlice";
 
 const NavBarMobile = () => {
-  const getUserRedux = useSelector((store) => store.authSlice);
-  const isLoggedIn = !!getUserRedux.user;
+  const { user } = useSelector((state) => state.authSlice);
+  const isLoggedIn = !!user;
   const dispatch = useDispatch();
   const [openNav, setOpenNav] = useState(false);
   const hideNav = () => {

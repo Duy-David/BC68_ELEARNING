@@ -19,37 +19,39 @@ const CartPopOver = () => {
   const content = (
     <>
       <div className="p-4">
-        <ul>
+        <ul className="header_cart__list overflow-y-auto max-h-[70vh]">
           {cartItems.map((course, index) => {
             console.log(course);
             return (
-              <li
-                key={index}
-                className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4"
-              >
-                <div className="w-20 h-20">
-                  <img
-                    src={course.hinhAnh}
-                    alt={course.tenKhoaHoc}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex-1 px-4">
-                  <p className="font-semibold text-lg">{course.tenKhoaHoc}</p>
-                  <p className="text-sm text-gray-500">
-                    {course.quantity} ×{" "}
-                    <span className="font-semibold text-black">
-                      ${course.giaTien.toFixed(2)}
-                    </span>
-                  </p>
-                </div>
-                <button
-                  className="text-red-500 text-xl"
-                  onClick={() => handleRemoveFromCart(course.maKhoaHoc)}
+              <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
+                <li
+                  key={index}
+                  className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4"
                 >
-                  <FontAwesomeIcon icon={faXmark} />
-                </button>
-              </li>
+                  <div className="w-20 h-20">
+                    <img
+                      src={course.hinhAnh}
+                      alt={course.tenKhoaHoc}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 px-4">
+                    <p className="font-semibold text-lg">{course.tenKhoaHoc}</p>
+                    <p className="text-sm text-gray-500">
+                      {course.quantity} ×{" "}
+                      <span className="font-semibold text-black">
+                        ${course.giaTien.toFixed(2)}
+                      </span>
+                    </p>
+                  </div>
+                  <button
+                    className="text-red-500 text-xl"
+                    onClick={() => handleRemoveFromCart(course.maKhoaHoc)}
+                  >
+                    <FontAwesomeIcon icon={faXmark} />
+                  </button>
+                </li>
+              </Link>
             );
           })}
         </ul>
@@ -60,12 +62,18 @@ const CartPopOver = () => {
           <p>${totalAmount.toFixed(2)}</p>
         </div>
         <div className="py-2 flex justify-between gap-2">
-          <a href="javscript:void(0)" className="btn btn-primary">
+          <Link
+            to={`personal-infornation/${user.taiKhoan}`}
+            className="btn btn-primary"
+          >
             View cart
-          </a>
-          <a href="javscript:void(0)" className="btn btn-primary">
+          </Link>
+          <Link
+            to={`personal-infornation/${user.taiKhoan}`}
+            className="btn btn-primary"
+          >
             Checkout
-          </a>
+          </Link>
         </div>
       </div>
     </>
@@ -79,6 +87,7 @@ const CartPopOver = () => {
       title={false}
       content={content}
       arrow={false}
+      trigger="click"
     >
       {user ? (
         <Link

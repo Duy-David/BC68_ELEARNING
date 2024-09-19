@@ -24,12 +24,12 @@ const useRoutesCustom = () => {
           element: <CourseCatelogies />,
         },
         {
-          path:  "/course-catelogies/detail-course/:maKhoaHoc",
-          element: <DetailCourse/>
+          path: "/course-catelogies/detail-course/:maKhoaHoc",
+          element: <DetailCourse />,
         },
         {
           path: "/personal-infornation/:hoTen",
-          element: <PersonalInformation/>
+          element: <PersonalInformation />,
         },
       ],
     },

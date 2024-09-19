@@ -10,7 +10,7 @@ export const quanLyKhoaHocService = {
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  postGhiDanhKhoaHoc: (data, token) => {
+  postGhiDanhKhoaHoc: (data, token, add ="Bearer") => {
     return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
       headers: { token },
     });

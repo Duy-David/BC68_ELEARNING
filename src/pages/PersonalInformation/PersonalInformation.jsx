@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { Tabs, Button } from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Radio, Space, Tabs } from "antd";
@@ -11,7 +10,7 @@ import { pathDefault } from "../../common/path";
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
   // const { handleNotification } = useContext(NotificationContext);
   const options = {
@@ -42,9 +41,9 @@ const PersonalInformation = () => {
               <h2 className="text-center text-5xl mt-8 mb-4">
                 Welcome {user.taiKhoan}
               </h2>
-              <p className="text-center text-xl italic">
-                Manage your info, privacy, and security to make ELEARNING work
-                better for you. Learn more
+              <p className="text-center text-xl italic link-style">
+                Manage your info, privacy, and security to get EduMall course
+                better for you. <Link>Learn more</Link>
               </p>
             </div>
 
