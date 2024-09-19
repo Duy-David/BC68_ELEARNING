@@ -5,16 +5,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Register = ({ handleCancel, openLogin }) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
-  // const handleCancel = () => {
-  //   setIsModalOpen(false);
-  // };
   const { setStatusModal } = useSelector((store) => store.headerSlice);
 
   return (

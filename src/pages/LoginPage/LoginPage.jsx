@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal } from "antd";
-import Register from "../Register/Register";
 import InputCustom from "../../component/Input/InputCustom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -39,7 +38,6 @@ const LoginPage = ({ handleCancel, openRegister }) => {
       try {
         // call api
         const result = await authService.signIn(values);
-        console.log(result.data);
         // lưu local storage và redux store
         setLocalStorage("user", result.data);
         dispatch(setValueUser(result.data));

@@ -12,12 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setStatusModal } from "../../redux/headerSlice";
 import { Link } from "react-router-dom";
 import { pathDefault } from "../../common/path";
-import { getLocalStorage } from "../../util/util";
 import LoggedInUserInfo from "./LoggedInUserInfo";
 
 const Header = () => {
-  const getUserRedux = useSelector((store) => store.authSlice);
-  const isLoggedIn = !!getUserRedux.user;
+  const { user } = useSelector((state) => state.authSlice);
+  const isLoggedIn = !!user;
 
   const dispatch = useDispatch();
   const [isFixedHeader, setIsFixedHeader] = useState(false);

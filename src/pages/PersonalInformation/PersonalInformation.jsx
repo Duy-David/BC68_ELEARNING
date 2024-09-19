@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { Tabs, Button } from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Radio, Space, Tabs } from "antd";
@@ -10,7 +9,7 @@ import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
   // const { handleNotification } = useContext(NotificationContext);
   const options = {
