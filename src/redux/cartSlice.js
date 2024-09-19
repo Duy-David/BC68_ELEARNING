@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getLocalStorage, setLocalStorage } from "../util/util";
 
 const initialState = {
-  cartItems: [], // Khởi tạo mảng trống cho giỏ hàng
+  cartItems: getLocalStorage("cartItems") || [], // Khởi tạo mảng trống cho giỏ hàng
   totalAmount: 0, // Tổng tiền ban đầu là 0
 };
-
+const updateLocalStorage = (cartItems) => {
+  setLocalStorage("cartItems", cartItems);
+};
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -27,18 +30,22 @@ const cartSlice = createSlice({
         existingCourse.quantity += 1;
       }
       state.totalAmount += coursePrice;
+      updateLocalStorage(state.cartItems);
     },
     removeFromCart: (state, action) => {
       const courseId = action.payload;
-      const existingCourse = state.cartItems.find(
+      const courseIndex = state.cartItems.findIndex(
         (item) => item.maKhoaHoc == courseId
       );
 
-      if (existingCourse) {
-        state.totalAmount -= existingCourse.giaTien * existingCourse.quantity;
-        state.cartItems = state.cartItems.filter(
-          (item) => item.maKhoaHoc !== courseId
-        );
+      if (courseIndex !== -1) {
+        // Subtract the total price of the course
+        const courseToRemove = state.cartItems[courseIndex];
+        state.totalAmount -= courseToRemove.giaTien * courseToRemove.quantity;
+
+        // Remove the course from the cart
+        state.cartItems.splice(courseIndex, 1);
+        updateLocalStorage(state.cartItems);
       }
     },
   },

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBasketShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../../redux/cartSlice";
 
 const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -15,31 +16,48 @@ const CartPopOver = () => {
     dispatch(removeFromCart(courseId));
   };
 
-
   const content = (
     <>
-      <ul>
-        {cartItems.map((course ,index) => (
-          <li key={index} className="flex ">
-            <div className="w-5 ">
-              <img src={cartItems.hinhAnh} alt="" />
-            </div>
-            <div className="flex flex-col">
-              <p className="font-normal ">{course.tenKhoaHoc}</p>
-              <button
-                className="bg-red-500 px-5 py-2 text-white rounded-lg"
-                onClick={() => handleRemoveFromCart(course.maKhoaHoc)}
+      <div className="p-4">
+        <ul>
+          {cartItems.map((course, index) => {
+            console.log(course);
+            return (
+              <li
+                key={index}
+                className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4"
               >
-                Remove
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+                <div className="w-20 h-20">
+                  <img
+                    src={course.hinhAnh}
+                    alt={course.tenKhoaHoc}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 px-4">
+                  <p className="font-semibold text-lg">{course.tenKhoaHoc}</p>
+                  <p className="text-sm text-gray-500">
+                    {course.quantity} ×{" "}
+                    <span className="font-semibold text-black">
+                      ${course.giaTien.toFixed(2)}
+                    </span>
+                  </p>
+                </div>
+                <button
+                  className="text-red-500 text-xl"
+                  onClick={() => handleRemoveFromCart(course.maKhoaHoc)}
+                >
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <div className="header_cart__footer border-t-2 pt-3 mt-5">
         <div className="py-2 flex justify-between font-bold">
           <p>Total:</p>
-          <p>${totalAmount}</p>
+          <p>${totalAmount.toFixed(2)}</p>
         </div>
         <div className="py-2 flex justify-between gap-2">
           <a href="javscript:void(0)" className="btn btn-primary">
