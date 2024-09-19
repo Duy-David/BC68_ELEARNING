@@ -39,9 +39,10 @@ const PersonalInformation = () => {
               <h2 className="text-center text-5xl mt-8 mb-4">
                 Welcome {user.taiKhoan}
               </h2>
-              <p className="text-center text-xl italic">
-                Manage your info, privacy, and security to make ELEARNING work
-                better for you. Learn more
+              <p className="text-center text-xl italic modal-description">
+                Manage your info, privacy, and security to get EduMall course
+                better for you.
+                <Link>Learn more</Link>
               </p>
             </div>
 

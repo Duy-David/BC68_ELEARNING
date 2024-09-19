@@ -10,8 +10,7 @@ import { setLocalStorage } from "../../util/util";
 import { useDispatch, useSelector } from "react-redux";
 import { setValueUser } from "../../redux/authSlice";
 import { NotificationContext } from "../../App";
-import { Link, useNavigate } from "react-router-dom";
-import { pathDefault } from "../../common/path";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { notiValidate } from "../../common/notiValidate";
 
@@ -20,6 +19,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   const { setStatusModal } = useSelector((store) => store.headerSlice);
   const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     handleSubmit,
@@ -44,14 +44,11 @@ const LoginPage = ({ handleCancel, openRegister }) => {
         setLocalStorage("user", result.data);
         dispatch(setValueUser(result.data));
         // chuyển hướng người dùng
-        handleNotification(
-          "Đăng nhập thành công. Bạn sẽ chuyển đến Homepage",
-          "success"
-        );
+        handleNotification("Đăng nhập thành công", "success");
         handleCancel();
         setTimeout(() => {
-          navigate(pathDefault.homePage);
-        }, 2000);
+          navigate(location.pathname);
+        }, 1000);
       } catch (error) {
         console.log(error);
         handleNotification(

@@ -10,22 +10,22 @@ const content = (
   <>
     <ul className="header_cart__list overflow-y-auto max-h-[70vh]">
       <li className="header_cart__item">
-        <a href="javscript:void(0)" className="header_cart__close">
+        <Link to={"javscript:void(0)"} className="header_cart__close">
           <FontAwesomeIcon icon={faXmark} />
-        </a>
+        </Link>
         <div className="header_cart__thumbnail">
-          <a href="#">
+          <Link to={"javscript:void(0)"}>
             <img
               src="https://elearningnew.cybersoft.edu.vn/hinhanh/zxczcbbbb_gp01.png"
               alt="Product"
               width={80}
               height={93}
             />
-          </a>
+          </Link>
         </div>
         <div className="header_cart__caption">
           <h3 className="header_cart__name">
-            <a href="javscript:void(0)">Lập trình React Native</a>
+            <Link to={"javscript:void(0)"}>Lập trình React Native</Link>
           </h3>
           <span className="header_cart__quantity">
             1 × <strong className="amount">$49</strong>
@@ -34,22 +34,22 @@ const content = (
         </div>
       </li>
       <li className="header_cart__item">
-        <a href="javscript:void(0)" className="header_cart__close">
+        <Link to={"javscript:void(0)"} className="header_cart__close">
           <FontAwesomeIcon icon={faXmark} />
-        </a>
+        </Link>
         <div className="header_cart__thumbnail">
-          <a href="#">
+          <Link to={"javscript:void(0)"}>
             <img
               src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-python.jpg"
               alt="Product"
               width={80}
               height={93}
             />
-          </a>
+          </Link>
         </div>
         <div className="header_cart__caption">
           <h3 className="header_cart__name">
-            <a href="javscript:void(0)">Lập trình Python</a>
+            <Link to={"javscript:void(0)"}>Lập trình Python</Link>
           </h3>
           <span className="header_cart__quantity">
             1 × <strong className="amount">$49</strong>
@@ -58,22 +58,22 @@ const content = (
         </div>
       </li>
       <li className="header_cart__item">
-        <a href="javscript:void(0)" className="header_cart__close">
+        <Link to={"javscript:void(0)"} className="header_cart__close">
           <FontAwesomeIcon icon={faXmark} />
-        </a>
+        </Link>
         <div className="header_cart__thumbnail">
-          <a href="#">
+          <Link to={"javscript:void(0)"}>
             <img
               src="https://elearningnew.cybersoft.edu.vn/hinhanh/front-end-can-ban-3_gp01.jpg"
               alt="Product"
               width={80}
               height={93}
             />
-          </a>
+          </Link>
         </div>
         <div className="header_cart__caption">
           <h3 className="header_cart__name">
-            <a href="javscript:void(0)">Lập trình Front End căn bản</a>
+            <Link to={"javscript:void(0)"}>Lập trình Front End căn bản</Link>
           </h3>
           <span className="header_cart__quantity">
             1 × <strong className="amount">$49</strong>
@@ -91,18 +91,17 @@ const content = (
         </p>
       </div>
       <div className="py-2 flex justify-between gap-2">
-        <a href="javscript:void(0)" className="btn btn-primary">
+        <Link to={"javscript:void(0)"} className="btn btn-primary">
           View cart
-        </a>
-        <a href="javscript:void(0)" className="btn btn-primary">
+        </Link>
+        <Link to={"javscript:void(0)"} className="btn btn-primary">
           Checkout
-        </a>
+        </Link>
       </div>
     </div>
   </>
 );
 const CartPopOver = () => {
-  const { user } = useSelector((state) => state.authSlice);
   return (
     // <Popover placement="bottom" title={text} content={content} arrow={false}>
     <Popover
@@ -111,8 +110,9 @@ const CartPopOver = () => {
       title={false}
       content={content}
       arrow={false}
+      trigger="click"
     >
-      <Link to={`/personal-infornation/${user.taiKhoan}`} className="header_cart_btn">
+      <Link className="header_cart_btn">
         <FontAwesomeIcon icon={faBasketShopping} />
         <span>3</span>
       </Link>

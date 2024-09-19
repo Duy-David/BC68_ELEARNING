@@ -22,8 +22,8 @@ import { pathDefault } from "../../common/path";
 const LoggedInUserInfo = () => {
   const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
-  const getUserRedux = useSelector((store) => store.authSlice);
-  const isLoggedIn = !!getUserRedux.user;
+  const { user } = useSelector((state) => state.authSlice);
+  const isLoggedIn = !!user;
 
   const dispatch = useDispatch();
 
@@ -43,34 +43,48 @@ const LoggedInUserInfo = () => {
 
   const items = [
     {
-      label: "Your Message",
+      label: <Link to={"javascript:void(0)"}>Your Message</Link>,
       key: "1",
       icon: <MailOutlined />,
     },
     {
-      label: "Your Information",
+      label: (
+        <Link to={`/personal-infornation/${user.taiKhoan}`}>
+          Your Information
+        </Link>
+      ),
       key: "2",
       icon: <InfoCircleOutlined />,
     },
     {
-      label: "Your Course",
+      label: (
+        <Link to={`/personal-infornation/${user.taiKhoan}`}>Your Course</Link>
+      ),
       key: "3",
       icon: <FolderOpenOutlined />,
     },
     {
-      label: "Refer a Friend",
+      label: <Link to={"javascript:void(0)"}>Refer a Friend</Link>,
       key: "4",
       icon: <GiftOutlined />,
     },
     {
-      label: `${
-        getUserRedux.user.maLoaiNguoiDung == "HV"
-          ? "Become a Teacher"
-          : "The class you are teaching"
-      }`,
+      label: (
+        <Link
+          to={`${
+            user.maLoaiNguoiDung == "HV"
+              ? "javascript:void(0)#become-teacher"
+              : "javascript:void(0)#list-class-teaching"
+          }`}
+        >
+          {user.maLoaiNguoiDung == "HV"
+            ? "Become a Teacher"
+            : "The class you are teaching"}
+        </Link>
+      ),
       key: "5",
       icon:
-        getUserRedux.user.maLoaiNguoiDung == "HV" ? (
+        user.maLoaiNguoiDung == "HV" ? (
           <TeamOutlined />
         ) : (
           <UnorderedListOutlined />
@@ -79,7 +93,7 @@ const LoggedInUserInfo = () => {
     {
       label: (
         <span onClick={handleLogout}>
-          <strong>Logout</strong> ({getUserRedux.user.taiKhoan})
+          <strong>Logout</strong> ({user.taiKhoan})
         </span>
       ),
       key: "6",
@@ -95,20 +109,21 @@ const LoggedInUserInfo = () => {
       menu={{
         items,
       }}
-      trigger={["click"]}
+      // trigger={["click"]}
       arrow
     >
       <Link
-        onClick={(e) => e.preventDefault()}
+        // onClick={(e) => e.preventDefault()}
         className="ml-2 userOnline"
-        title={`${getUserRedux.user.taiKhoan} (${getUserRedux.user.hoTen})`}
+        title={`${user.taiKhoan} (${user.hoTen})`}
+        to={`/personal-infornation/${user.taiKhoan}`}
       >
         <Space size={"small"}>
           <span className="font-semibold hover:text-[#0071dc] hidden lg:inline-block">
-            {getUserRedux.user.hoTen}
+            {user.hoTen}
           </span>
 
-          {getUserRedux.user.maLoaiNguoiDung == "HV" ? (
+          {user.maLoaiNguoiDung == "HV" ? (
             <>
               <UserOutlined className="iconUser text-xl bg-[#a23f6e] text-white p-[6px] rounded-full" />
             </>
