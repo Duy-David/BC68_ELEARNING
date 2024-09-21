@@ -3,10 +3,11 @@ import { getLocalStorage, setLocalStorage } from "../util/util";
 
 const initialState = {
   cartItems: getLocalStorage("cartItems") || [], // Khởi tạo mảng trống cho giỏ hàng
-  totalAmount: 0, // Tổng tiền ban đầu là 0
+  totalAmount: getLocalStorage("totalAmount"), // Tổng tiền ban đầu là 0
 };
-const updateLocalStorage = (cartItems) => {
+const updateLocalStorage = (cartItems, totalAmount) => {
   setLocalStorage("cartItems", cartItems);
+  setLocalStorage(" totalAmount", totalAmount);
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -30,7 +31,7 @@ const cartSlice = createSlice({
         existingCourse.quantity += 1;
       }
       state.totalAmount += coursePrice;
-      updateLocalStorage(state.cartItems);
+      updateLocalStorage(state.cartItems, state.totalAmount);
     },
     removeFromCart: (state, action) => {
       const courseId = action.payload;
@@ -45,7 +46,7 @@ const cartSlice = createSlice({
 
         // Remove the course from the cart
         state.cartItems.splice(courseIndex, 1);
-        updateLocalStorage(state.cartItems);
+        updateLocalStorage(state.cartItems, state.totalAmount);
       }
     },
   },

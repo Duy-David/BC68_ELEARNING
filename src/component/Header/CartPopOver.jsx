@@ -73,7 +73,7 @@ const CartPopOver = () => {
       <div className="header_cart__footer border-t-2 pt-3 mt-5">
         <div className="py-2 flex justify-between font-bold">
           <p>Total:</p>
-          <p>${totalAmount.toFixed(2)}</p>
+          <p>${totalAmount ? totalAmount.toFixed(2) : "0.00"}</p>
         </div>
         <div className="py-2 flex justify-between gap-2">
           {user ? (
@@ -102,7 +102,6 @@ const CartPopOver = () => {
   );
 
   return (
-    // <Popover placement="bottom" title={text} content={content} arrow={false}>
     <Popover
       rootClassName="header_cart_content"
       placement="bottom"

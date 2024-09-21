@@ -49,11 +49,11 @@ const Course = () => {
               key={course.maKhoaHoc}
               to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
             >
-              <Popover content={<CourseInfo course={course} />}>
+              {/* <Popover content={<CourseInfo course={course} />}> */}
                 <div key={course.maKhoaHoc} className="course-item">
                   <CourseCard course={course} />
                 </div>
-              </Popover>
+              {/* </Popover> */}
             </Link>
           ))}
       </div>

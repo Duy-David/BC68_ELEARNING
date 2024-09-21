@@ -7,6 +7,7 @@ import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
 import { pathDefault } from "../../common/path";
+import MyCourses from "../../component/MyCourses/MyCourses";
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
@@ -19,15 +20,15 @@ const PersonalInformation = () => {
   };
   const { View } = useLottie(options);
   const userInfo = user
-  ? {
-      Account: user.taiKhoan,
-      Email: user.email,
-      "Full Name": user.hoTen,
-      Phone: user.soDT,
-      "Group Code": user.maNhom,
-      Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
-    }
-  : {};
+    ? {
+        Account: user.taiKhoan,
+        Email: user.email,
+        "Full Name": user.hoTen,
+        Phone: user.soDT,
+        "Group Code": user.maNhom,
+        Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
+      }
+    : {};
   const userFields = Object.entries(userInfo);
   const items = [
     {
@@ -39,7 +40,7 @@ const PersonalInformation = () => {
             <div className="md:w-1/2 w-full px-5 flex flex-col justify-center">
               {" "}
               <h2 className="text-center text-5xl mt-8 mb-4">
-                Welcome {user.taiKhoan}
+                Welcome back, {user.taiKhoan}
               </h2>
               <p className="text-center text-xl italic link-style">
                 Manage your info, privacy, and security to get EduMall course
@@ -72,17 +73,10 @@ const PersonalInformation = () => {
     {
       key: "3",
       label: <p> My Course</p>,
-      children: <>aza</>,
+      children: <MyCourses />,
     },
   ];
-  useEffect(() => {
-    if (user) {
-      // Điều hướng đến URL với hoTen bằng user.taiKhoan
-      navigate(`/personal-infornation/${user.taiKhoan}`);
-    }else {
-      navigate(`/${pathDefault.login}`)
-    }
-  }, [user, navigate]);
+  
   const [tabPosition, setTabPosition] = useState("left");
 
   return (

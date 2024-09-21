@@ -43,7 +43,7 @@ const LoggedInUserInfo = () => {
 
   const items = [
     {
-      label: <Link to={"javascript:void(0)"}>Your Message</Link>,
+      label: <Link to={pathDefault.homePage}>Your Message</Link>,
       key: "1",
       icon: <MailOutlined />,
     },
@@ -64,7 +64,7 @@ const LoggedInUserInfo = () => {
       icon: <FolderOpenOutlined />,
     },
     {
-      label: <Link to={"javascript:void(0)"}>Refer a Friend</Link>,
+      label: <Link to={pathDefault.homePage}>Refer a Friend</Link>,
       key: "4",
       icon: <GiftOutlined />,
     },
