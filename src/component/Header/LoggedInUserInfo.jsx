@@ -35,11 +35,7 @@ const LoggedInUserInfo = () => {
         "Đăng xuất thành công. Bạn sẽ chuyển đến Homepage",
         "success"
       );
-     navigate(pathDefault.homePage);
-
-      // setTimeout(() => {
-      //   navigate(pathDefault.homePage);
-      // }, 2000);
+      navigate(pathDefault.homePage);
     }
   };
 
@@ -51,7 +47,7 @@ const LoggedInUserInfo = () => {
     },
     {
       label: (
-        <Link to={`/personal-infornation/${user.taiKhoan}`}>
+        <Link to={`/personal-infornation/${user.taiKhoan}?tab=2`}>
           Your Information
         </Link>
       ),
@@ -60,7 +56,9 @@ const LoggedInUserInfo = () => {
     },
     {
       label: (
-        <Link to={`/personal-infornation/${user.taiKhoan}`}>Your Course</Link>
+        <Link to={`/personal-infornation/${user.taiKhoan}?tab=3`}>
+          Your Course
+        </Link>
       ),
       key: "3",
       icon: <FolderOpenOutlined />,

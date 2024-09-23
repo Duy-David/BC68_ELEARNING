@@ -40,7 +40,7 @@ console.log(totalAmountStorage)
       <div className="p-4">
         <ul className="grid grid-cols-4 gap-6">
           {cartItems.map((course, index) => {
-            console.log(course);
+            // console.log(course);
             return (
               <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
                 <li
@@ -84,7 +84,6 @@ console.log(totalAmountStorage)
           {user ? (
             <>
               {" "}
-             
               <Link
                 to={`personal-infornation/${user.taiKhoan}`}
                 className="btn btn-primary"
@@ -95,8 +94,7 @@ console.log(totalAmountStorage)
           ) : (
             <>
               {" "}
-              
-              <button className="btn btn-primary"   onClick={openLogin}>
+              <button className="btn btn-primary" onClick={openLogin}>
                 Checkout
               </button>
             </>
@@ -114,19 +112,16 @@ console.log(totalAmountStorage)
       content={content}
       arrow={false}
       trigger="click"
-      visible={visible} 
+      visible={visible}
       onVisibleChange={handleVisibleChange}
     >
       {user ? (
-        <Link
-        
-          className="header_cart_btn"
-        >
+        <Link className="header_cart_btn">
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>
         </Link>
       ) : (
-        <button   className="header_cart_btn "   >
+        <button className="header_cart_btn ">
           {" "}
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>

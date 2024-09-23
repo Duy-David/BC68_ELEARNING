@@ -14,20 +14,20 @@ const Course = () => {
     quanLyKhoaHocService
       .getDanhMucKhoaHoc()
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setListCoursCategory(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     quanLyKhoaHocService
       .getDanhSachKhoaHoc()
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setListCourse(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   const items = listCourseCategory.map((category, index) => ({

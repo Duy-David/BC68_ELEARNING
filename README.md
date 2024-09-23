@@ -16,7 +16,7 @@ Phiên bản node là v20.14.0
   - Thư viện fontansome cho việc lấy icon  (done)
   - Thư viện react-slick cho việc chay carousel(done)
   -  thư viện lottie-react cho việc sữ dụng animaition
-
+  - Thư viện react-scroll-to-top cho việc back to top
 
 Ghi chú về các thư mục trong dự án
 

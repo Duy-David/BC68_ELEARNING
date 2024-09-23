@@ -7,7 +7,7 @@ import { Breadcrumb } from "antd";
 const CourseCatelogies = () => {
   const { maDanhMuc } = useParams();
   const [listCourse, setListCourse] = useState([]);
-  const [categoryName, setCategoryName] = useState(""); 
+  const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
     quanLyKhoaHocService
@@ -15,9 +15,10 @@ const CourseCatelogies = () => {
       .then((res) => {
         const filteredCourses = res.data.filter(
           (course) =>
-            course.danhMucKhoaHoc.maDanhMucKhoahoc === maDanhMuc.replace(":", "")
+            course.danhMucKhoaHoc.maDanhMucKhoahoc ===
+            maDanhMuc.replace(":", "")
         );
-        
+
         setListCourse(filteredCourses);
 
         // Lấy tên danh mục từ khóa học đầu tiên (nếu có)
@@ -50,16 +51,11 @@ const CourseCatelogies = () => {
           },
         ]}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10">
-        {listCourse.map((course) => (
-          <Link
-            key={course.maKhoaHoc}
-            to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
-          >
-            <div className="course-item">
-              <CourseCard course={course} />
-            </div>
-          </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-10 gap-y-12">
+        {listCourse.map((course, index) => (
+          <div className="course-item" key={course.maKhoaHoc}>
+            <CourseCard course={course} />
+          </div>
         ))}
       </div>
     </div>

@@ -14,7 +14,7 @@ export const quanLyKhoaHocService = {
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  postGhiDanhKhoaHoc: (data,accessToken) => {
+  postGhiDanhKhoaHoc: (data, accessToken, add = "Bearer") => {
     return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
       Authorization: `Bearer ${accessToken}`
     });
@@ -25,5 +25,10 @@ export const quanLyKhoaHocService = {
 
       Authorization: `Bearer ${accessToken}`,
     });
+  },
+  searchKhoaHocTheoTen: (tenKhoaHoc) => {
+    return http.get(
+      `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`
+    );
   },
 };

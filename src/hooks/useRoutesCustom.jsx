@@ -8,6 +8,8 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import CourseCatelogies from "../pages/CourseCatelogies/CourseCatelogies";
 import DetailCourse from "../pages/DetailCourse/DetailCourse";
 import PersonalInformation from "../pages/PersonalInformation/PersonalInformation";
+import NotFound404 from "../pages/NotFound404/NotFound404";
+import SearchCourseResult from "../pages/SearchCourse/SearchCourseResult";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -28,8 +30,12 @@ const useRoutesCustom = () => {
           element: <DetailCourse />,
         },
         {
-          path: "/personal-infornation/:hoTen",
+          path: `personal-infornation/:hoTen`,
           element: <PersonalInformation />,
+        },
+        {
+          path: pathDefault.searchCourse,
+          element: <SearchCourseResult />,
         },
       ],
     },
@@ -40,6 +46,12 @@ const useRoutesCustom = () => {
     {
       path: pathDefault.login,
       element: <LoginPage />,
+    },
+
+    // Route NotFound để dưới cùng
+    {
+      path: pathDefault.notFound,
+      element: <NotFound404 />,
     },
   ]);
 
