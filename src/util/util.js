@@ -12,3 +12,4 @@ export const removeItemLocalStorage = (key) => {
   const dataLocal = localStorage.getItem(key);
   return dataLocal ? localStorage.removeItem(key) : false;
 };
+

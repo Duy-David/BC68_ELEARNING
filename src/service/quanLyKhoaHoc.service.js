@@ -4,25 +4,26 @@ export const quanLyKhoaHocService = {
   getDanhSachKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc");
   },
+  getDanhSachKhoaHocTheoTrang: (page,pageSize) => {
+    return http.get(`/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}`);
+  },
+
   getDanhMucKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
   },
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  postGhiDanhKhoaHoc: (data, token, add ="Bearer") => {
+  postGhiDanhKhoaHoc: (data,accessToken) => {
     return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
-      headers: { token },
+      Authorization: `Bearer ${accessToken}`
     });
   },
-  postGhiDanhKhoaHoc: (data, token) => {
-    return http.post(`/QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
-      headers: { token },
-    });
-  },
-  postGhiDanhKhoaHoc: (data, token) => {
+  
+  postGhiDanhKhoaHoc: (data, accessToken) => {
     return http.post(`/QuanLyKhoaHoc/HuyGhiDanh`, data, {
-      headers: { token },
+
+      Authorization: `Bearer ${accessToken}`,
     });
   },
 };

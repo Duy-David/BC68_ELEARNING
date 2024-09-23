@@ -35,9 +35,11 @@ const LoggedInUserInfo = () => {
         "Đăng xuất thành công. Bạn sẽ chuyển đến Homepage",
         "success"
       );
-      setTimeout(() => {
-        navigate(pathDefault.homePage);
-      }, 2000);
+     navigate(pathDefault.homePage);
+
+      // setTimeout(() => {
+      //   navigate(pathDefault.homePage);
+      // }, 2000);
     }
   };
 

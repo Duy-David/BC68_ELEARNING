@@ -7,7 +7,7 @@ const initialState = {
 };
 const updateLocalStorage = (cartItems, totalAmount) => {
   setLocalStorage("cartItems", cartItems);
-  setLocalStorage(" totalAmount", totalAmount);
+  setLocalStorage("totalAmount", totalAmount);
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -48,7 +48,14 @@ const cartSlice = createSlice({
         state.cartItems.splice(courseIndex, 1);
         updateLocalStorage(state.cartItems, state.totalAmount);
       }
+      
+      // if (state.totalAmount<=0) {
+      //   return state.totalAmount=0
+      // } else {
+        
+      // }  
     },
+    
   },
 });
 

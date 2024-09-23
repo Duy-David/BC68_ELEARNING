@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/cartSlice";
 import { pathChildren, pathDefault } from "../../common/path";
 import { setStatusModal } from "../../redux/headerSlice";
+import { getLocalStorage } from "../../util/util";
 const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
   // const { setStatusModal } = useSelector((state) => state.headerSlice);
-  const { cartItems, totalAmount } = useSelector((state) => state.cartSlice);
+  const { cartItems,totalAmount } = useSelector((state) => state.cartSlice);
+  const totalAmountStorage=Number(localStorage.getItem('totalAmount'));
+console.log(totalAmountStorage)
+  // console.log(localStorage.getItem('totalAmount'))
   console.log(cartItems);
   const dispatch = useDispatch();
   const handleRemoveFromCart = (courseId) => {
@@ -20,6 +24,7 @@ const CartPopOver = () => {
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
   };
+  
   
   const openLogin = () => {
     dispatch(
@@ -73,7 +78,7 @@ const CartPopOver = () => {
       <div className="header_cart__footer border-t-2 pt-3 mt-5">
         <div className="py-2 flex justify-between font-bold">
           <p>Total:</p>
-          <p>${totalAmount ? totalAmount.toFixed(2) : "0.00"}</p>
+          <p>${totalAmountStorage.toFixed(2) }</p>
         </div>
         <div className="py-2 flex justify-between gap-2">
           {user ? (
