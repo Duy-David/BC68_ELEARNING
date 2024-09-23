@@ -111,7 +111,7 @@ const NavBarMobile = () => {
       </Popover>
       <div
         className={`headerNavMenu_mobile_overlay ${
-          openNav ? "opacity-80 z-50" : "opacity-0 -z-50"
+          openNav ? "opacity-80 z-50 block" : "opacity-0 -z-50 hidden"
         }`}
       ></div>
     </>

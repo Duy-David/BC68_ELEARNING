@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { limitCharacter } from "../../util/util";
 
 const CourseCard = ({ course }) => {
   console.log(course);
@@ -7,7 +9,7 @@ const CourseCard = ({ course }) => {
       {/* Course Image */}
       <div className="relative">
         <img
-          className="w-full h-48"
+          className="w-full h-auto md:h-48"
           src={course.hinhAnh} // Replace with actual image
           alt="Course"
         />
@@ -25,13 +27,15 @@ const CourseCard = ({ course }) => {
         </span>
 
         {/* Course Title */}
-        <h3 className="text-sm font-bold mt-2 mb-1 h-1/2">
-          {course.tenKhoaHoc}
+        <h3 className="text-sm font-bold mt-2 mb-1 min-h-max sm:min-h-11">
+          <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
+            {limitCharacter(course.tenKhoaHoc, 50)}
+          </Link>
         </h3>
 
         {/* Course Instructor */}
-        <p className="text-sm font-medium mb-2">
-          Giảng viên: {course.nguoiTao.hoTen}
+        <p className="text-sm font-medium mb-2 min-h-max sm:min-h-10">
+          Giảng viên: {limitCharacter(course.nguoiTao.hoTen, 37)}
         </p>
 
         {/* Course view */}
@@ -39,6 +43,11 @@ const CourseCard = ({ course }) => {
           {" "}
           Lượt xem: {course.luotXem}
         </p>
+        <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
+          <button className="btn btn-primary w-full mt-2">
+            Chi tiết khóa học
+          </button>
+        </Link>
       </div>
     </div>
   );

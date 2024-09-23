@@ -10,7 +10,7 @@ export const quanLyKhoaHocService = {
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  postGhiDanhKhoaHoc: (data, token, add ="Bearer") => {
+  postGhiDanhKhoaHoc: (data, token, add = "Bearer") => {
     return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
       headers: { token },
     });
@@ -24,5 +24,10 @@ export const quanLyKhoaHocService = {
     return http.post(`/QuanLyKhoaHoc/HuyGhiDanh`, data, {
       headers: { token },
     });
+  },
+  searchKhoaHocTheoTen: (tenKhoaHoc) => {
+    return http.get(
+      `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`
+    );
   },
 };

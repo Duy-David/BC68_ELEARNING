@@ -246,12 +246,27 @@ mark {
     display: none;
   }
 }
+.scroll-to-top.customize {
+  background-color: $primary-color !important;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+  span {
+    color: #fff !important;
+  }
+}
 
 /**=== Fix font AntDesign ===**/
 .header_category .ant-btn,
 .ant-dropdown,
 .ant-popover,
 .ant-modal,
-.ant-modal-content {
+.ant-modal-content,
+.ant-radio-group,
+.ant-radio-wrapper,
+.ant-space-item,
+.ant-select-selector,
+.ant-select-item-option-content {
   font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
 }

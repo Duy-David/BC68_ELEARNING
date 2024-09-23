@@ -11,7 +11,7 @@ const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
   // const { setStatusModal } = useSelector((state) => state.headerSlice);
   const { cartItems, totalAmount } = useSelector((state) => state.cartSlice);
-  console.log(cartItems);
+  // console.log(cartItems);
   const dispatch = useDispatch();
   const handleRemoveFromCart = (courseId) => {
     dispatch(removeFromCart(courseId));
@@ -20,7 +20,7 @@ const CartPopOver = () => {
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
   };
-  
+
   const openLogin = () => {
     dispatch(
       setStatusModal({
@@ -35,7 +35,7 @@ const CartPopOver = () => {
       <div className="p-4">
         <ul className="grid grid-cols-4 gap-6">
           {cartItems.map((course, index) => {
-            console.log(course);
+            // console.log(course);
             return (
               <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
                 <li
@@ -79,7 +79,6 @@ const CartPopOver = () => {
           {user ? (
             <>
               {" "}
-             
               <Link
                 to={`personal-infornation/${user.taiKhoan}`}
                 className="btn btn-primary"
@@ -90,8 +89,7 @@ const CartPopOver = () => {
           ) : (
             <>
               {" "}
-              
-              <button className="btn btn-primary"   onClick={openLogin}>
+              <button className="btn btn-primary" onClick={openLogin}>
                 Checkout
               </button>
             </>
@@ -110,19 +108,16 @@ const CartPopOver = () => {
       content={content}
       arrow={false}
       trigger="click"
-      visible={visible} 
+      visible={visible}
       onVisibleChange={handleVisibleChange}
     >
       {user ? (
-        <Link
-        
-          className="header_cart_btn"
-        >
+        <Link className="header_cart_btn">
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>
         </Link>
       ) : (
-        <button   className="header_cart_btn "   >
+        <button className="header_cart_btn ">
           {" "}
           <FontAwesomeIcon icon={faBasketShopping} />
           <span>{cartItems.length}</span>

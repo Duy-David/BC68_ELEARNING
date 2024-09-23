@@ -9,9 +9,10 @@ const InputCustom = ({
   type = "text",
   classWrapper = "",
   onBlur,
+  onFocus,
   errors,
   touched,
-  disabled
+  disabled,
 }) => {
   return (
     <div className={classWrapper}>
@@ -20,13 +21,16 @@ const InputCustom = ({
       </label>
       <input
         type={type}
-        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${errors && touched ? "border-red-500":"border-blue-500"}`}
+        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+          errors && touched ? "border-red-500" : "border-blue-500"
+        }`}
         placeholder={placeHolder}
         name={name}
         onChange={onChange}
         value={value}
         onBlur={onBlur}
         disabled={disabled}
+        onFocus={onFocus}
       />
       {/* Viết toán tử diue962 kiện nếu error với touched được truyền vào thì mới hiện thẻ p dùng báo lỗi */}
       {errors && touched && <p className="text-red-500">{errors}</p>}

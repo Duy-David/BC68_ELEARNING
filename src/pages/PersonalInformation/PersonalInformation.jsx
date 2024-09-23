@@ -1,15 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Radio, Space, Tabs } from "antd";
 import Instructor from "../../component/Instructor/Instructor";
 import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
-import { pathDefault } from "../../common/path";
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
+
+  // fix tabs antd
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentTab = searchParams.get("tab") || "1";
+
+  const handleTabChange = (key) => {
+    setSearchParams({ tab: key });
+  };
+
+  useEffect(() => {
+    // Nếu URL query param ko có tab => tự động set tab mặc định (tab=1) để đảm bảo trang userinformation luôn đc chạy
+    if (!searchParams.get("tab")) {
+      setSearchParams({ tab: "1" });
+    }
+  }, [searchParams, setSearchParams]);
+
   // console.log(user);
   const dispatch = useDispatch();
   // const { handleNotification } = useContext(NotificationContext);
@@ -19,15 +34,15 @@ const PersonalInformation = () => {
   };
   const { View } = useLottie(options);
   const userInfo = user
-  ? {
-      Account: user.taiKhoan,
-      Email: user.email,
-      "Full Name": user.hoTen,
-      Phone: user.soDT,
-      "Group Code": user.maNhom,
-      Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
-    }
-  : {};
+    ? {
+        Account: user.taiKhoan,
+        Email: user.email,
+        "Full Name": user.hoTen,
+        Phone: user.soDT,
+        "Group Code": user.maNhom,
+        Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
+      }
+    : {};
   const userFields = Object.entries(userInfo);
   const items = [
     {
@@ -75,14 +90,16 @@ const PersonalInformation = () => {
       children: <>aza</>,
     },
   ];
-  useEffect(() => {
-    if (user) {
-      // Điều hướng đến URL với hoTen bằng user.taiKhoan
-      navigate(`/personal-infornation/${user.taiKhoan}`);
-    }else {
-      navigate(`/${pathDefault.login}`)
-    }
-  }, [user, navigate]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     // Điều hướng đến URL với hoTen bằng user.taiKhoan
+  //     navigate(`/personal-infornation/${user.taiKhoan}`);
+  //   } else {
+  //     navigate(`/${pathDefault.login}`);
+  //   }
+  // }, [user, navigate]);
+
   const [tabPosition, setTabPosition] = useState("left");
 
   return (
@@ -93,7 +110,13 @@ const PersonalInformation = () => {
             marginBottom: 24,
           }}
         ></Space>
-        <Tabs tabPosition={tabPosition} items={items} />
+        <Tabs
+          tabPosition={tabPosition}
+          items={items}
+          activeKey={currentTab}
+          onChange={handleTabChange}
+          // defaultActiveKey="3"
+        />
       </div>
     </>
   );

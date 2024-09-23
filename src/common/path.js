@@ -1,13 +1,16 @@
 export const pathDefault = {
   homePage: "/",
+  notFound: "*",
   register: "/dang-ky",
   login: "/dang-nhap",
+  searchCourse: "/search-course",
+
   admin: "/admin",
-  adminLogin: "/admin-login",
 };
 
 export const pathChildren = {
   ...pathDefault,
+  adminLogin: pathDefault.admin + "/login",
   managerUser: pathDefault.admin + "/manager-user",
   createUser: pathDefault.admin + "/create-user",
 };
