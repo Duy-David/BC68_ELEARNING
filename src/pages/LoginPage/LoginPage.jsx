@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Button, Modal } from "antd";
+import React, { useContext } from "react";
+import { Modal } from "antd";
 import InputCustom from "../../component/Input/InputCustom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -116,9 +116,10 @@ const LoginPage = ({ handleCancel, openRegister }) => {
             type="password"
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.matKhau}
+            // value={values.matKhau}
             errors={errors.matKhau}
             touched={touched.matKhau}
+            enableShowPassBtn={true}
           />
           <div className="flex justify-between">
             <div className="flex">
