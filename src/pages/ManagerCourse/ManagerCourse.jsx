@@ -12,6 +12,23 @@ import InputCustom from "../../component/Input/InputCustom";
 import moment from "moment";
 
 const ManagerCourse = () => {
+  const [courseValue, setCourseValue] = useState({
+    maKhoaHoc: "",
+    biDanh: "",
+    tenKhoaHoc: "",
+    moTa: "",
+    luotXem: 0,
+    // danhGia: 0,
+    hinhAnh: "",
+    maNhom: "",
+    ngayTao: "",
+    // danhMucKhoaHoc: {
+    maDanhMucKhoahoc: "",
+    // },
+    // nguoiTao: {
+    taiKhoan: "",
+    // },
+  });
   // const [listCourse, setListCourse] = useState([]);
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
@@ -134,97 +151,52 @@ const ManagerCourse = () => {
       ),
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = (record) => {
+    setCourseValue({
+      maKhoaHoc: record.maKhoaHoc,
+      biDanh: record.biDanh,
+      tenKhoaHoc: record.tenKhoaHoc,
+      moTa: record.moTa,
+      luotXem: record.luotXem,
+      // danhGia: record.danhGia,
+      hinhAnh: record.hinhAnh,
+      maNhom: record.maNhom,
+      ngayTao: record.ngayTao,
+      // danhMucKhoaHoc: {
+      maDanhMucKhoahoc: record.danhMucKhoaHoc?.maDanhMucKhoahoc, // Safe access with default
+      // },
+      // nguoiTao: {
+      taiKhoan: record.nguoiTao?.taiKhoan, // Safe access with default
+      // },
+    });
+    setIsModalOpen(true);
+  };
   const handleOk = () => {
-    handleSubmit();
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const {
-    handleChange,
-    handleSubmit,
-    values,
-    setFieldValue,
-    resetForm,
-    setValues,
-    handleReset,
-    errors,
-    touched,
-    handleBlur,
-    isValid,
-  } = useFormik({
-    initialValues: {
-      maKhoaHoc: "",
-      biDanh: "",
-      tenKhoaHoc: "",
-      moTa: "",
-      luotXem: 0,
-      // danhGia: 0,
-      hinhAnh: "",
-      maNhom: "",
-      ngayTao: "",
-      danhMucKhoaHoc: {
-        maDanhMucKhoahoc: "",
-      },
-      nguoiTao: {
-        taiKhoan: "",
-      },
-    },
-    onSubmit: (value) => {
-      console.log("Form submitted", value);
-      const payload = {
-        maKhoaHoc: value.maKhoaHoc,
-        biDanh: value.biDanh,
-        tenKhoaHoc: value.tenKhoaHoc,
-        moTa: value.moTa,
-        luotXem: value.luotXem,
-        // danhGia: value.danhGia,
-        hinhAnh: value.hinhAnh,
-        maNhom: value.maNhom,
-        ngayTao: value.ngayTao,
-        maDanhMucKhoaHoc: value.danhMucKhoaHoc.maDanhMucKhoahoc,
-        taiKhoanNguoiTao: value.nguoiTao.taiKhoan,
-      };
-      console.log(payload);
-      quanLyKhoaHocService
-        .putCapNhatKhoaHoc(payload)
-        .then((res) => {
-          console.log(res);
-          handleNotification("Sữa dữ liệu thành công", "success");
-          dispatch(getValueCourseAPI());
-          setIsModalOpen(false);
-          // resetForm();
-        })
-        .catch((err) => {
-          console.log(err);
-          // console.log(err.response.data.content);
-          handleNotification(
-            err.response.data.message || err.response.data.content,
-            "error"
-          );
-        });
-    },
-    validationSchema: yup.object({
-      tenKhoaHoc: yup.string().required("Vui lòng nhập tên khóa học"),
-      // danhGia: yup.string().required("Vui lòng không được bỏ trống"),
-      moTa: yup.string().required("Vui lòng không được bỏ trống"),
-      biDanh: yup.string().required("Vui lòng không được bỏ trống"),
-      maNhom: yup.number().required("Vui lòng không được bỏ trống"),
-      luotXem: yup.number().required("Vui lòng không được bỏ trống"),
-      biDanh: yup.string().required("Vui lòng không được bỏ trống"),
-      maDanhMucKhoaHoc: yup.string().required("Vui lòng không được bỏ trống"),
-      ngayTao: yup.string().required("Vui lòng không được bỏ trống"),
-    }),
-  });
-  // const handleSubmitForm = () => {
-   
-  //   if (isValid) {
-  //     setIsModalOpen(false);
-  //     resetForm();
-  //   }
-    
-  // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    quanLyKhoaHocService
+      .putCapNhatKhoaHoc(courseValue)
+      .then((res) => {
+        console.log(res);
+        handleNotification("Sữa dữ liệu thành công", "success");
+        dispatch(getValueCourseAPI());
+        // setIsModalOpen(false);
+        // resetForm();
+      })
+      .catch((err) => {
+        console.log(err);
+        handleNotification(err.response.data, "error");
+      });
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setCourseValue({ ...courseValue, [name]: value });
+  };
   const columns = [
     {
       title: "Mã Khóa Học",
@@ -240,16 +212,16 @@ const ManagerCourse = () => {
       // width: '20%',
       ...getColumnSearchProps("tenKhoaHoc"),
     },
-    {
-      title: "Hình Ảnh",
-      dataIndex: "hinhAnh",
-      key: "hinhAnh",
-      // width: '20%',
-      ...getColumnSearchProps("hinhAnh"),
-      render: (text) => {
-        return <img className="h-14" src={text} alt="" />;
-      },
-    },
+    // {
+    //   title: "Hình Ảnh",
+    //   dataIndex: "hinhAnh",
+    //   key: "hinhAnh",
+    //   // width: '20%',
+    //   ...getColumnSearchProps("hinhAnh"),
+    //   render: (text) => {
+    //     return <img className="h-14" src={text} alt="" />;
+    //   },
+    // },
 
     {
       title: "Lượt Xem",
@@ -263,9 +235,18 @@ const ManagerCourse = () => {
       title: "Người tạo",
       dataIndex: "nguoiTao",
       key: "nguoiTao",
-      ...getColumnSearchProps("hinhAnh"),
+      ...getColumnSearchProps("nguoiTao"),
       render: (text) => {
         return <p>{text.hoTen}</p>;
+      },
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "ngayTao",
+      key: "ngayTao",
+      ...getColumnSearchProps("ngayTao"),
+      render: (text) => {
+        return <p>{text}</p>;
       },
     },
     {
@@ -274,8 +255,8 @@ const ManagerCourse = () => {
       render: (_, record) => {
         // console.log(record);
         return (
-          <Space size="middle" className="space-x-1">
-            <button className=" bg-green-500 text-white py-2 px-3 rounded-md duration-300 hover:bg-green-500/90 ">
+          <Space size="middle" className="">
+            <button className=" bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/90 ">
               Ghi Danh
             </button>
 
@@ -298,32 +279,28 @@ const ManagerCourse = () => {
               Xóa{" "}
             </button>
             <button
-              onClick={() => {
-                setIsModalOpen(true);
-                setValues(record);
-              }}
+              onClick={() => showModal(record)}
               className="bg-yellow-500 text-white py-2 px-5 rounded-md duration-300 hover:bg-yellow-500/90"
             >
               Sửa
             </button>
             <Modal
-              // key={values.maKhoaHoc}
+              key={courseValue.maKhoaHoc}
               title=" Chỉnh sửa khóa học"
               open={isModalOpen}
-              onOk={handleOk} // Đây là nút OK
+              onOk={handleOk}
               onCancel={handleCancel}
+              // footer={[]}
             >
-              <img src={values.hinhAnh} alt="" className="h-16" />
-              <form id="course-form" 
-              onSubmit={handleSubmit}
-              >
+              <form id="course-form" onSubmit={handleSubmit}>
+              <img src={courseValue.hinhAnh} alt="" className="h-16" />
                 <div className="flex flex-wrap">
                   <InputCustom
                     contentLabel={"Mã Khóa Học"}
                     placeHolder={"Vui lòng nhập mã khóa học"}
                     classWrapper="w-1/3 p-3 "
                     name={"maKhoaHoc"}
-                    value={values.maKhoaHoc}
+                    value={courseValue.maKhoaHoc}
                     disabled={true}
                     onChange={handleChange}
                   />
@@ -332,20 +309,16 @@ const ManagerCourse = () => {
                     placeHolder={"Vui lòng nhập Tên Khóa Học"}
                     classWrapper="w-1/3 p-3"
                     name={"tenKhoaHoc"}
-                    value={values.tenKhoaHoc}
+                    value={courseValue.tenKhoaHoc}
                     onChange={handleChange}
-                    errors={errors.tenKhoaHoc}
-                    touched={touched.tenKhoaHoc}
                   />
                   <InputCustom
                     contentLabel={"Bí Danh"}
                     placeHolder={"Vui lòng nhập Bí Danh"}
                     classWrapper="w-1/3 p-3"
                     name={"biDanh"}
-                    value={values.biDanh}
+                    value={courseValue.biDanh}
                     onChange={handleChange}
-                    errors={errors.biDanh}
-                    touched={touched.biDanh}
                   />
 
                   <div className="w-1/2 p-3">
@@ -353,8 +326,10 @@ const ManagerCourse = () => {
                       Mã danh mục khóa học
                     </label>
                     <select
-                      name="danhMucKhoaHoc.maDanhMucKhoahoc"
-                      value={values.danhMucKhoaHoc.maDanhMucKhoahoc}
+                      name="maDanhMucKhoahoc"
+                      // name="danhMucKhoaHoc.maDanhMucKhoahoc"
+                      // value={courseValue.danhMucKhoaHoc.maDanhMucKhoahoc}
+                      value={courseValue.maDanhMucKhoahoc}
                       onChange={handleChange}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     >
@@ -370,8 +345,10 @@ const ManagerCourse = () => {
                     contentLabel={"Tài khoản người tạo"}
                     placeHolder={"Vui lòng nhập tài khoản người tạo"}
                     classWrapper="w-1/2 p-3 "
-                    name={"nguoiTao.taiKhoan"}
-                    value={values.nguoiTao.taiKhoan}
+                    name={"taiKhoan"}
+                    // name={"nguoiTao.taiKhoan"}
+                    // value={courseValue.nguoiTao.taiKhoan}
+                    value={courseValue.taiKhoan}
                     onChange={handleChange}
                     disabled={true}
                   />
@@ -381,39 +358,27 @@ const ManagerCourse = () => {
                     placeHolder={"Vui lòng nhập mô tả"}
                     classWrapper="w-full p-3"
                     name={"moTa"}
-                    value={values.moTa}
+                    value={courseValue.moTa}
                     onChange={handleChange}
-                    errors={errors.moTa}
-                    touched={touched.moTa}
                   />
                   <InputCustom
                     contentLabel={"Lượt xem"}
                     placeHolder={"Lượt xem"}
                     classWrapper="w-1/3 p-3"
                     name={"luotXem"}
-                    value={values.luotXem}
+                    value={courseValue.luotXem}
                     onChange={handleChange}
-                    errors={errors.luotXem}
-                    touched={touched.luotXem}
                   />
-                  <div className="w-1/3 p-3">
-                    <label className="block mb-2 text-sm font-medium text-gray-900">
-                      Ngày tạo
-                    </label>
-                    <DatePicker
-                      onChange={(date, dateString) => {
-                        setFieldValue("ngayTao", date); // Set the 'date' which is a moment object
-                      }}
-                      format="DD-MM-YYYY"
-                      value={
-                        values.ngayTao
-                          ? moment(values.ngayTao, "DD-MM-YYYY")
-                          : null
-                      }
-                      name="ngayTao"
-                      className="p-2.5"
-                    />
-                  </div>
+         
+                  <InputCustom
+                    contentLabel={"Ngày Tạo"}
+                    // placeHolder={"Ngày tạo"}
+                    classWrapper="w-1/3 p-3"
+                    name={"ngayTao"}
+                    value={courseValue.ngayTao} 
+                    onChange={handleChange}
+                    // type="date"
+                  />
 
                   <div className="w-1/3 p-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -421,7 +386,7 @@ const ManagerCourse = () => {
                     </label>
                     <select
                       name="maNhom"
-                      value={values.maNhom}
+                      value={courseValue.maNhom}
                       onChange={handleChange}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     >
@@ -431,6 +396,14 @@ const ManagerCourse = () => {
                       <option value="GP04">GP04</option>
                       <option value="GP05">GP05</option>
                     </select>
+                  </div>
+                  <div>
+                    <button
+                      className="px-5 py-2 bg-black text-white rounded"
+                      type="submit"
+                    >
+                      Update khóa Học
+                    </button>
                   </div>
                 </div>
               </form>
