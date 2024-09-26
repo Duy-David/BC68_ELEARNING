@@ -4,7 +4,6 @@ export const pathDefault = {
   register: "/dang-ky",
   login: "/dang-nhap",
   searchCourse: "/search-course",
-
   admin: "/admin",
 };
 

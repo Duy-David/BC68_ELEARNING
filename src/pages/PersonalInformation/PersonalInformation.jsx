@@ -8,6 +8,7 @@ import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
 import { pathDefault } from "../../common/path";
 import MyCourses from "../../component/MyCourses/MyCourses";
+
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
@@ -30,11 +31,7 @@ const PersonalInformation = () => {
   // console.log(user);
   const dispatch = useDispatch();
   // const { handleNotification } = useContext(NotificationContext);
-  const options = {
-    animationData: HelloAnimation,
-    loop: true,
-  };
-  const { View } = useLottie(options);
+
   const userInfo = user
     ? {
         Account: user.taiKhoan,
@@ -46,6 +43,28 @@ const PersonalInformation = () => {
       }
     : {};
   const userFields = Object.entries(userInfo);
+  const [tabPosition, setTabPosition] = useState("left");
+  // const options = {
+  //   animationData: HelloAnimation,
+  //   loop: true,
+  // };
+  const [animationKey, setAnimationKey] = useState(0);
+
+  const options = {
+    animationData: HelloAnimation,
+    loop: true,
+  };
+  const { View: LottieView } = useLottie(options);
+
+  // Remount animation when switching back to tab 1
+  console.log(currentTab)
+  useEffect(() => {
+    if (currentTab ===  "1") {
+      setAnimationKey((prevKey) => prevKey + 1);
+    }
+  }, [currentTab]);
+    // const { View } = useLottie(options);
+  console.log(animationKey)
   const items = [
     {
       key: "1",
@@ -64,7 +83,10 @@ const PersonalInformation = () => {
               </p>
             </div>
 
-            <div className="md:w-1/2 w-full">{View}</div>
+            <div className="md:w-1/2 w-full">
+              {" "}
+              {LottieView}
+            </div>
           </div>
         </>
       ),
@@ -101,8 +123,6 @@ const PersonalInformation = () => {
   //     navigate(`/${pathDefault.login}`);
   //   }
   // }, [user, navigate]);
-
-  const [tabPosition, setTabPosition] = useState("left");
 
   return (
     <>

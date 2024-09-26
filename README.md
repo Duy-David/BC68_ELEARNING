@@ -17,7 +17,7 @@ Phiên bản node là v20.14.0
   - Thư viện react-slick cho việc chay carousel(done)
   -  thư viện lottie-react cho việc sữ dụng animaition
   - Thư viện react-scroll-to-top cho việc back to top
-
+  - Thư viện react-highlight-words dùng để làm nổi bật các từ trong một đoạn văn bản lớn
 Ghi chú về các thư mục trong dự án
 
 - assets : chứa các file phương tiện như âm thanh, hình ảnh, animation,font
@@ -29,7 +29,6 @@ Ghi chú về các thư mục trong dự án
 - service : chứa các setup về xử lí api
 - template : chứa các component đóng vai trò là mẫu layout được sử dụng ở nhiều trang
 - utils : chứa các hàm xử lí sử dụng ở nhiều thành phần trong dự án
-
 
 TK :test
 TK :hunggv1

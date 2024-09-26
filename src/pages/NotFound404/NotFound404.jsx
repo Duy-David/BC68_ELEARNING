@@ -1,9 +1,24 @@
-import React from "react";
+import React from 'react';
+import Lottie from 'lottie-react';
+import AnimationFoundNot from '../../assets/animation/AnimationFoundNot.json';
+import { Link } from 'react-router-dom';
+import { pathDefault } from '../../common/path';
 
 const NotFound404 = () => {
   return (
-    <div className="mt-20 font-bold text-xl text-center">
-      Page Not found - 404
+    <div className="grid grid-cols-5 h-screen bg-black">
+      <div></div>
+      <div className="flex flex-col justify-center col-span-3 ">
+        {/* animation  */}
+        <Lottie animationData={AnimationFoundNot} loop={true} />
+        {/* button */}
+        <Link
+          to={pathDefault.homePage}
+          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-center"
+        >
+          <button>Trở về trang chủ</button>
+        </Link>
+      </div>
     </div>
   );
 };

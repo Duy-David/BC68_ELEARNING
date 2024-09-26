@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { limitCharacter } from "../../util/util";
 
 const CourseCard = ({ course }) => {
-  console.log(course);
+  // console.log(course);
   return (
     <div className=" rounded-lg overflow-hidden shadow-lg bg-white">
       {/* Course Image */}

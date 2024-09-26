@@ -6,30 +6,41 @@ import "./course.scss";
 import { Link } from "react-router-dom";
 // import {  Popover } from "antd";
 import CourseInfo from "../CourseInfo/CourseInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { setListCourse, setListCourseCategory } from "../../redux/courseSlice";
 
 const Course = () => {
-  const [listCourse, setListCourse] = useState([]);
-  const [listCourseCategory, setListCoursCategory] = useState([]);
+  
+  const dispatch = useDispatch();
   useEffect(() => {
     quanLyKhoaHocService
       .getDanhMucKhoaHoc()
       .then((res) => {
-        // console.log(res.data);
-        setListCoursCategory(res.data);
+        console.log(res.data);
+        dispatch(setListCourseCategory(res.data));
       })
       .catch((err) => {
         // console.log(err);
       });
-    quanLyKhoaHocService
+
+      quanLyKhoaHocService
       .getDanhSachKhoaHoc()
       .then((res) => {
-        // console.log(res.data);
-        setListCourse(res.data);
+        console.log(res.data);
+        dispatch(setListCourse(res.data));
       })
       .catch((err) => {
         // console.log(err);
       });
-  }, []);
+  }, [dispatch]);
+ 
+  const { listCourse, listCourseCategory } = useSelector(
+    (state) => state.courseSlice
+  );
+
+  // console.log(listCourseCategory);
+
+  console.log(listCourse);
   const items = listCourseCategory.map((category, index) => ({
     label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
     key: category.maDanhMuc,
@@ -50,9 +61,9 @@ const Course = () => {
               to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
             >
               {/* <Popover content={<CourseInfo course={course} />}> */}
-                <div key={course.maKhoaHoc} className="course-item">
-                  <CourseCard course={course} />
-                </div>
+              <div key={course.maKhoaHoc} className="course-item">
+                <CourseCard course={course} />
+              </div>
               {/* </Popover> */}
             </Link>
           ))}

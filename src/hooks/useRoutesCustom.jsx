@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Usertemplate from "../template/Usertemplate/Usertemplate";
 import { pathDefault } from "../common/path";
@@ -10,7 +10,14 @@ import DetailCourse from "../pages/DetailCourse/DetailCourse";
 import PersonalInformation from "../pages/PersonalInformation/PersonalInformation";
 import NotFound404 from "../pages/NotFound404/NotFound404";
 import SearchCourseResult from "../pages/SearchCourse/SearchCourseResult";
-
+import AdminTemplate from "../template/Admintemplate/AdminTemplate";
+import { Skeleton } from "antd";
+const ManagerUser = React.lazy(() =>
+  import("../pages/ManagerUser/ManagerUser")
+);
+const ManagerCourse = React.lazy(() =>
+  import("../pages/ManagerCourse/ManagerCourse")
+);
 const useRoutesCustom = () => {
   const routes = useRoutes([
     {
@@ -47,7 +54,30 @@ const useRoutesCustom = () => {
       path: pathDefault.login,
       element: <LoginPage />,
     },
-
+    {
+      path: pathDefault.admin,
+      element: <AdminTemplate />,
+      children: [
+        {
+          path: "manager-user",
+          // index: true,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <ManagerUser />
+            </Suspense>
+          ),
+        },
+        {
+          path: "manager-course",
+          // index: true,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <ManagerCourse/>
+            </Suspense>
+          ),
+        },
+      ],
+    },
     // Route NotFound để dưới cùng
     {
       path: pathDefault.notFound,
