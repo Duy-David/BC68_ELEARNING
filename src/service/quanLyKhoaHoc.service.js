@@ -21,16 +21,15 @@ export const quanLyKhoaHocService = {
   //     Authorization: `Bearer ${accessToken}`
   //   });
   // },
-  postThemKhoaHoc: (kh) => {
-    return http.post(`QuanLyKhoaHoc/ThemKhoaHoc`, kh, {
+  postThemKhoaHoc: (accessToken, data) => {
+    return http.post(`QuanLyKhoaHoc/ThemKhoaHoc`, data, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   },
   putCapNhatKhoaHoc: (kh) => {
-    return http.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, kh, { 
-    });
+    return http.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, kh, {});
   },
   deleteKhoaHoc: (MaKhoaHoc, accessToken) => {
     return http.delete(`/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${MaKhoaHoc}`, {
@@ -59,5 +58,10 @@ export const quanLyKhoaHocService = {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+  },
+  searchKhoaHocTheoTen: (tenKhoaHoc) => {
+    return http.get(
+      `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`
+    );
   },
 };

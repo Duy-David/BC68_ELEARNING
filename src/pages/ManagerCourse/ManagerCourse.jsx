@@ -10,6 +10,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import InputCustom from "../../component/Input/InputCustom";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { pathChildren } from "../../common/path";
 
 const ManagerCourse = () => {
   const [courseValue, setCourseValue] = useState({
@@ -22,12 +24,8 @@ const ManagerCourse = () => {
     hinhAnh: "",
     maNhom: "",
     ngayTao: "",
-    // danhMucKhoaHoc: {
     maDanhMucKhoahoc: "",
-    // },
-    // nguoiTao: {
     taiKhoan: "",
-    // },
   });
   // const [listCourse, setListCourse] = useState([]);
   const { handleNotification } = useContext(NotificationContext);
@@ -35,7 +33,7 @@ const ManagerCourse = () => {
   const { listCourse } = useSelector((state) => state.courseSlice);
   const { user } = useSelector((state) => state.authSlice);
   const { listCourseCategory } = useSelector((state) => state.courseSlice);
-  // console.log(user);
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -237,7 +235,7 @@ const ManagerCourse = () => {
       key: "nguoiTao",
       ...getColumnSearchProps("nguoiTao"),
       render: (text) => {
-        return <p>{text.hoTen}</p>;
+        return <p>{text.taiKhoan}</p>;
       },
     },
     {
@@ -421,7 +419,7 @@ const ManagerCourse = () => {
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-4xl font-bold">Quản lý Khóa học </h2>
         <button
-          onClick={handleCreateCourse}
+       onClick={() => navigate(pathChildren.createCourse)}
           className="bg-blue-500 text-white py-2 px-5 rounded-md hover:bg-blue-500/90"
         >
           Thêm Khóa học{" "}

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Usertemplate from "../template/Usertemplate/Usertemplate";
-import { pathDefault } from "../common/path";
+import { pathChildren, pathDefault } from "../common/path";
 import HomePage from "../pages/Home/HomePage";
 import Register from "../pages/Register/Register";
 import LoginPage from "../pages/LoginPage/LoginPage";
@@ -12,18 +12,25 @@ import NotFound404 from "../pages/NotFound404/NotFound404";
 import SearchCourseResult from "../pages/SearchCourse/SearchCourseResult";
 import AdminTemplate from "../template/Admintemplate/AdminTemplate";
 import { Skeleton } from "antd";
+
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
 );
 const ManagerCourse = React.lazy(() =>
   import("../pages/ManagerCourse/ManagerCourse")
 );
+const CreateUser = React.lazy(() => import("../pages/CreateUser/CreateUser"));
+
+const CreateCourse = React.lazy(() =>
+  import("../pages/CreateCourse/CreateCourse")
+);
+
 const useRoutesCustom = () => {
   const routes = useRoutes([
     {
       path: pathDefault.homePage,
       element: <Usertemplate />,
-      children: [
+      children: [ 
         {
           path: "",
           element: <HomePage />,
@@ -59,7 +66,7 @@ const useRoutesCustom = () => {
       element: <AdminTemplate />,
       children: [
         {
-          path: "manager-user",
+          path: pathChildren.managerUser,
           // index: true,
           element: (
             <Suspense fallback={<Skeleton />}>
@@ -68,11 +75,29 @@ const useRoutesCustom = () => {
           ),
         },
         {
-          path: "manager-course",
+          path: pathChildren.createUser,
           // index: true,
           element: (
             <Suspense fallback={<Skeleton />}>
-              <ManagerCourse/>
+              <CreateUser />
+            </Suspense>
+          ),
+        },
+        {
+          path: pathChildren.managerCourse,
+          // index: true,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <ManagerCourse />
+            </Suspense>
+          ),
+        },
+        {
+          path: pathChildren.createCourse,
+          // index: true,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <CreateCourse />
             </Suspense>
           ),
         },

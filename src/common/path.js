@@ -12,4 +12,6 @@ export const pathChildren = {
   adminLogin: pathDefault.admin + "/login",
   managerUser: pathDefault.admin + "/manager-user",
   createUser: pathDefault.admin + "/create-user",
+  managerCourse: pathDefault.admin + "/manager-Course",
+  createCourse: pathDefault.admin + "/create-Course",
 };

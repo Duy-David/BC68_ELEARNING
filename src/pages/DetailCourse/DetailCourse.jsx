@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
-import { Breadcrumb } from "antd";
+import { Breadcrumb, Rate } from "antd";
 import CourseInfo from "../../component/CourseInfo/CourseInfo";
 import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
@@ -41,15 +41,15 @@ const DetailCourse = () => {
   if (!detailCourse) {
     return <div>Loading...</div>;
   }
-  console.log(detailCourse)
+  console.log(detailCourse);
   // const dispatch = useDispatch();
 
   // const handleAddToCart = () => {
   //   dispatch(addToCart(detailCourse));
- // };
+  // };
   return (
     <>
-      <div className="container">
+      <div className="container pl-4">
         <Breadcrumb
           className=" my-4"
           items={[
@@ -75,33 +75,43 @@ const DetailCourse = () => {
               ),
             },
             {
-              title: `${detailCourse.tenKhoaHoc}`,
+              title: `${detailCourse?.tenKhoaHoc}`,
             },
           ]}
         />
         <div className="grid grid-cols-2 md:grid-cols-3">
           <div className="mx-auto col-span-2  mr-6">
             <div className="mb-6">
-              <h1 className="text-3xl font-bold">
-                {detailCourse.moTa}
-              </h1>
-              <div className="flex items-center space-x-4 text-sm text-gray-600 mt-2">
-                <span>{detailCourse.nguoiTao.hoTen}</span>
-                <span>|</span>
-                <span>Last Updated:{<DateToWords dateInput={detailCourse.ngayTao}/>}</span>
-                <span>|</span>
-                <div className="flex items-center">
-                  <span>5</span>
-                  <FontAwesomeIcon icon={faStar} className="text-yellow-500"  />
-                  <span className="ml-2">({detailCourse.luotXem} reviews)</span>
+              <h2 className="text-3xl font-bold mb-4">
+                {detailCourse?.tenKhoaHoc}
+              </h2>
+              <p className="mb-5">{detailCourse?.moTa}</p>
+
+              <div className="flex sm:items-center flex-wrap flex-col sm:flex-row gap-4 text-sm text-gray-600 mt-2 border-y  py-3">
+                <span className="pr-4 sm:border-r-2">
+                  <strong>{detailCourse.nguoiTao?.hoTen}</strong>
+                </span>
+                <span className="pr-4 sm:border-r-2">
+                  Last Updated:
+                  {<DateToWords dateInput={detailCourse?.ngayTao} />}
+                </span>
+                <div className="flex items-center pr-4 sm:border-r-2">
+                  <span>
+                    <strong>4.52</strong>/5{" "}
+                    <Rate allowHalf defaultValue={4.52} disabled={true} />
+                  </span>
+                  <span className="ml-2">
+                    ({detailCourse?.luotXem} reviews)
+                  </span>
                 </div>
-                <span>|</span>
-                <span>{`${detailCourse.soLuongHocVien} already enrolled`} </span>
+                <span>
+                  {`${detailCourse?.soLuongHocVien} already enrolled`}{" "}
+                </span>
               </div>
             </div>
             {/* course img */}
             <div className=" my-8">
-              <img src={detailCourse.hinhAnh} alt="" className="w-full" />
+              <img src={detailCourse?.hinhAnh} alt="" className="w-full" />
             </div>
 
             {/* Course Prerequisites */}
@@ -112,12 +122,11 @@ const DetailCourse = () => {
                 which must be completed before it can be accessed:
               </p>
               <div className="mt-4">
-                <a
-                  href="#"
+                <div
                   className="inline-block text-blue-600 bg-gray-100 px-4 py-2 rounded-md"
                 >
                   Artificial Intelligence & Machine Learning
-                </a>
+                </div>
               </div>
             </div>
 
@@ -177,7 +186,7 @@ const DetailCourse = () => {
           </div>
           <div className=" my-5 col-span-2 md:col-span-1  ">
             <div className=" sticky top-4 md:top-16 bg-white p-4  col-span-1">
-              <CourseInfo  detailCourse={detailCourse}/>
+              <CourseInfo detailCourse={detailCourse} />
             </div>
           </div>
         </div>
