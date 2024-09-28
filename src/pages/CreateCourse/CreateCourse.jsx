@@ -39,7 +39,7 @@ const CreateCourse = () => {
       moTa: "",
       luotXem: 0,
       danhGia: 0,
-    //   hinhAnh: "",
+      //   hinhAnh: "",
       maNhom: "",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
@@ -49,17 +49,17 @@ const CreateCourse = () => {
       console.log(value);
       const clonedValue = {
         ...value,
-        hinhAnh: `${imageUrl}.png`|| "url đính kèm",
-      }
-    console.log(clonedValue)
+        hinhAnh: imageUrl ? `${imageUrl}.png` : "url đính kèm",
+      };
+      console.log(clonedValue);
       quanLyKhoaHocService
-        .postThemKhoaHoc( user.accessToken, clonedValue)
+        .postThemKhoaHoc(user.accessToken, clonedValue)
         .then((res) => {
           console.log(res);
           handleNotification("Tạo khóa học thành công", "success");
           dispatch(getValueCourseAPI()); // Refresh the user list
           //   handleReset();
-          console.log(formData)
+          //   console.log(formData)
           if (res.data.hinhAnhUrl) {
             setImageUrl(res.data.hinhAnhUrl);
           }
@@ -78,8 +78,11 @@ const CreateCourse = () => {
       tenKhoaHoc: yup.string().required(notiValidate.empty),
       moTa: yup.string().required(notiValidate.empty),
       luotXem: yup.number().required(notiValidate.empty),
-      danhGia: yup.number().required(notiValidate.empty),
-      hinhAnh: yup.string().nullable(),
+      danhGia: yup
+        .number()
+        .required(notiValidate.empty)
+        .max(100, "Tối đa là 100"),
+    //   hinhAnh: yup.string().nullable(),
       maNhom: yup.string().required(notiValidate.empty),
       ngayTao: yup
         .string()
@@ -89,7 +92,7 @@ const CreateCourse = () => {
           notiValidate.date
         ),
 
-      //   maDanhMucKhoaHoc: yup.string().required(notiValidate.empty),
+      maDanhMucKhoaHoc: yup.string().required(notiValidate.empty),
     }),
   });
   // console.log(errors);
@@ -167,12 +170,14 @@ const CreateCourse = () => {
               onBlur={handleBlur}
             >
               {listCourseCategory.map((item, index) => (
-                <option value={item.maDanhMuc}>{item.maDanhMuc}</option>
+                <option value={item.maDanhMuc} key={index}>
+                  {item.maDanhMuc}
+                </option>
               ))}
-              {errors && touched && (
-                <p className="text-red-500 block">{errors.maDanhMucKhoaHoc}</p>
-              )}
             </select>
+            {errors.maDanhMucKhoaHoc && touched.maDanhMucKhoaHoc && (
+              <p className="text-red-500 block">{errors.maDanhMucKhoaHoc}</p>
+            )}
           </div>
 
           <InputCustom
@@ -228,7 +233,7 @@ const CreateCourse = () => {
               <option value="GP04">GP04</option>
               <option value="GP05">GP05</option>
             </select>
-            {errors && touched && (
+            {errors.maNhom && touched.maNhom && (
               <p className="text-red-500 block">{errors.maNhom}</p>
             )}
           </div>

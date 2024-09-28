@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import CheckIcon from "../Icon/CheckIcon";
 import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
+import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
+import { useNavigate } from "react-router-dom";
+import { NotificationContext } from "../../App";
 // import Course from "../Course/Course";
 
-const CourseInfo = ({detailCourse}) => {
+const CourseInfo = ({ detailCourse,maKhoaHoc }) => {
+  const { handleNotification } = useContext(NotificationContext);
+  const { user } = useSelector((state) => state.authSlice);
+  const [courseEnroll, setCourseEnroll] = useState({
+    maKhoaHoc: maKhoaHoc,
+    taiKhoan: user.taiKhoan,
+  });
+  const navigate = useNavigate();
   const details = [
     { label: "Level", value: "Beginner" },
     { label: "Duration", value: "15.3 hours" },
@@ -31,7 +41,6 @@ const CourseInfo = ({detailCourse}) => {
           35% OFF
         </span>
       </div>
-
       {/* Course Details */}
       <div className="space-y-4 mb-6">
         {details.map((detail, index) => (
@@ -41,7 +50,6 @@ const CourseInfo = ({detailCourse}) => {
           </div>
         ))}
       </div>
-
       {/* Material Includes */}
       <div className="mb-6">
         <h4 className="text-lg font-bold text-gray-900 mb-3">
@@ -56,15 +64,31 @@ const CourseInfo = ({detailCourse}) => {
           ))}
         </ul>
       </div>
-
       {/* Add to Cart Button */}
       <button
-        className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-blue-700"
+        className="w-full my-2 bg-blue-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-blue-700"
         onClick={handleAddToCart}
       >
         <FontAwesomeIcon icon={faBasketShopping} className="mx-3" />
         Add to cart
       </button>
+      <button
+        className="w-full my-2 bg-green-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-green-600/90"
+        onClick={() => {
+          quanLyKhoaHocService
+            .postGhiDanhKhoaHoc(user.accessToken, courseEnroll)
+            .then((res) => {
+              handleNotification("Ghi danh thành công", "success");
+              setIsModalOpenEnroll(false);
+              dispatch(getValueCourseAPI());
+            })
+            .catch((err) => {
+              handleNotification(err.response.data, "error");
+            });
+        }}
+      >
+        Ghi Danh
+      </button>{" "}
     </div>
   );
 };

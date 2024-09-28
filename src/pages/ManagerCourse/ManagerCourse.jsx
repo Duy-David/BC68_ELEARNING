@@ -27,6 +27,7 @@ const ManagerCourse = () => {
     maDanhMucKhoahoc: "",
     taiKhoan: "",
   });
+
   // const [listCourse, setListCourse] = useState([]);
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
@@ -149,6 +150,7 @@ const ManagerCourse = () => {
       ),
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = (record) => {
     setCourseValue({
       maKhoaHoc: record.maKhoaHoc,
@@ -169,6 +171,7 @@ const ManagerCourse = () => {
     });
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -195,6 +198,44 @@ const ManagerCourse = () => {
     const { name, value } = event.target;
     setCourseValue({ ...courseValue, [name]: value });
   };
+  const [isModalOpenEnroll, setIsModalOpenEnroll] = useState(false);
+  const [courseEnroll, setCourseEnroll] = useState({
+    maKhoaHoc: "",
+    taiKhoan: "",
+  });
+  const showModalEnrroll = (record) => {
+    setCourseEnroll({
+      maKhoaHoc: record.maKhoaHoc,
+      taiKhoan: record.taiKhoan,
+    });
+    setIsModalOpenEnroll(true);
+  };
+
+  const handleOkEnroll = () => {
+    setIsModalOpenEnroll(false);
+  };
+  const handleCancelEnroll = () => {
+    setIsModalOpenEnroll(false);
+  };
+
+  const formikEnroll = useFormik({
+    initialValues: {
+      maKhoaHoc: courseEnroll.maKhoaHoc,
+      taiKhoan: courseEnroll.taiKhoan,
+    },
+    onSubmit: (values) => {
+      quanLyKhoaHocService
+        .postGhiDanhKhoaHoc(user.accessToken, values)
+        .then((res) => {
+          handleNotification("Ghi danh thành công", "success");
+          setIsModalOpenEnroll(false);
+          dispatch(getValueCourseAPI());
+        })
+        .catch((err) => {
+          handleNotification(err.response.data, "error");
+        });
+    },
+  });
   const columns = [
     {
       title: "Mã Khóa Học",
@@ -210,16 +251,7 @@ const ManagerCourse = () => {
       // width: '20%',
       ...getColumnSearchProps("tenKhoaHoc"),
     },
-    // {
-    //   title: "Hình Ảnh",
-    //   dataIndex: "hinhAnh",
-    //   key: "hinhAnh",
-    //   // width: '20%',
-    //   ...getColumnSearchProps("hinhAnh"),
-    //   render: (text) => {
-    //     return <img className="h-14" src={text} alt="" />;
-    //   },
-    // },
+  
 
     {
       title: "Lượt Xem",
@@ -254,10 +286,44 @@ const ManagerCourse = () => {
         // console.log(record);
         return (
           <Space size="middle" className="">
-            <button className=" bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/90 ">
+            <button
+              className="bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/80 "
+              onClick={() => showModalEnrroll(record)}
+            >
               Ghi Danh
             </button>
+            <Modal
+              title="GHI DANH KHOA HỌC"
+              open={isModalOpenEnroll}
+              onOk={handleOkEnroll}
+              onCancel={() => setIsModalOpenEnroll(false)}
+              footer={null}
+            >
+              <form
+                id="enroll-course-form"
+                onSubmit={formikEnroll.handleSubmit}
+                onReset={formikEnroll.onReset}
+              >
+                <InputCustom
+                  contentLabel="Mã Khóa Học"
+                  value={formikEnroll.values.maKhoaHoc}
+                  name="maKhoaHoc"
+                  onChange={formikEnroll.handleChange}
+                  // disabled
+                />
+                <InputCustom
+                  contentLabel="Tài khoản"
+                  name="taiKhoan"
+                  onChange={formikEnroll.handleChange}
+                  value={formikEnroll.values.taiKhoan}
+                />
 
+                <button type="submit" className="my-6 bg-blue-700 hover:bg-blue-700/80 px-5 py-2 rounded-lg text-white">
+                  Ghi Danh
+                </button>
+               
+              </form>
+            </Modal>
             <button
               onClick={() => {
                 quanLyKhoaHocService
@@ -282,6 +348,7 @@ const ManagerCourse = () => {
             >
               Sửa
             </button>
+
             <Modal
               key={courseValue.maKhoaHoc}
               title=" Chỉnh sửa khóa học"
@@ -291,7 +358,7 @@ const ManagerCourse = () => {
               // footer={[]}
             >
               <form id="course-form" onSubmit={handleSubmit}>
-              <img src={courseValue.hinhAnh} alt="" className="h-16" />
+                <img src={courseValue.hinhAnh} alt="" className="h-16" />
                 <div className="flex flex-wrap">
                   <InputCustom
                     contentLabel={"Mã Khóa Học"}
@@ -367,13 +434,13 @@ const ManagerCourse = () => {
                     value={courseValue.luotXem}
                     onChange={handleChange}
                   />
-         
+
                   <InputCustom
                     contentLabel={"Ngày Tạo"}
                     // placeHolder={"Ngày tạo"}
                     classWrapper="w-1/3 p-3"
                     name={"ngayTao"}
-                    value={courseValue.ngayTao} 
+                    value={courseValue.ngayTao}
                     onChange={handleChange}
                     // type="date"
                   />
@@ -411,15 +478,13 @@ const ManagerCourse = () => {
       },
     },
   ];
-  const handleCreateCourse = () => {
-    console.log("helloworld");
-  };
+
   return (
     <>
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-4xl font-bold">Quản lý Khóa học </h2>
         <button
-       onClick={() => navigate(pathChildren.createCourse)}
+          onClick={() => navigate(pathChildren.createCourse)}
           className="bg-blue-500 text-white py-2 px-5 rounded-md hover:bg-blue-500/90"
         >
           Thêm Khóa học{" "}

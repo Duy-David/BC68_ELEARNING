@@ -38,22 +38,22 @@ export const quanLyKhoaHocService = {
       },
     });
   },
-  postGhiDanhKhoaHoc: (ttdk, accessToken) => {
-    return http.post(`QuanLyKhoaHoc/GhiDanhKhoaHoc`, ttdk, {
+  postGhiDanhKhoaHoc: (accessToken, data) => {
+    return http.post(`QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   },
-  postDangkyKhoaHoc: (ttdk, accessToken) => {
-    return http.post(`QuanLyKhoaHoc/DangKyKhoaHoc`, ttdk, {
+  postDangkyKhoaHoc: ( accessToken, data) => {
+    return http.post(`QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   },
-  postHuyGhiDanh: (ttdk, accessToken) => {
-    return http.post(`QuanLyKhoaHoc/HuyGhiDanh`, ttdk, {
+  postHuyGhiDanh: ( accessToken, data) => {
+    return http.post(`QuanLyKhoaHoc/HuyGhiDanh`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
