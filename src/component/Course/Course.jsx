@@ -42,7 +42,7 @@ const Course = () => {
   // console.log(listCourseCategory);
 
   console.log(listCourse);
-  const items = listCourseCategory.map((category, index) =>`` ({
+  const items = listCourseCategory.map((category, index) => ({
     label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
     key: category.maDanhMuc,
     children: (
