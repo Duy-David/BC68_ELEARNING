@@ -4,27 +4,62 @@ export const quanLyKhoaHocService = {
   getDanhSachKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc");
   },
+  getDanhSachKhoaHocTheoTrang: (page, pageSize) => {
+    return http.get(
+      `/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}`
+    );
+  },
   getDanhMucKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
   },
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  postGhiDanhKhoaHoc: (data, token, add = "Bearer") => {
-    return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
-      headers: { token },
+  // postGhiDanhKhoaHoc: (data, accessToken, add = "Bearer") => {
+  //   return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
+  //     Authorization: `Bearer ${accessToken}`
+  //   });
+  // },
+  postThemKhoaHoc: (kh) => {
+    return http.post(`QuanLyKhoaHoc/ThemKhoaHoc`, kh, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   },
-  postGhiDanhKhoaHoc: (data, token) => {
-    return http.post(`/QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
-      headers: { token },
+  putCapNhatKhoaHoc: (kh) => {
+    return http.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, kh, {});
+  },
+  deleteKhoaHoc: (MaKhoaHoc, accessToken) => {
+    return http.delete(`/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${MaKhoaHoc}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   },
-  postGhiDanhKhoaHoc: (data, token) => {
-    return http.post(`/QuanLyKhoaHoc/HuyGhiDanh`, data, {
-      headers: { token },
+  postGhiDanhKhoaHoc: (ttdk, accessToken) => {
+    return http.post(`QuanLyKhoaHoc/GhiDanhKhoaHoc`, ttdk, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   },
+  postDangkyKhoaHoc: (ttdk, accessToken) => {
+    return http.post(`QuanLyKhoaHoc/DangKyKhoaHoc`, ttdk, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+  postHuyGhiDanh: (ttdk, accessToken) => {
+    return http.post(`QuanLyKhoaHoc/HuyGhiDanh`, ttdk, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+
+  // devCong
   searchKhoaHocTheoTen: (tenKhoaHoc) => {
     return http.get(
       `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`

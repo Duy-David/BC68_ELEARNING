@@ -16,5 +16,5 @@ export const removeItemLocalStorage = (key) => {
 };
 
 export const limitCharacter = (str, numChar) => {
-  return str.length > numChar ? str.slice(0, numChar) + "..." : str;
+  return str?.length > numChar ? str.slice(0, numChar) + "..." : str;
 };

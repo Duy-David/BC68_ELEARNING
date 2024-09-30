@@ -8,6 +8,7 @@ export const notiValidate = {
   re_password: "Mật khẩu nhập không giống với mật khẩu đã nhập trước",
   phone: "Vui lòng nhập đúng định dạng số điện thoại VN",
   term: "Vui lòng đồng ý điều khoản bảo mật",
+  date: "Vui lòng nhập đúng định dang DD/MM/YYYY",
   min: (minValue) => {
     return `Vui lòng nhập tối thiểu ${minValue} ký tự`;
   },
