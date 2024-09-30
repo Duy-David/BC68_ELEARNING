@@ -66,11 +66,7 @@ const AdminTemplate = () => {
                       </Link>
                     ),
                   },
-                  {
-                    key: "3",
-                    icon: <UploadOutlined />,
-                    label: <Link>Thêm Công Việc</Link>,
-                  },
+                  
                 ]}
               />
             </Sider>
