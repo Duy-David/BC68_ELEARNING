@@ -36,7 +36,6 @@ const AdminTemplate = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        
         <>
           {" "}
           <Layout className="min-h-full">
@@ -45,7 +44,7 @@ const AdminTemplate = () => {
               <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={[""]}
                 items={[
                   {
                     key: "1",

@@ -9,7 +9,6 @@ export const quanLyKhoaHocService = {
       `/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}`
     );
   },
-
   getDanhMucKhoaHoc: () => {
     return http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
   },

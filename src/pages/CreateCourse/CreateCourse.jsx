@@ -48,48 +48,7 @@ const CreateCourse = () => {
     },
     onSubmit: (value) => {
       console.log(value);
-      // console.log(formData);
-      //   try {
-      //     // Upload hình ảnh nếu có
-      //     if (uploadImage) {
-      //       let formData = new FormData();
-      //       formData.append("File", uploadImage);
-      //       const imageResponse =
-      //         await quanLyKhoaHocService.postThemKhoaHocUploadHinh(
-      //           formData
-      //           // user.accessToken
-      //         );
 
-      //       // Nếu upload thành công, cập nhật URL hình ảnh
-      //       if (imageResponse?.data?.hinhAnhUrl) {
-      //         value.hinhAnh = imageResponse.data.hinhAnhUrl;
-      //       }
-      //     }
-
-      //     // Gửi thông tin khóa học sau khi upload hình ảnh thành công
-      //     await quanLyKhoaHocService.postThemKhoaHoc(user.accessToken, value);
-
-      //     handleNotification(
-      //       "Tạo khóa học thành công! Chuyển hướng về trang quản lý khoá học",
-      //       "success"
-      //     );
-
-      //     dispatch(getValueCourseAPI()); // Refresh khóa học
-
-      //     setTimeout(() => {
-      //       navigate(pathChildren.managerCourse);
-      //     }, 2000);
-      //   } catch (error) {
-      //     handleNotification(error.response?.data || "Có lỗi xảy ra!", "error");
-      //   }
-      // },
-      // const clonedValue = {
-      //   ...value,
-      //   hinhAnh: imageUrl ? `${imageUrl}.png` : "url đính kèm",
-      // };
-      // let frm = new FormData();
-      //     frm.append("file", file);
-      //     frm.append("tenKhoaHoc", res.data.tenKhoaHoc);
       quanLyKhoaHocService
         .postThemKhoaHoc(user.accessToken, value)
         .then((res) => {
@@ -144,7 +103,7 @@ const CreateCourse = () => {
         .number()
         .required(notiValidate.empty)
         .max(100, "Tối đa là 100"),
-      //   hinhAnh: yup.string().nullable(),
+    //   hinhAnh: yup.string().nullable(),
       maNhom: yup.string().required(notiValidate.empty),
       ngayTao: yup
         .string()

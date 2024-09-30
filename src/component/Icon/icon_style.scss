@@ -1,0 +1,95 @@
+/*  Categories icons
+/*----------------------------------------*/
+.categories-item {
+  .categories-item__link {
+    display: flex;
+    align-items: center;
+    background-color: #f1f3f8;
+    border-radius: 5px;
+    padding: 10px 30px;
+    height: 100%;
+    min-height: 70px;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    .categories-item__info {
+      flex-grow: 1;
+    }
+  }
+}
+
+.categories-item__icon {
+  flex-shrink: 0;
+  max-width: 60px;
+  width: 100%;
+  &.notFound svg * {
+    fill: #888 !important;
+  }
+  svg {
+    .text-lighten-fill-color {
+      fill: #d4e1f4;
+      transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    .text-fill-color {
+      fill: #47586d;
+      transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    .primary-fill-color {
+      fill: #0071dc;
+      transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+}
+
+// hover
+.categories-item:hover .categories-item__link {
+  background-color: #0071dc;
+}
+.categories-item:hover
+  .categories-item__link
+  .categories-item__icon.notFound
+  svg
+  * {
+  fill: #fff !important;
+}
+.categories-item:hover .categories-item__link .categories-item__info {
+  color: #fff;
+}
+.categories-item:hover .categories-item__icon svg .text-lighten-fill-color {
+  fill: #0071dc;
+}
+.categories-item:hover .categories-item__icon svg .text-fill-color {
+  fill: #ffffff;
+}
+.categories-item:hover .categories-item__icon svg .primary-fill-color {
+  fill: #ffffff;
+}
+
+.categories-item__name {
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 400;
+  margin: 0;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  position: relative;
+  display: inline-block;
+}
+.categories-item__name::before {
+  content: "\f105";
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  line-height: 1;
+}
+
+.categories-item:hover .categories-item__name {
+  color: #ffffff;
+}
+.categories-item:hover .categories-item__name::before {
+  transform: translateY(-50%) scale(1);
+}

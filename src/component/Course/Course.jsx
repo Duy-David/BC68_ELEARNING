@@ -34,7 +34,6 @@ const Course = () => {
         console.log(err);
       });
   }, [dispatch]);
-
   const { listCourse, listCourseCategory } = useSelector(
     (state) => state.courseSlice
   );

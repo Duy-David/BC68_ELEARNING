@@ -21,7 +21,7 @@ const HeaderCategory = () => {
   const items = listCourseCategory.map((category, index) => ({
     key: index,
     label: (
-      <Link to={`/course-catelogies/:${category.maDanhMuc}`}>
+      <Link to={`/course-catelogies/${category.maDanhMuc}`}>
         {category.tenDanhMuc}
       </Link>
     ),
@@ -39,7 +39,6 @@ const HeaderCategory = () => {
         <div className="category_icon">
           <IconCategory />
         </div>
-      
       </Button>
     </Dropdown>
   );
