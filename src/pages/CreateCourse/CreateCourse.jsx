@@ -31,6 +31,7 @@ const CreateCourse = () => {
     touched, //true,false
     handleBlur,
     isValid,
+    isSubmitting,
   } = useFormik({
     initialValues: {
       maKhoaHoc: "",
@@ -39,7 +40,7 @@ const CreateCourse = () => {
       moTa: "",
       luotXem: 0,
       danhGia: 0,
-      //   hinhAnh: "",
+      hinhAnh: "",
       maNhom: "",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
@@ -47,31 +48,92 @@ const CreateCourse = () => {
     },
     onSubmit: (value) => {
       console.log(value);
-      const clonedValue = {
-        ...value,
-        hinhAnh: imageUrl ? `${imageUrl}.png` : "url đính kèm",
-      };
-      console.log(clonedValue);
+      // console.log(formData);
+      //   try {
+      //     // Upload hình ảnh nếu có
+      //     if (uploadImage) {
+      //       let formData = new FormData();
+      //       formData.append("File", uploadImage);
+      //       const imageResponse =
+      //         await quanLyKhoaHocService.postThemKhoaHocUploadHinh(
+      //           formData
+      //           // user.accessToken
+      //         );
+
+      //       // Nếu upload thành công, cập nhật URL hình ảnh
+      //       if (imageResponse?.data?.hinhAnhUrl) {
+      //         value.hinhAnh = imageResponse.data.hinhAnhUrl;
+      //       }
+      //     }
+
+      //     // Gửi thông tin khóa học sau khi upload hình ảnh thành công
+      //     await quanLyKhoaHocService.postThemKhoaHoc(user.accessToken, value);
+
+      //     handleNotification(
+      //       "Tạo khóa học thành công! Chuyển hướng về trang quản lý khoá học",
+      //       "success"
+      //     );
+
+      //     dispatch(getValueCourseAPI()); // Refresh khóa học
+
+      //     setTimeout(() => {
+      //       navigate(pathChildren.managerCourse);
+      //     }, 2000);
+      //   } catch (error) {
+      //     handleNotification(error.response?.data || "Có lỗi xảy ra!", "error");
+      //   }
+      // },
+      // const clonedValue = {
+      //   ...value,
+      //   hinhAnh: imageUrl ? `${imageUrl}.png` : "url đính kèm",
+      // };
+      // let frm = new FormData();
+      //     frm.append("file", file);
+      //     frm.append("tenKhoaHoc", res.data.tenKhoaHoc);
       quanLyKhoaHocService
-        .postThemKhoaHoc(user.accessToken, clonedValue)
+        .postThemKhoaHoc(user.accessToken, value)
         .then((res) => {
-          console.log(res);
-          handleNotification("Tạo khóa học thành công", "success");
-          dispatch(getValueCourseAPI()); // Refresh the user list
-          //   handleReset();
-          //   console.log(formData)
-          if (res.data.hinhAnhUrl) {
-            setImageUrl(res.data.hinhAnhUrl);
+          let values = res.data;
+          let formData = new FormData();
+          if (uploadImage) {
+            formData.append("File", uploadImage);
           }
-          setTimeout(() => {
-            navigate(pathChildren.managerCourse);
-          }, 2000);
+          for (let key in values) {
+            if (key !== "hinhAnh" || uploadImage) {
+              // Chỉ thêm 'hinhAnh' nếu có upload
+              formData.append(key, values[key]);
+            }
+          }
+          console.log(formData);
+
+          quanLyKhoaHocService
+            .postUploadHinhAnhKhoaHoc(formData, user.accessToken)
+            .then((res) => {
+              handleNotification(
+                "Tạo khóa học thành công! Chuyển hướng về trang quản lý khoá học",
+                "success"
+              );
+              dispatch(getValueCourseAPI());
+              //   handleReset();
+              //   console.log(formData)
+              if (res.data.hinhAnhUrl) {
+                setImageUrl(res.data.hinhAnhUrl);
+              }
+              setTimeout(() => {
+                navigate(pathChildren.managerCourse);
+              }, 2000);
+            })
+            .catch((err) => {
+              console.log(err);
+              handleNotification(err.response.data, "error");
+            });
         })
         .catch((err) => {
           console.log(err);
           handleNotification(err.response.data, "error");
         });
     },
+
     validationSchema: yup.object({
       maKhoaHoc: yup.string().required(notiValidate.empty),
       biDanh: yup.string().required(notiValidate.empty),
@@ -82,7 +144,7 @@ const CreateCourse = () => {
         .number()
         .required(notiValidate.empty)
         .max(100, "Tối đa là 100"),
-    //   hinhAnh: yup.string().nullable(),
+      //   hinhAnh: yup.string().nullable(),
       maNhom: yup.string().required(notiValidate.empty),
       ngayTao: yup
         .string()
@@ -96,13 +158,20 @@ const CreateCourse = () => {
     }),
   });
   // console.log(errors);
-  const handleImageChange = (event) => {
-    const image = event.target.files[0];
+  const handleImageChange = (e) => {
+    const image = e.target.files[0];
     if (image) {
       if (image.size > 1024 * 1024 * 1) {
         setErrorImage("Hình vượt quá dung lượng cho phép");
+        setUploadImage(null);
         return;
       }
+      let reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        setImageUrl(e.target.result);
+      };
+      setFieldValue("hinhAnh", e.target.files[0].name);
       setUploadImage(image); // Store the file for upload
       setImageUrl(URL.createObjectURL(image)); // Preview the image locally
       setErrorImage(""); // Clear error
@@ -169,6 +238,7 @@ const CreateCourse = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               onBlur={handleBlur}
             >
+              <option> Vui lòng chọn mã danh mục khóa học</option>
               {listCourseCategory.map((item, index) => (
                 <option value={item.maDanhMuc} key={index}>
                   {item.maDanhMuc}
@@ -227,11 +297,12 @@ const CreateCourse = () => {
               onBlur={handleBlur}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
-              <option value="GP01">GP01</option>
-              <option value="GP02">GP02</option>
-              <option value="GP03">GP03</option>
-              <option value="GP04">GP04</option>
-              <option value="GP05">GP05</option>
+              <option>Vui lòng chọn mã lớp</option>
+              {["GP01", "GP02", "GP03", "GP04", "GP05"].map((group) => (
+                <option value={group} key={group}>
+                  {group}
+                </option>
+              ))}
             </select>
             {errors.maNhom && touched.maNhom && (
               <p className="text-red-500 block">{errors.maNhom}</p>
@@ -261,7 +332,7 @@ const CreateCourse = () => {
             <input
               type="file"
               name="hinhAnh"
-              accept="image/*"
+              accept="image/png, image/jpeg, image/jpg"
               onChange={handleImageChange}
               className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
             />
@@ -284,7 +355,7 @@ const CreateCourse = () => {
             <button
               className="px-5 py-2 bg-black text-white rounded"
               type="submit"
-              //   disabled={!isValid}
+              // disabled={!isValid || isSubmitting}
             >
               Tạo khóa Học
             </button>

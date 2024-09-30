@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import InputCustom from "../../component/Input/InputCustom";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { pathChildren } from "../../common/path";
 
 const ManagerCourse = () => {
@@ -27,8 +27,8 @@ const ManagerCourse = () => {
     maDanhMucKhoahoc: "",
     taiKhoan: "",
   });
-
-  // const [listCourse, setListCourse] = useState([]);
+ 
+  // cost [listCourse, setListCourse] = useState([]);
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
   const { listCourse } = useSelector((state) => state.courseSlice);
@@ -283,47 +283,17 @@ const ManagerCourse = () => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        // console.log(record);
+        console.log(record);
         return (
           <Space size="middle" className="">
             <button
               className="bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/80 "
-              onClick={() => showModalEnrroll(record)}
+              onClick={() => navigate(`/admin/ghi-danh-khoa-hoc/${record.maKhoaHoc}`)}
+              
             >
               Ghi Danh
             </button>
-            <Modal
-              title="GHI DANH KHOA HỌC"
-              open={isModalOpenEnroll}
-              onOk={handleOkEnroll}
-              onCancel={() => setIsModalOpenEnroll(false)}
-              footer={null}
-            >
-              <form
-                id="enroll-course-form"
-                onSubmit={formikEnroll.handleSubmit}
-                onReset={formikEnroll.onReset}
-              >
-                <InputCustom
-                  contentLabel="Mã Khóa Học"
-                  value={formikEnroll.values.maKhoaHoc}
-                  name="maKhoaHoc"
-                  onChange={formikEnroll.handleChange}
-                  // disabled
-                />
-                <InputCustom
-                  contentLabel="Tài khoản"
-                  name="taiKhoan"
-                  onChange={formikEnroll.handleChange}
-                  value={formikEnroll.values.taiKhoan}
-                />
 
-                <button type="submit" className="my-6 bg-blue-700 hover:bg-blue-700/80 px-5 py-2 rounded-lg text-white">
-                  Ghi Danh
-                </button>
-               
-              </form>
-            </Modal>
             <button
               onClick={() => {
                 quanLyKhoaHocService

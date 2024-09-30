@@ -8,6 +8,7 @@ import DateToWords from "../../component/DateToWords/DateToWords";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
+import Loading from "../Loading/Loading";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
   const learningObjectives = [
@@ -39,7 +40,7 @@ const DetailCourse = () => {
     taiKfhoan: "",
   };
   if (!detailCourse) {
-    return <div>Loading...</div>;
+    return <><Loading/></>;
   }
   console.log(detailCourse);
   // const dispatch = useDispatch();

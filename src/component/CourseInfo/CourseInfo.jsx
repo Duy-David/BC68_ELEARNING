@@ -87,7 +87,7 @@ const CourseInfo = ({ detailCourse,maKhoaHoc }) => {
             });
         }}
       >
-        Ghi Danh
+        Enroll
       </button>{" "}
     </div>
   );

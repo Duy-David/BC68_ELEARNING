@@ -16,13 +16,27 @@ export const quanLyKhoaHocService = {
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
-  // postGhiDanhKhoaHoc: (data, accessToken, add = "Bearer") => {
-  //   return http.post(`/QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
-  //     Authorization: `Bearer ${accessToken}`
-  //   });
-  // },
+ 
   postThemKhoaHoc: (accessToken, data) => {
     return http.post(`QuanLyKhoaHoc/ThemKhoaHoc`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+  postThemKhoaHocUploadHinh: (formData) => {
+    return http.post(
+      "/QuanLyKhoaHoc/ThemKhoaHocUploadHinh",
+      formData
+      //    {
+      //   headers: {
+      //     Authorization: `Bearer ${accessToken}`,
+      //   },
+      // }
+    );
+  },
+  postUploadHinhAnhKhoaHoc: (formData, accessToken) => {
+    return http.post("/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -38,30 +52,72 @@ export const quanLyKhoaHocService = {
       },
     });
   },
-  postGhiDanhKhoaHoc: (accessToken, data) => {
-    return http.post(`QuanLyKhoaHoc/GhiDanhKhoaHoc`, data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  },
-  postDangkyKhoaHoc: ( accessToken, data) => {
+ 
+  postDangkyKhoaHoc: (accessToken, data) => {
     return http.post(`QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   },
-  postHuyGhiDanh: ( accessToken, data) => {
+  postHuyGhiDanh: (accessToken, data) => {
     return http.post(`QuanLyKhoaHoc/HuyGhiDanh`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   },
+
   searchKhoaHocTheoTen: (tenKhoaHoc) => {
     return http.get(
       `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`
     );
   },
+  postGhiDanhKhoaHoc: (enrollData ,accessToken) => {
+    return http.post("/QuanLyKhoaHoc/GhiDanhKhoaHoc", enrollData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+  getLayDanhSachNguoiDungChuaGhiDanh: (course, accessToken) => {
+    const courseCode = course.maKhoaHoc;
+    const requestData = { maKhoaHoc: courseCode };
+
+    return http.post(
+      `/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh `,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  },
+  postLayDanhSachHocVienChoXetDuyet: (courseCode, accessToken) => {
+    const data = { maKhoaHoc: courseCode };
+    return http.post(`/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+  postDanhSachHocVienKhoaHoc: (courseCode, accessToken) => {
+    const data = { maKhoaHoc: courseCode };
+    return http.post(`/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+ 
+  deletedHuyGhiDanh: (courseCode, taiKhoan, accessToken) => {
+    const data = { maKhoaHoc: courseCode, taiKhoan: taiKhoan };
+    return http.post("/QuanLyKhoaHoc/HuyGhiDanh", data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+
 };

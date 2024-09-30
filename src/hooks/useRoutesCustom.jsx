@@ -24,6 +24,9 @@ const CreateUser = React.lazy(() => import("../pages/CreateUser/CreateUser"));
 const CreateCourse = React.lazy(() =>
   import("../pages/CreateCourse/CreateCourse")
 );
+const EnrollCourse = React.lazy(() =>
+  import("../pages/EnrollCourse/EnrollCourse")
+);
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -64,44 +67,52 @@ const useRoutesCustom = () => {
     {
       path: pathDefault.admin,
       element: <AdminTemplate />,
-      children: [
-        {
-          path: pathChildren.managerUser,
-          // index: true,
-          element: (
-            <Suspense fallback={<Skeleton />}>
-              <ManagerUser />
-            </Suspense>
-          ),
-        },
-        {
-          path: pathChildren.createUser,
-          // index: true,
-          element: (
-            <Suspense fallback={<Skeleton />}>
-              <CreateUser />
-            </Suspense>
-          ),
-        },
-        {
-          path: pathChildren.managerCourse,
-          // index: true,
-          element: (
-            <Suspense fallback={<Skeleton />}>
-              <ManagerCourse />
-            </Suspense>
-          ),
-        },
-        {
-          path: pathChildren.createCourse,
-          // index: true,
-          element: (
-            <Suspense fallback={<Skeleton />}>
-              <CreateCourse />
-            </Suspense>
-          ),
-        },
-      ],
+        children: [
+          {
+            path: pathChildren.managerUser,
+            // index: true,
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <ManagerUser />
+              </Suspense>
+            ),
+          },
+          {
+            path: pathChildren.createUser,
+            // index: true,
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <CreateUser />
+              </Suspense>
+            ),
+          },
+          {
+            path: pathChildren.managerCourse,
+            // index: true,
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <ManagerCourse />
+              </Suspense>
+            ),
+          },
+          {
+            path: pathChildren.createCourse,
+            // index: true,
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <CreateCourse />
+              </Suspense>
+            ),
+          },
+          {
+            path: pathChildren.enrollCourse,
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <EnrollCourse/>
+              </Suspense>
+            ),
+          },
+        ],
     },
     // Route NotFound để dưới cùng
     {

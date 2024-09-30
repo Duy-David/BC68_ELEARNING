@@ -6,11 +6,12 @@ import "./course.scss";
 import { Link } from "react-router-dom";
 // import {  Popover } from "antd";
 import CourseInfo from "../CourseInfo/CourseInfo";
+import useResponsive from "../../hooks/useResponsive";
 import { useDispatch, useSelector } from "react-redux";
 import { setListCourse, setListCourseCategory } from "../../redux/courseSlice";
 
 const Course = () => {
-  
+  const screenSize = useResponsive();
   const dispatch = useDispatch();
   useEffect(() => {
     quanLyKhoaHocService
@@ -23,17 +24,17 @@ const Course = () => {
         // console.log(err);
       });
 
-      quanLyKhoaHocService
+    quanLyKhoaHocService
       .getDanhSachKhoaHoc()
       .then((res) => {
         console.log(res.data);
         dispatch(setListCourse(res.data));
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   }, [dispatch]);
- 
+
   const { listCourse, listCourseCategory } = useSelector(
     (state) => state.courseSlice
   );
@@ -41,7 +42,7 @@ const Course = () => {
   // console.log(listCourseCategory);
 
   console.log(listCourse);
-  const items = listCourseCategory.map((category, index) => ({
+  const items = listCourseCategory.map((category, index) =>`` ({
     label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
     key: category.maDanhMuc,
     children: (

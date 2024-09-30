@@ -3,6 +3,7 @@ import authSlice from "./authSlice";
 import headerSlice from "./headerSlice";
 import cartSlice from "./cartSlice";
 import courseSlice from "./courseSlice";
+import loadingSlice from "./loadingSlice";
 
 
 // import { cartSlice } from "./CartSlice";
@@ -14,6 +15,6 @@ export const store = configureStore({
     headerSlice,
     cartSlice,
     courseSlice,
-
+    loadingSlice
   },
 });

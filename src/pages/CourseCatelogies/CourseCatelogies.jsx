@@ -10,33 +10,11 @@ const CourseCatelogies = () => {
   //  const [listCourse, setListCourse] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const { listCourse } = useSelector((state) => state.courseSlice);
-  // useEffect(() => {
-  //   quanLyKhoaHocService
-  //     .getDanhSachKhoaHoc()
-  //     .then((res) => {
-  //       const filteredCourses = res.data.filter(
-  //         (course) =>
-  //           course.danhMucKhoaHoc.maDanhMucKhoahoc ===
-  //           maDanhMuc.replace(":", "")
-  //       );
 
-  //       setListCourse(filteredCourses);
-
-  //       // Lấy tên danh mục từ khóa học đầu tiên (nếu có)
-  //       if (filteredCourses.length > 0) {
-  //         setCategoryName(filteredCourses[0].danhMucKhoaHoc.tenDanhMucKhoaHoc);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [maDanhMuc]);
   const filteredCourses = listCourse.filter(
     (course) =>
       course.danhMucKhoaHoc.maDanhMucKhoahoc === maDanhMuc.replace(":", "")
   );
-  // console.log(filteredCourses);
-  // Lấy tên danh mục từ khóa học đầu tiên (nếu có)
 
   useEffect(() => {
     if (filteredCourses.length > 0) {
