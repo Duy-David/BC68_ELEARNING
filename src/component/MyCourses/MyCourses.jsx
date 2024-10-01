@@ -34,15 +34,15 @@ const MyCourses = () => {
     setCurrentPage(page);
   };
 
-  const handleUnEnroll = (courseCode) => {
+  const handleUnEnroll = (maKhoaHoc) => {
     quanLyKhoaHocService
-      .postHuyGhiDanh(courseCode, user.taiKhoan)
+      .postHuyGhiDanh(user.accessToken, { maKhoaHoc, taiKhoan: user.taiKhoan })
       .then(() => {
+        handleNotification("Hủy ghi danh thành công", "success");
         const updateCourses = coursesEnrolled.filter(
-          (course) => course.maKhoaHoc !== courseCode
+          (course) => course.maKhoaHoc !== maKhoaHoc
         );
         setCoursesEnrolled(updateCourses);
-        handleNotification("Hủy ghi danh thành công", "success");
       })
       .catch((err) => {
         handleNotification(err.response.data, "error");
