@@ -187,7 +187,7 @@ const DetailCourse = () => {
           </div>
           <div className=" my-5 col-span-2 md:col-span-1  ">
             <div className=" sticky top-4 md:top-16 bg-white p-4  col-span-1">
-              <CourseInfo detailCourse={detailCourse} maKhoaHoc={maKhoaHoc}/>
+              <CourseInfo detailCourse={detailCourse} />
             </div>
           </div>
         </div>

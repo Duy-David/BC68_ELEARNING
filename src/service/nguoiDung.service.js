@@ -6,4 +6,11 @@ export const nguoiDungService = {
       headers: { token },
     });
   },
+  getUserEnrolledCourses: (accessToken ,data) => {
+    return http.post("/QuanLyNguoiDung/ThongTinTaiKhoan", data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
 };

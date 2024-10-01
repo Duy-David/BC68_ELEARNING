@@ -7,15 +7,14 @@ import { addToCart } from "../../redux/cartSlice";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { useNavigate } from "react-router-dom";
 import { NotificationContext } from "../../App";
+import { useParams } from "react-router-dom";
 // import Course from "../Course/Course";
 
-const CourseInfo = ({ detailCourse,maKhoaHoc }) => {
+const CourseInfo = ({ detailCourse }) => {
+  const { maKhoaHoc } = useParams();
   const { handleNotification } = useContext(NotificationContext);
   const { user } = useSelector((state) => state.authSlice);
-  const [courseEnroll, setCourseEnroll] = useState({
-    maKhoaHoc: maKhoaHoc,
-    taiKhoan: user.taiKhoan,
-  });
+  const [courseEnroll, setCourseEnroll] = useState();
   const navigate = useNavigate();
   const details = [
     { label: "Level", value: "Beginner" },
@@ -76,10 +75,12 @@ const CourseInfo = ({ detailCourse,maKhoaHoc }) => {
         className="w-full my-2 bg-green-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-green-600/90"
         onClick={() => {
           quanLyKhoaHocService
-            .postGhiDanhKhoaHoc(user.accessToken, courseEnroll)
+            .postDangkyKhoaHoc(user.accessToken, {
+              maKhoaHoc,
+              taiKhoan: user.taiKhoan,
+            })
             .then((res) => {
-              handleNotification("Ghi danh thành công", "success");
-              setIsModalOpenEnroll(false);
+              handleNotification("Đăng ký thành công", "success")
               dispatch(getValueCourseAPI());
             })
             .catch((err) => {

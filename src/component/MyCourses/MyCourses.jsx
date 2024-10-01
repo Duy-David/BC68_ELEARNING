@@ -1,148 +1,253 @@
-import React, { useState, useEffect } from "react";
-import { Button, Flex, Table, Card, Space } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { removeFromCart } from "../../redux/cartSlice";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { NotificationContext } from "../../App";
+import { Pagination, Rate, Button, Input } from "antd";
+import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
+import { nguoiDungService } from "../../service/nguoiDung.service";
+import useResponsive from "../../hooks/useResponsive";
+import { useSelector } from "react-redux";
+const { Search } = Input;
 
 const MyCourses = () => {
-  const { cartItems } = useSelector((state) => state.cartSlice);
-  const dispatch = useDispatch();
+  const { handleNotification } = useContext(NotificationContext);
+  const [coursesEnrolled, setCoursesEnrolled] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const pageSize = 5;
+  const { user } = useSelector((state) => state.authSlice);
+  useEffect(() => {
+    const fetchCouresEnrolled = () => {
+      nguoiDungService
+        .getUserEnrolledCourses(user.accessToken)
+        .then((res) => {
+          console.log(res);
+          setCoursesEnrolled(res.data.chiTietKhoaHocGhiDanh);
+        })
+        .catch((err) => {
+          handleNotification(err.response.data, "error");
+        });
+    };
+    fetchCouresEnrolled();
+  }, []);
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
-  const [additionalFees, setAdditionalFees] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [quantities, setQuantities] = useState({});
-  const handleRemoveFromCart = (courseId) => {
-    dispatch(removeFromCart(courseId));
-
-    const updatedSelectedKeys = selectedRowKeys.filter(
-      (key) => cartItems[key].maKhoaHoc !== courseId
-    );
-    setSelectedRowKeys(updatedSelectedKeys);
-    calculateTotals(updatedSelectedKeys);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
-  const columns = [
-    {
-      title: "Image Course",
-      dataIndex: "image",
-    },
-    {
-      title: "Name Course",
-      dataIndex: "name",
-    },
-
-    {
-      title: "Price Course",
-      dataIndex: "price",
-    },
-    {
-      title: "Remove",
-      dataIndex: "remove",
-    },
-  ];
-
-  const dataSource = cartItems.map((item, i) => ({
-    key: i,
-    image: (
-      <img
-        src={item.hinhAnh}
-        alt={item.tenKhoaHoc}
-        className="w-20 object-cover"
-      />
-    ),
-    name: item.tenKhoaHoc,
-
-    price: "$" + item.giaTien + ".00",
-    remove: (
-      <button
-        className="text-red-500 text-xl"
-        onClick={() => handleRemoveFromCart(item.maKhoaHoc)}
-      >
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
-    ),
-  }));
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-    calculateTotals(newSelectedRowKeys);
+  const handleUnEnroll = (courseCode) => {
+    quanLyKhoaHocService
+      .postHuyGhiDanh(courseCode, user.taiKhoan)
+      .then(() => {
+        const updateCourses = coursesEnrolled.filter(
+          (course) => course.maKhoaHoc !== courseCode
+        );
+        setCoursesEnrolled(updateCourses);
+        handleNotification("Hủy ghi danh thành công", "success");
+      })
+      .catch((err) => {
+        handleNotification(err.response.data, "error");
+      });
   };
 
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
+  const handleSearch = (value) => {
+    setSearchQuery(value.toLowerCase());
+    setCurrentPage(1);
   };
-
-  const calculateTotals = (keys) => {
-    const selectedItems = keys.map((key) => cartItems[key]);
-    console.log(selectedItems);
-    const newSubtotal = selectedItems.reduce(
-      (acc, item) => acc + item.giaTien,
-      0
-    );
-    setSubtotal(newSubtotal);
-
-    const newAdditionalFees = keys.length * 1;
-    setAdditionalFees(newAdditionalFees);
-
-    setTotal(newSubtotal + newAdditionalFees);
-  };
-
-  const summaryColumns = [
-    {
-      title: "Description",
-      dataIndex: "description",
-    },
-    {
-      title: "Amount",
-      dataIndex: "amount",
-    },
-  ];
-
-  const summaryData = [
-    {
-      key: "1",
-      description: "Course costs",
-      amount: `$${subtotal}.00`,
-    },
-    {
-      key: "2",
-      description: "Additional fees",
-      amount: `$${additionalFees}.00`,
-    },
-    {
-      key: "3",
-      description: "Total",
-      amount: `$${total}.00`,
-    },
-  ];
+  const filterCourses = coursesEnrolled.filter((course) =>
+    course.tenKhoaHoc.toLowerCase().includes(searchQuery)
+  );
+  console.log(filterCourses);
+  const startIndex = (currentPage - 1) * pageSize;
+  const currentCourses = filterCourses.slice(startIndex, startIndex + pageSize);
+  console.log(currentCourses);
+  const isResponsive = useResponsive({
+    sm: 640,
+    md: 768,
+    lg: 1024,
+  });
 
   return (
     <>
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-        <Flex gap="middle" vertical className="md:col-span-2">
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={dataSource}
-          />
-        </Flex>
-
-        <Space direction="vertical" size={16} className="md:col-span-1">
-          <Card title="SubTotal" style={{ width: 300 }}>
-            <Table
-              columns={summaryColumns}
-              dataSource={summaryData}
-              pagination={false}
-            />
-            <div className="text-right my-3 ">
-              <button className="btn btn-primary">Payment</button>
+      <div>
+        {!isResponsive.lg ? (
+          <div className="mt-5 container w-full">
+            <div className="flex justify-between">
+              <h1 className="text-3xl font-bold">Các khoá học đã tham gia</h1>
+              <Search
+                placeholder="Tìm kiếm khoá học"
+                onSearch={handleSearch}
+                className=" w-1/2"
+                size="large"
+                allowClear="true"
+              />
             </div>
-          </Card>
-        </Space>
+            {currentCourses.map((course) => {
+              return (
+                <div key={course.maKhoaHoc}>
+                  <br />
+                  <hr></hr>
+                  <div className="flex mt-2 mb-5">
+                    <div className="flex w-1/2 mr-5">
+                      <img src={course.hinhAnh} className="w-full h-60"></img>
+                    </div>
+                    <div className="flex-row w-full">
+                      <h3 className="text-lg font-semibold mb-3">
+                        {course.tenKhoaHoc}
+                      </h3>
+                      <p className="text-base line-clamp-5 ">
+                        Nội dung: {course.moTa}
+                      </p>
+                      <div className="inline-flex my-3">
+                        <Rate allowHalf defaultValue={4.5} disabled />
+                        <p className="mx-3">4.5</p>
+                        <p>({course.luotXem})</p>
+                      </div>
+                      <div>
+                        <Button
+                          className="hover: bg-red-600"
+                          type="primary"
+                          danger
+                          onClick={() => handleUnEnroll(course.maKhoaHoc)}
+                        >
+                          Huỷ ghi danh
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Pagination
+              style={{ display: "flex", justifyContent: "start" }}
+              className="my-10"
+              current={currentPage}
+              total={filterCourses.length}
+              pageSize={pageSize}
+              onChange={handlePageChange}
+            />
+          </div>
+        ) : !isResponsive.md ? (
+          <div className="mt-5 container w-11/12">
+            <div className="flex flex-col">
+              <h1 className="text-3xl font-bold mb-3">
+                Các khoá học đã tham gia
+              </h1>
+              <Search
+                placeholder="Tìm kiếm khoá học"
+                onSearch={handleSearch}
+                className=" w-full"
+                size="large"
+                allowClear="true"
+              />
+            </div>
+            {currentCourses.map((course) => {
+              return (
+                <div key={course.maKhoaHoc}>
+                  <br />
+                  <hr></hr>
+                  <div className="flex flex-row mt-2 mb-5">
+                    <div className="flex w-1/2 mr-5">
+                      <img src={course.hinhAnh} className="w-full h-60"></img>
+                    </div>
+                    <div className="flex-row w-1/2">
+                      <h3 className="text-lg font-semibold mb-3">
+                        {course.tenKhoaHoc}
+                      </h3>
+                      <p className="text-base line-clamp-4 ">
+                        Nội dung: {course.moTa}
+                      </p>
+                      <div className="inline-flex my-3">
+                        <Rate allowHalf defaultValue={4.5} disabled />
+                        <p className="mx-3">4.5</p>
+                        <p>({course.luotXem})</p>
+                      </div>
+                      <div>
+                        <Button
+                          className="hover: bg-red-600"
+                          type="primary"
+                          danger
+                          onClick={() => handleUnEnroll(course.maKhoaHoc)}
+                        >
+                          Huỷ ghi danh
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Pagination
+              style={{ display: "flex", justifyContent: "start" }}
+              className="my-10"
+              current={currentPage}
+              total={filterCourses.length}
+              pageSize={pageSize}
+              onChange={handlePageChange}
+            />
+          </div>
+        ) : (
+          <div className="mt-5 container w-11/12">
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-bold mb-3">
+                Các khoá học đã tham gia
+              </h1>
+              <Search
+                placeholder="Tìm kiếm khoá học"
+                onSearch={handleSearch}
+                className=" w-full"
+                size="large"
+                allowClear="true"
+              />
+            </div>
+            {currentCourses.map((course) => {
+              return (
+                <div key={course.maKhoaHoc}>
+                  <br />
+                  <hr></hr>
+                  <div className="flex flex-col mt-2 mb-5">
+                    <div className="flex w-full mr-5">
+                      <img
+                        src={course.hinhAnh}
+                        className="w-full h-60 mb-2"
+                      ></img>
+                    </div>
+                    <div className="flex-row w-full">
+                      <h3 className="text-lg font-semibold mb-3">
+                        {course.tenKhoaHoc}
+                      </h3>
+                      <p className="text-base text-left ">
+                        Nội dung: {course.moTa}
+                      </p>
+                      <div className="inline-flex my-3">
+                        <Rate allowHalf defaultValue={4.5} disabled />
+                        <p className="mx-3">4.5</p>
+                        <p>({course.luotXem})</p>
+                      </div>
+                      <div>
+                        <Button
+                          className="hover: bg-red-600"
+                          type="primary"
+                          danger
+                          onClick={() => handleUnEnroll(course.maKhoaHoc)}
+                        >
+                          Huỷ ghi danh
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Pagination
+              style={{ display: "flex", justifyContent: "start" }}
+              className="my-10"
+              current={currentPage}
+              total={filterCourses.length}
+              pageSize={pageSize}
+              onChange={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
 import { pathDefault } from "../../common/path";
 import MyCourses from "../../component/MyCourses/MyCourses";
+import MyCart from "../MyCart/MyCart";
 
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -110,6 +111,11 @@ const PersonalInformation = () => {
     },
     {
       key: "3",
+      label: <p>My Cart</p>,
+      children: <MyCart />,
+    },
+    {
+      key: "4",
       label: <p> My Course</p>,
       children: <MyCourses />,
     },
