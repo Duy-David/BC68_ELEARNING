@@ -12,6 +12,7 @@ import InputCustom from "../../component/Input/InputCustom";
 import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { pathChildren } from "../../common/path";
+import WithLoading from "../../component/WithLoading/WithLoading";
 
 const ManagerCourse = () => {
   const [courseValue, setCourseValue] = useState({
@@ -450,7 +451,7 @@ const ManagerCourse = () => {
   ];
 
   return (
-    <>
+    <WithLoading>
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-4xl font-bold">Quản lý Khóa học </h2>
         <button
@@ -462,7 +463,7 @@ const ManagerCourse = () => {
       </div>
 
       <Table columns={columns} dataSource={listCourse} rowKey="maKhoaHoc" />
-    </>
+    </WithLoading>
   );
 };
 export default ManagerCourse;

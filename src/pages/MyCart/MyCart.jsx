@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { removeFromCart } from "../../redux/cartSlice";
+import WithLoading from "../../component/WithLoading/WithLoading";
 
 const MyCart = () => {
   const { cartItems } = useSelector((state) => state.cartSlice);

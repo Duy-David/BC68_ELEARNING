@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { pathDefault } from "../../common/path";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import CourseCard from "../../component/CourseCard/CourseCard";
+import WithLoading from "../../component/WithLoading/WithLoading";
 
 const SearchCourseResult = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,7 +33,7 @@ const SearchCourseResult = () => {
   }, [valueParams]);
 
   return (
-    <>
+    <WithLoading>
       <div className="container">
         <Breadcrumb
           separator=""
@@ -82,7 +83,7 @@ const SearchCourseResult = () => {
           ))}
         </div>
       </div>
-    </>
+    </WithLoading>
   );
 };
 

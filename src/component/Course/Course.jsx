@@ -39,6 +39,11 @@ const Course = () => {
   );
 
   // console.log(listCourseCategory);
+  const sortedCourses = (courses) => {
+    return courses
+      .sort((a, b) => b.luotXem - a.luotXem) 
+      .slice(0, 10); 
+  };
 
   console.log(listCourse);
   const items = listCourseCategory.map((category, index) => ({
@@ -49,24 +54,23 @@ const Course = () => {
         key={index}
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10"
       >
-        {listCourse
-          .filter(
+        {sortedCourses(
+          listCourse.filter(
             (course) =>
               course.danhMucKhoaHoc.maDanhMucKhoahoc === category.maDanhMuc
           )
-          .slice(0, 10)
-          .map((course) => (
-            <Link
-              key={course.maKhoaHoc}
-              to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
-            >
-              {/* <Popover content={<CourseInfo course={course} />}> */}
-              <div key={course.maKhoaHoc} className="course-item">
-                <CourseCard course={course} />
-              </div>
-              {/* </Popover> */}
-            </Link>
-          ))}
+        ).map((course) => (
+          <Link
+            key={course.maKhoaHoc}
+            to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
+          >
+            {/* <Popover content={<CourseInfo course={course} />}> */}
+            <div key={course.maKhoaHoc} className="course-item">
+              <CourseCard course={course} />
+            </div>
+            {/* </Popover> */}
+          </Link>
+        ))}
       </div>
     ),
   }));

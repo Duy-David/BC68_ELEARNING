@@ -8,7 +8,8 @@ import DateToWords from "../../component/DateToWords/DateToWords";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
-import Loading from "../Loading/Loading";
+import Loading from "../../component/Loading/Loading";
+import WithLoading from "../../component/WithLoading/WithLoading";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
   const learningObjectives = [
@@ -39,17 +40,11 @@ const DetailCourse = () => {
     maKhoaHoc: "",
     taiKfhoan: "",
   };
-  if (!detailCourse) {
-    return <><Loading/></>;
-  }
+  
   console.log(detailCourse);
-  // const dispatch = useDispatch();
-
-  // const handleAddToCart = () => {
-  //   dispatch(addToCart(detailCourse));
-  // };
+ 
   return (
-    <>
+    <WithLoading>
       <div className="container pl-4">
         <Breadcrumb
           className=" my-4"
@@ -60,18 +55,18 @@ const DetailCourse = () => {
             {
               title: (
                 <Link
-                  to={`/course-catelogies/${detailCourse.danhMucKhoaHoc.maDanhMucKhoahoc}`}
+                  to={`/course-catelogies/${detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc}`}
                 >
-                  {detailCourse.danhMucKhoaHoc.maDanhMucKhoahoc}
+                  {detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc}
                 </Link>
               ),
             },
             {
               title: (
                 <Link
-                  to={`/course-catelogies/${detailCourse.danhMucKhoaHoc.maDanhMucKhoahoc}`}
+                  to={`/course-catelogies/${detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc}`}
                 >
-                  {detailCourse.danhMucKhoaHoc.tenDanhMucKhoaHoc}
+                  {detailCourse?.danhMucKhoaHoc.tenDanhMucKhoaHoc}
                 </Link>
               ),
             },
@@ -90,7 +85,7 @@ const DetailCourse = () => {
 
               <div className="flex sm:items-center flex-wrap flex-col sm:flex-row gap-4 text-sm text-gray-600 mt-2 border-y  py-3">
                 <span className="pr-4 sm:border-r-2">
-                  <strong>{detailCourse.nguoiTao?.hoTen}</strong>
+                  <strong>{detailCourse?.nguoiTao?.hoTen}</strong>
                 </span>
                 <span className="pr-4 sm:border-r-2">
                   Last Updated:
@@ -123,9 +118,7 @@ const DetailCourse = () => {
                 which must be completed before it can be accessed:
               </p>
               <div className="mt-4">
-                <div
-                  className="inline-block text-blue-600 bg-gray-100 px-4 py-2 rounded-md"
-                >
+                <div className="inline-block text-blue-600 bg-gray-100 px-4 py-2 rounded-md">
                   Artificial Intelligence & Machine Learning
                 </div>
               </div>
@@ -192,7 +185,7 @@ const DetailCourse = () => {
           </div>
         </div>
       </div>
-    </>
+    </WithLoading>
   );
 };
 

@@ -35,17 +35,17 @@ const CourseCard = ({ course }) => {
 
         {/* Course Instructor */}
         <p className="text-sm font-medium mb-2 min-h-max sm:min-h-10">
-          Giảng viên: {limitCharacter(course.nguoiTao.hoTen, 37)}
+          Teacher: {limitCharacter(course.nguoiTao.hoTen, 37)}
         </p>
 
         {/* Course view */}
         <p className="text-lg font-bold text-green-500">
           {" "}
-          Lượt xem: {course.luotXem}
+          Viewer: {course.luotXem}
         </p>
         <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
           <button className="btn btn-primary w-full mt-2">
-            Chi tiết khóa học
+          Course details
           </button>
         </Link>
       </div>

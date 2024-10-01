@@ -4,6 +4,7 @@ import { Select, Table, Input } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationContext } from "../../App";
+import WithLoading from "../../component/WithLoading/WithLoading";
 const { Search } = Input;
 
 const EnrollCourse = () => {
@@ -26,7 +27,7 @@ const EnrollCourse = () => {
 
   const fetchUserUnEnroll = (course) => {
     if (!course) {
-      handleNotification("không có thông tin khoá học.","info");
+      handleNotification("không có thông tin khoá học.", "info");
       return;
     }
 
@@ -36,9 +37,12 @@ const EnrollCourse = () => {
         setUserUnEnroll(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      
-        handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+        console.log(err);
+
+        handleNotification(
+          err.response?.data || "Đã xảy ra lỗi không xác định",
+          "error"
+        );
       });
   };
 
@@ -52,7 +56,10 @@ const EnrollCourse = () => {
         setSearchWaitList(res.data);
       })
       .catch((err) => {
-        handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+        handleNotification(
+          err.response?.data || "Đã xảy ra lỗi không xác định",
+          "error"
+        );
       });
   };
 
@@ -60,13 +67,16 @@ const EnrollCourse = () => {
     if (!courseCategoriesMatch) return;
 
     quanLyKhoaHocService
-      . postDanhSachHocVienKhoaHoc(maKhoaHoc, user.accessToken)
+      .postDanhSachHocVienKhoaHoc(maKhoaHoc, user.accessToken)
       .then((res) => {
         setEnrolledList(res.data);
         setSearchEnrolledList(res.data);
       })
       .catch((err) => {
-        handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+        handleNotification(
+          err.response?.data || "Đã xảy ra lỗi không xác định",
+          "error"
+        );
       });
   };
 
@@ -84,8 +94,8 @@ const EnrollCourse = () => {
     quanLyKhoaHocService
       .postGhiDanhKhoaHoc(enrollData, user.accessToken)
       .then((res) => {
-        console.log(res)
-        handleNotification(res.data,"success");
+        console.log(res);
+        handleNotification(res.data, "success");
         setWaitListData((prevData) => [...prevData, ...res.data]);
         setSelectedUser([]);
         fetchWaitListData();
@@ -93,8 +103,11 @@ const EnrollCourse = () => {
         fetchCourseStudentsList();
       })
       .catch((err) => {
-        console.log()
-        handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+        console.log();
+        handleNotification(
+          err.response?.data || "Đã xảy ra lỗi không xác định",
+          "error"
+        );
       });
   };
 
@@ -102,7 +115,6 @@ const EnrollCourse = () => {
     quanLyKhoaHocService
       .deletedHuyGhiDanh(maKhoaHoc, taiKhoan, user.accessToken)
       .then(() => {
-        
         setWaitListData(
           waitListData.filter((user) => user.taiKhoan !== taiKhoan)
         );
@@ -112,8 +124,11 @@ const EnrollCourse = () => {
         fetchWaitListData();
       })
       .catch((err) => {
-        console.log(err)
-        handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+        console.log(err);
+        handleNotification(
+          err.response?.data || "Đã xảy ra lỗi không xác định",
+          "error"
+        );
       });
   };
 
@@ -128,7 +143,10 @@ const EnrollCourse = () => {
           })
           .catch((err) => {
             console.log(err);
-            handleNotification(err.response?.data || "Đã xảy ra lỗi không xác định","error");
+            handleNotification(
+              err.response?.data || "Đã xảy ra lỗi không xác định",
+              "error"
+            );
           });
       }
     };
@@ -251,90 +269,92 @@ const EnrollCourse = () => {
   ];
 
   return (
-    <div className="container">
-      <h3 className="text-black text-3xl mb-5">Ghi danh khoá học</h3>
-      {course && (
-        <div className="flex">
-          <img src={course.hinhAnh} className="flex w-1/3  mr-5"></img>
-          <div className="flex-col w-1/3 ml-5 h-full">
-            <h4 className="font-sans text-lg font-bold mb-3">
-              {course.tenKhoaHoc}
-            </h4>
-            <p className="font-sans text-base mb-2">
-              Giảng Viên: {course.nguoiTao.hoTen}
-            </p>
-            <p className="font-sans text-base mb-2">
-              Lượt xem: {course.luotXem}
-            </p>
-            <p className="font-sans text-base mb-2">Mô tả: {course.moTa}</p>
+    <>
+      <div className="container">
+        <h3 className="text-black text-3xl mb-5">Ghi danh khoá học</h3>
+        {course && (
+          <div className="flex">
+            <img src={course.hinhAnh} className="flex w-1/3  mr-5"></img>
+            <div className="flex-col w-1/3 ml-5 h-full">
+              <h4 className="font-sans text-lg font-bold mb-3">
+                {course.tenKhoaHoc}
+              </h4>
+              <p className="font-sans text-base mb-2">
+                Giảng Viên: {course.nguoiTao.hoTen}
+              </p>
+              <p className="font-sans text-base mb-2">
+                Lượt xem: {course.luotXem}
+              </p>
+              <p className="font-sans text-base mb-2">Mô tả: {course.moTa}</p>
+            </div>
+            <div className="w-1/3 text-center">
+              <h4 className="font-sans text-lg font-bold mb-3">
+                Chọn người dùng
+              </h4>
+              <Select
+                placeholder="tên người dùng(có thể search)"
+                showSearch="true"
+                allowClear="true"
+                size="large"
+                style={{ width: "100%" }}
+                onChange={handleChange}
+                options={userUnEnroll.map((user) => ({
+                  value: user.taiKhoan,
+                  label: user.hoTen,
+                }))}
+                value={selectedUser}
+              />
+              <button
+                onClick={() => handleEnroll(selectedUser)}
+                className="items-center text-center font-sans text-base text-black border-spacing-1 border px-4 py-3 rounded bg-yellow-300 hover:bg-yellow-400 hover:text-black mt-5"
+              >
+                Ghi danh
+              </button>
+            </div>
           </div>
-          <div className="w-1/3 text-center">
+        )}
+        <hr className="my-5" />
+        <div className="mt-5">
+          <div className="flex justify-between mb-5">
             <h4 className="font-sans text-lg font-bold mb-3">
-              Chọn người dùng
+              Học viên chờ xác thực
             </h4>
-            <Select
-              placeholder="tên người dùng(có thể search)"
-              showSearch="true"
-              allowClear="true"
+            <Search
+              placeholder="Tìm kiếm tên người dùng"
+              onSearch={(value) => handleSearchWaitList(value)}
+              className=" w-1/2"
+              onChange={(e) => handleInputChange(e, "waitList")}
               size="large"
-              style={{ width: "100%" }}
-              onChange={handleChange}
-              options={userUnEnroll.map((user) => ({
-                value: user.taiKhoan,
-                label: user.hoTen,
-              }))}
-              value={selectedUser}
             />
-            <button
-              onClick={() => handleEnroll(selectedUser)}
-              className="items-center text-center font-sans text-base text-black border-spacing-1 border px-4 py-3 rounded bg-yellow-300 hover:bg-yellow-400 hover:text-black mt-5"
-            >
-              Ghi danh
-            </button>
           </div>
-        </div>
-      )}
-      <hr className="my-5" />
-      <div className="mt-5">
-        <div className="flex justify-between mb-5">
-          <h4 className="font-sans text-lg font-bold mb-3">
-            Học viên chờ xác thực
-          </h4>
-          <Search
-            placeholder="Tìm kiếm tên người dùng"
-            onSearch={(value) => handleSearchWaitList(value)}
-            className=" w-1/2"
-            onChange={(e) => handleInputChange(e, "waitList")}
-            size="large"
+          <Table
+            className="font-sans text-base"
+            columns={columns}
+            dataSource={searchWaitList}
           />
         </div>
-        <Table
-          className="font-sans text-base"
-          columns={columns}
-          dataSource={searchWaitList}
-        />
-      </div>
-      <hr className="my-5" />
-      <div className="mt-5">
-        <div className="flex justify-between mb-5">
-          <h4 className="font-sans text-lg font-bold mb-3">
-            Học viên đã tham gia khoá học
-          </h4>
-          <Search
-            placeholder="Tìm kiếm tên người dùng"
-            onSearch={(value) => handleSearchEnrolledList(value)}
-            className=" w-1/2"
-            onChange={(e) => handleInputChange(e, "enrolledList")}
-            size="large"
+        <hr className="my-5" />
+        <div className="mt-5">
+          <div className="flex justify-between mb-5">
+            <h4 className="font-sans text-lg font-bold mb-3">
+              Học viên đã tham gia khoá học
+            </h4>
+            <Search
+              placeholder="Tìm kiếm tên người dùng"
+              onSearch={(value) => handleSearchEnrolledList(value)}
+              className=" w-1/2"
+              onChange={(e) => handleInputChange(e, "enrolledList")}
+              size="large"
+            />
+          </div>
+          <Table
+            className="font-sans text-base"
+            columns={enrolledColumns}
+            dataSource={searchEnrolledList}
           />
         </div>
-        <Table
-          className="font-sans text-base"
-          columns={enrolledColumns}
-          dataSource={searchEnrolledList}
-        />
       </div>
-    </div>
+    </>
   );
 };
 

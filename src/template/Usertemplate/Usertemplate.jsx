@@ -6,7 +6,7 @@ import "./user-template.scss";
 import ScrollToTop from "react-scroll-to-top";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import Loading from "../../pages/Loading/Loading";
+import Loading from "../../component/Loading/Loading";
 
 const Usertemplate = () => {
   const { isLoading } = useSelector((state) => state.loadingSlice.isLoading);

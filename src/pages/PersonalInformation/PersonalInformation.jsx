@@ -7,8 +7,9 @@ import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
 import { pathDefault } from "../../common/path";
-import MyCourses from "../../component/MyCourses/MyCourses";
+import MyCourses from "../MyCourses/MyCourses";
 import MyCart from "../MyCart/MyCart";
+import WithLoading from "../../component/WithLoading/WithLoading";
 
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -58,14 +59,14 @@ const PersonalInformation = () => {
   const { View: LottieView } = useLottie(options);
 
   // Remount animation when switching back to tab 1
-  console.log(currentTab)
+  console.log(currentTab);
   useEffect(() => {
-    if (currentTab ===  "1") {
+    if (currentTab === "1") {
       setAnimationKey((prevKey) => prevKey + 1);
     }
   }, [currentTab]);
-    // const { View } = useLottie(options);
-  console.log(animationKey)
+  // const { View } = useLottie(options);
+  console.log(animationKey);
   const items = [
     {
       key: "1",
@@ -84,10 +85,7 @@ const PersonalInformation = () => {
               </p>
             </div>
 
-            <div className="md:w-1/2 w-full">
-              {" "}
-              {LottieView}
-            </div>
+            <div className="md:w-1/2 w-full"> {LottieView}</div>
           </div>
         </>
       ),
@@ -96,7 +94,7 @@ const PersonalInformation = () => {
       key: "2",
       label: <p>Personal Information</p>,
       children: (
-        <>
+        <WithLoading>
           <h2 className="text-center text-6xl my-8">BASIC INFOMATION</h2>
           <div className="grid grid-cols-2 gap-7 px-8">
             {userFields.map(([label, value], index) => (
@@ -106,18 +104,26 @@ const PersonalInformation = () => {
             ))}
           </div>
           <Instructor />
-        </>
+        </WithLoading>
       ),
     },
     {
       key: "3",
       label: <p>My Cart</p>,
-      children: <MyCart />,
+      children: (
+        <WithLoading>
+          <MyCart />
+        </WithLoading>
+      ),
     },
     {
       key: "4",
       label: <p> My Course</p>,
-      children: <MyCourses />,
+      children: (
+        <WithLoading>
+          <MyCourses />
+        </WithLoading>
+      ),
     },
   ];
 

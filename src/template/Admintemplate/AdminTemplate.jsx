@@ -10,7 +10,8 @@ import { Button, Layout, Menu, theme } from "antd";
 import { getLocalStorage } from "../../util/util";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Loading from "../../pages/Loading/Loading";
+import Loading from "../../component/Loading/Loading";
+import WithLoading from "../../component/WithLoading/WithLoading";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const AdminTemplate = () => {
   }, []);
 
   return (
-    <>
+    <WithLoading>
       {isLoading ? (
         <Loading />
       ) : (
@@ -66,7 +67,6 @@ const AdminTemplate = () => {
                       </Link>
                     ),
                   },
-                  
                 ]}
               />
             </Sider>
@@ -111,7 +111,7 @@ const AdminTemplate = () => {
           </Layout>
         </>
       )}
-    </>
+    </WithLoading>
   );
 };
 export default AdminTemplate;

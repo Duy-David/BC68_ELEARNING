@@ -2,6 +2,9 @@ import React from 'react';
 
 const DateToWords = ({ dateInput }) => {
   const convertDateToWords = (dateStr) => {
+    if (typeof dateStr !== 'string' || !dateStr.includes('/')) {
+      return 'Invalid date';
+    }
     // Phân tách ngày, tháng và năm từ chuỗi ngày
     const [day, month, year] = dateStr.split('/').map(Number);
     
