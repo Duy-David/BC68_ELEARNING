@@ -1,10 +1,13 @@
 export const pathDefault = {
   homePage: "/",
   notFound: "*",
-  register: "/dang-ky",
-  login: "/dang-nhap",
+  // register: "/dang-ky",
+  // login: "/dang-nhap",
   searchCourse: "/search-course",
   admin: "/admin",
+  courseCatelogies: "/course-catelogies/:maDanhMuc",
+  detailCourse: "/course-catelogies/detail-course/:maKhoaHoc",
+  personalInfornation: "personal-infornation/:hoTen",
 };
 
 export const pathChildren = {

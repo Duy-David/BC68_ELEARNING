@@ -8,7 +8,7 @@ import { addToCart } from "../../redux/cartSlice";
 import { setStatusModal } from "../../redux/headerSlice";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { useDispatch, useSelector } from "react-redux";
-import { NotificationContext } from "../../App";
+import { NotificationContext } from "../../App"
 
 const CourseCard = ({ course }) => {
   const { handleNotification } = useContext(NotificationContext);

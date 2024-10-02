@@ -50,7 +50,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
       } catch (error) {
         console.log(error);
         handleNotification(
-          `ERROR! :: ${error.message} :: ${error.response.data}`,
+          `${error.response.data}`,
           "error"
         );
       }

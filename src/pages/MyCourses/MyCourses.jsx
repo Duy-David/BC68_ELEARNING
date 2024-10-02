@@ -13,7 +13,7 @@ const MyCourses = () => {
   const [coursesEnrolled, setCoursesEnrolled] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const pageSize = 5;
+  const pageSize = 10;
   const { user } = useSelector((state) => state.authSlice);
   useEffect(() => {
     const fetchCouresEnrolled = () => {
@@ -91,12 +91,11 @@ const MyCourses = () => {
                       <img src={course.hinhAnh} className="w-full h-60"></img>
                     </div>
                     <div className="flex-row w-full">
+                    
                       <h3 className="text-lg font-semibold mb-3">
                         {course.tenKhoaHoc}
                       </h3>
-                      <p className="text-base line-clamp-5 ">
-                        Nội dung: {course.moTa}
-                      </p>
+                      <p className="text-base line-clamp-5 ">{course.moTa}</p>
                       <div className="inline-flex my-3">
                         <Rate allowHalf defaultValue={4.5} disabled />
                         <p className="mx-3">4.5</p>
@@ -129,9 +128,7 @@ const MyCourses = () => {
         ) : !isResponsive.md ? (
           <div className="mt-5 container w-11/12">
             <div className="flex flex-col">
-              <h2 className="text-3xl font-bold mb-3">
-              Enrolled courses
-              </h2>
+              <h2 className="text-3xl font-bold mb-3">Enrolled courses</h2>
               <Search
                 placeholder="Search a course..."
                 onSearch={handleSearch}
@@ -153,9 +150,7 @@ const MyCourses = () => {
                       <h3 className="text-lg font-semibold mb-3">
                         {course.tenKhoaHoc}
                       </h3>
-                      <p className="text-base line-clamp-4 ">
-                        Nội dung: {course.moTa}
-                      </p>
+                      <p className="text-base line-clamp-4 ">{course.moTa}</p>
                       <div className="inline-flex my-3">
                         <Rate allowHalf defaultValue={4.5} disabled />
                         <p className="mx-3">4.5</p>
@@ -168,7 +163,7 @@ const MyCourses = () => {
                           danger
                           onClick={() => handleUnEnroll(course.maKhoaHoc)}
                         >
-                         Cancel registration
+                          Cancel registration
                         </Button>
                       </div>
                     </div>
@@ -188,9 +183,7 @@ const MyCourses = () => {
         ) : (
           <div className="mt-5 container w-11/12">
             <div className="flex flex-col">
-              <h2 className="text-2xl font-bold mb-3">
-              Enrolled courses
-              </h2>
+              <h2 className="text-2xl font-bold mb-3">Enrolled courses</h2>
               <Search
                 placeholder="Search a course..."
                 onSearch={handleSearch}
@@ -215,9 +208,7 @@ const MyCourses = () => {
                       <h3 className="text-lg font-semibold mb-3">
                         {course.tenKhoaHoc}
                       </h3>
-                      <p className="text-base text-left ">
-                        Nội dung: {course.moTa}
-                      </p>
+                      <p className="text-base text-left ">{course.moTa}</p>
                       <div className="inline-flex my-3">
                         <Rate allowHalf defaultValue={4.5} disabled />
                         <p className="mx-3">4.5</p>

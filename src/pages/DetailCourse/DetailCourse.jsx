@@ -93,8 +93,8 @@ const DetailCourse = () => {
                 </span>
                 <div className="flex items-center pr-4 sm:border-r-2">
                   <span>
-                    <strong>4.52</strong>/5{" "}
-                    <Rate allowHalf defaultValue={4.52} disabled={true} />
+                    <strong>4.5</strong>/5{" "}
+                    <Rate allowHalf defaultValue={4.5} disabled />
                   </span>
                   <span className="ml-2">
                     ({detailCourse?.luotXem} reviews)
