@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { limitCharacter } from "../../util/util";
 import { Popover } from "antd";
 import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { addToCart } from "../../redux/cartSlice";
 import { setStatusModal } from "../../redux/headerSlice";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
+import { useDispatch, useSelector } from "react-redux";
+import { NotificationContext } from "../../App";
 
 const CourseCard = ({ course }) => {
+  const { handleNotification } = useContext(NotificationContext);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.authSlice);
   const openLogin = () => {
     dispatch(
       setStatusModal({
@@ -80,6 +84,7 @@ const CourseCard = ({ course }) => {
       </button>{" "}
     </div>
   );
+  console.log(setStatusModal)
   return (
     <div className=" rounded-lg overflow-hidden shadow-lg bg-white">
       {/* Course Image */}{" "}
