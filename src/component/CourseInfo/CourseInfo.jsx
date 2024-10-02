@@ -119,6 +119,7 @@ const CourseInfo = ({ detailCourse }) => {
       >
         Enroll
       </button>{" "}
+      
     </div>
   );
 };

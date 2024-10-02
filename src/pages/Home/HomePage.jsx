@@ -10,14 +10,14 @@ import WithLoading from "../../component/WithLoading/WithLoading";
 const Homepage = () => {
   return (
     <>
-      <WithLoading>
+      {/* <WithLoading> */}
         <Banner />
         <Categories />
         <Course />
         <AboutUs />
         <Instructor />
         <Partner />
-      </WithLoading>
+      {/* </WithLoading> */}
     </>
   );
 };

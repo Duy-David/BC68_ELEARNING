@@ -72,9 +72,9 @@ const MyCourses = () => {
         {!isResponsive.lg ? (
           <div className="mt-5 container w-full">
             <div className="flex justify-between">
-              <h1 className="text-3xl font-bold">Các khoá học đã tham gia</h1>
+              <h2 className="text-3xl font-bold">Enrolled courses</h2>
               <Search
-                placeholder="Tìm kiếm khoá học"
+                placeholder="Search a course..."
                 onSearch={handleSearch}
                 className=" w-1/2"
                 size="large"
@@ -109,7 +109,7 @@ const MyCourses = () => {
                           danger
                           onClick={() => handleUnEnroll(course.maKhoaHoc)}
                         >
-                          Huỷ ghi danh
+                          Cancel registration
                         </Button>
                       </div>
                     </div>
@@ -129,11 +129,11 @@ const MyCourses = () => {
         ) : !isResponsive.md ? (
           <div className="mt-5 container w-11/12">
             <div className="flex flex-col">
-              <h1 className="text-3xl font-bold mb-3">
-                Các khoá học đã tham gia
-              </h1>
+              <h2 className="text-3xl font-bold mb-3">
+              Enrolled courses
+              </h2>
               <Search
-                placeholder="Tìm kiếm khoá học"
+                placeholder="Search a course..."
                 onSearch={handleSearch}
                 className=" w-full"
                 size="large"
@@ -168,7 +168,7 @@ const MyCourses = () => {
                           danger
                           onClick={() => handleUnEnroll(course.maKhoaHoc)}
                         >
-                          Huỷ ghi danh
+                         Cancel registration
                         </Button>
                       </div>
                     </div>
@@ -188,11 +188,11 @@ const MyCourses = () => {
         ) : (
           <div className="mt-5 container w-11/12">
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold mb-3">
-                Các khoá học đã tham gia
-              </h1>
+              <h2 className="text-2xl font-bold mb-3">
+              Enrolled courses
+              </h2>
               <Search
-                placeholder="Tìm kiếm khoá học"
+                placeholder="Search a course..."
                 onSearch={handleSearch}
                 className=" w-full"
                 size="large"
@@ -230,7 +230,7 @@ const MyCourses = () => {
                           danger
                           onClick={() => handleUnEnroll(course.maKhoaHoc)}
                         >
-                          Huỷ ghi danh
+                          Cancel registration
                         </Button>
                       </div>
                     </div>
