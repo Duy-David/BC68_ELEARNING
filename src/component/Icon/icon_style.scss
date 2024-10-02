@@ -93,3 +93,8 @@
 .categories-item:hover .categories-item__name::before {
   transform: translateY(-50%) scale(1);
 }
+
+// Features-item icon
+.features-item_icon svg {
+  fill: #fff;
+}
