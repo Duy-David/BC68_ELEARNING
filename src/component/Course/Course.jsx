@@ -60,16 +60,16 @@ const Course = () => {
               course.danhMucKhoaHoc.maDanhMucKhoahoc === category.maDanhMuc
           )
         ).map((course) => (
-          <Link
-            key={course.maKhoaHoc}
-            to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
-          >
-            {/* <Popover content={<CourseInfo course={course} />}> */}
+          // <Link
+          //   key={course.maKhoaHoc}
+          //   to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
+          // >
+            // {/* <Popover content={<CourseInfo course={course} />}> */}
             <div key={course.maKhoaHoc} className="course-item">
               <CourseCard course={course} />
             </div>
-            {/* </Popover> */}
-          </Link>
+            // {/* </Popover> */}
+          // </Link>
         ))}
       </div>
     ),

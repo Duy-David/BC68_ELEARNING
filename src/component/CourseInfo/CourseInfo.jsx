@@ -4,6 +4,7 @@ import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
+import { setStatusModal } from "../../redux/headerSlice";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { useNavigate } from "react-router-dom";
 import { NotificationContext } from "../../App";
@@ -14,6 +15,9 @@ const CourseInfo = ({ detailCourse }) => {
   const { maKhoaHoc } = useParams();
   const { handleNotification } = useContext(NotificationContext);
   const { user } = useSelector((state) => state.authSlice);
+  // const { setStatusModal } = useSelector((state) => state.headerSlice);
+  // console.log(sets)
+  const dispatch = useDispatch();
   const [courseEnroll, setCourseEnroll] = useState();
   const navigate = useNavigate();
   const details = [
@@ -23,8 +27,14 @@ const CourseInfo = ({ detailCourse }) => {
     { label: "Subject", value: "Data Modeling" },
     { label: "Language", value: "Vietnamese" },
   ];
-  const dispatch = useDispatch();
-
+  const openLogin = () => {
+    dispatch(
+      setStatusModal({
+        isLogin: true,
+        isRegister: false,
+      })
+    );
+  };
   const handleAddToCart = () => {
     dispatch(addToCart(detailCourse));
   };
@@ -66,7 +76,17 @@ const CourseInfo = ({ detailCourse }) => {
       {/* Add to Cart Button */}
       <button
         className="w-full my-2 bg-blue-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-blue-700"
-        onClick={handleAddToCart}
+        onClick={() => {
+          if (user) {
+            handleAddToCart();
+          } else {
+            handleNotification(
+              "Tính năng cần phải được đăng nhập mới thực hiện được",
+              "warn"
+            );
+            openLogin();
+          }
+        }}
       >
         <FontAwesomeIcon icon={faBasketShopping} className="mx-3" />
         Add to cart
@@ -74,18 +94,27 @@ const CourseInfo = ({ detailCourse }) => {
       <button
         className="w-full my-2 bg-green-600 text-white font-semibold py-2 rounded-md flex items-center justify-center hover:bg-green-600/90"
         onClick={() => {
-          quanLyKhoaHocService
-            .postDangkyKhoaHoc(user.accessToken, {
-              maKhoaHoc,
-              taiKhoan: user.taiKhoan,
-            })
-            .then((res) => {
-              handleNotification("Đăng ký thành công", "success")
-              dispatch(getValueCourseAPI());
-            })
-            .catch((err) => {
-              handleNotification(err.response.data, "error");
-            });
+          if (user) {
+            quanLyKhoaHocService
+              .postDangkyKhoaHoc(user.accessToken, {
+                maKhoaHoc,
+                taiKhoan: user.taiKhoan,
+              })
+              .then((res) => {
+                console.log(res)
+                handleNotification(res.data, "success");
+                dispatch(getValueCourseAPI());
+              })
+              .catch((err) => {
+                handleNotification(err.response.data, "error");
+              });
+          } else {
+            handleNotification(
+              "Tính năng cần phải được đăng nhập mới thực hiện được",
+              "warn"
+            );
+            openLogin();
+          }
         }}
       >
         Enroll
