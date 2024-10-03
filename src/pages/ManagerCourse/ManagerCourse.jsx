@@ -281,7 +281,7 @@ const ManagerCourse = () => {
       },
     },
     {
-      title: "Action",
+      title: "Hành Động",
       key: "action",
       render: (_, record) => {
         console.log(record);
