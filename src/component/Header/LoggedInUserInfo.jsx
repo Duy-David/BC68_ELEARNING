@@ -7,8 +7,6 @@ import {
   PoweroffOutlined,
   TeamOutlined,
   ToolFilled,
-  ToolOutlined,
-  ToolTwoTone,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -18,10 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemLocalStorage } from "../../util/util";
 import { setValueUser } from "../../redux/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMedal,
-  faScrewdriverWrench,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import { NotificationContext } from "../../App";
 import { pathDefault } from "../../common/path";
 
