@@ -68,6 +68,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-// https://matthew.wagerfield.com/parallax/
-// https://github.com/wagerfield/parallax

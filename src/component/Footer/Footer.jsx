@@ -10,8 +10,10 @@ import {
   faTwitter,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const { user } = useSelector((state) => state.authSlice);
   return (
     <footer className="bg-[#f8f8f8] py-12 px-3 mt-7">
       <div className="container mx-auto">
@@ -71,6 +73,9 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link to={"javascript:void(0)"}>Sitemap</Link>
+                </li>
+                <li>
+                  <Link to={"javascript:void(0)"}>Contact Us</Link>
                 </li>
               </ul>
             </div>

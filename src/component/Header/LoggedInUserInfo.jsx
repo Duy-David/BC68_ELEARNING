@@ -5,7 +5,11 @@ import {
   InfoCircleOutlined,
   LogoutOutlined,
   MailOutlined,
+  PoweroffOutlined,
   TeamOutlined,
+  ToolFilled,
+  ToolOutlined,
+  ToolTwoTone,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -40,6 +44,17 @@ const LoggedInUserInfo = () => {
   };
 
   const items = [
+    user.maLoaiNguoiDung === "GV"
+    ? {
+        label: (
+          <Link to={pathDefault.admin} className="font-semibold">
+            Go to Admin Page
+          </Link>
+        ),
+        key: "0",
+        icon: <ToolFilled />,
+      }
+    : null,
     {
       label: <Link to={pathDefault.homePage}>My Message</Link>,
       key: "1",
