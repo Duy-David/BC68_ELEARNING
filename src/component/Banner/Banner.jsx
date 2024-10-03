@@ -29,7 +29,7 @@ const Banner = () => {
           <div className="banner_right w-full md:w-1/2">
             <div className="slider-image px-4">
               <div className="relative">
-                <img src="assets/home-01-hero-image.png" alt="" />
+                <img src="png/banner/home-01-hero-image.png" alt="" />
                 <div className="absolute -bottom-6 left-0 p-5 bg-white shadow-2xl rounded-lg max-w-[255px]">
                   <IconBell className="w-14 h-14 p-4 rounded-full bg-[#ffc221] absolute -top-8 -left-7 icon-white" />
                   <p>
@@ -47,7 +47,7 @@ const Banner = () => {
         <img
           class="slider-section__shape-01"
           data-depth="0.8"
-          src="assets/edumall-shape-grid-dots.png"
+          src="png/banner/edumall-shape-grid-dots.png"
           alt="Shape"
           width="417"
           height="371"
@@ -57,7 +57,7 @@ const Banner = () => {
         <img
           class="slider-section__shape-04"
           data-depth="-0.6"
-          src="assets/edumall-shape-01.png"
+          src="png/banner/edumall-shape-01.png"
           alt="Shape"
           width="179"
           height="178"
