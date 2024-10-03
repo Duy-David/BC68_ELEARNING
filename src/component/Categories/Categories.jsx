@@ -61,22 +61,24 @@ const Categories = () => {
         <h2 className="text-3xl font-semibold mb-10">
           Top <mark>Categories</mark>
         </h2>
-        <div className="flex gap-5 w-full flex-wrap">
+        <div className="flex gap-y-5 w-full flex-wrap">
           {listCategories.map((item, index) => {
             return (
               <div
-                className="categories-item w-full md:w-[48%] lg:w-[32%]"
+                className="categories-item w-full md:w-1/2 lg:w-1/3"
                 key={index}
               >
-                <Link
-                  to={`/course-catelogies/${item.maDanhMuc}`}
-                  className="categories-item__link flex gap-x-3"
-                >
-                  {item.icon}
-                  <div className="categories-item__info text-[17px]">
-                    {item.tenDanhMuc}
-                  </div>
-                </Link>
+                <div className="px-3">
+                  <Link
+                    to={`/course-catelogies/${item.maDanhMuc}`}
+                    className="categories-item__link flex gap-x-3"
+                  >
+                    {item.icon}
+                    <div className="categories-item__info text-[17px]">
+                      {item.tenDanhMuc}
+                    </div>
+                  </Link>
+                </div>
               </div>
             );
           })}

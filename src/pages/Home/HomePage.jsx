@@ -6,18 +6,18 @@ import AboutUs from "../../component/AboutUs/AboutUs";
 import Instructor from "../../component/Instructor/Instructor";
 import Partner from "../../component/Partner/Partner";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import FeaturesSection from "../../component/FeaturesSection/FeaturesSection";
 
 const Homepage = () => {
   return (
     <>
-      {/* <WithLoading> */}
-        <Banner />
-        <Categories />
-        <Course />
-        <AboutUs />
-        <Instructor />
-        <Partner />
-      {/* </WithLoading> */}
+      <Banner />
+      <FeaturesSection />
+      <Categories />
+      <Course />
+      <AboutUs />
+      <Instructor />
+      <Partner />
     </>
   );
 };
