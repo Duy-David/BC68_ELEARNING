@@ -10,7 +10,6 @@ import {
   faTwitter,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { useSelector } from "react-redux";
 
 const Footer = () => {
   return (
