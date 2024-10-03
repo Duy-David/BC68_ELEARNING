@@ -3,9 +3,12 @@ import {
   FolderOpenOutlined,
   GiftOutlined,
   InfoCircleOutlined,
-  LogoutOutlined,
   MailOutlined,
+  PoweroffOutlined,
   TeamOutlined,
+  ToolFilled,
+  ToolOutlined,
+  ToolTwoTone,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -15,7 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemLocalStorage } from "../../util/util";
 import { setValueUser } from "../../redux/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMedal } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMedal,
+  faScrewdriverWrench,
+} from "@fortawesome/free-solid-svg-icons";
 import { NotificationContext } from "../../App";
 import { pathDefault } from "../../common/path";
 
@@ -40,6 +46,18 @@ const LoggedInUserInfo = () => {
   };
 
   const items = [
+    user.maLoaiNguoiDung === "GV"
+      ? {
+          label: (
+            <Link to={pathDefault.admin} className="font-semibold">
+              Go to Admin Page
+            </Link>
+          ),
+          key: "0",
+          icon: <ToolFilled />,
+        }
+      : null,
+
     {
       label: <Link to={pathDefault.homePage}>Your Message</Link>,
       key: "1",
@@ -97,7 +115,7 @@ const LoggedInUserInfo = () => {
         </span>
       ),
       key: "6",
-      icon: <LogoutOutlined />,
+      icon: <PoweroffOutlined />,
       danger: true,
     },
   ];
