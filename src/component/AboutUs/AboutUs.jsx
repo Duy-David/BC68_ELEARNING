@@ -79,7 +79,7 @@ const AboutUs = () => {
     <>
       <section className=" container py-10">
         <div className="mx-auto grid grid-cols-4 ">
-          <div className="text-left mb-8 col-span-1">
+          <div className="text-left mb-8 md:col-span-1 col-span-4">
             <h2 className="text-3xl font-semibold relative text-gray-900 about-title">
               People Say <br /> About <mark className="">EduMall</mark>
             </h2>
@@ -92,7 +92,7 @@ const AboutUs = () => {
             </button>
           </div>
 
-          <div className="col-span-3">
+          <div className="md:col-span-3 col-span-4 ">
             <Slider mx-5 {...settings}>
               {testimonials.map((testimonial, index) => {
                 return (
