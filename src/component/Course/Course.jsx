@@ -91,7 +91,7 @@ const Course = () => {
   //   ),
   // }));
   return (
-    <div className="container my-10">
+    <div className="container my-12 px-3 mx-auto">
       <h2 className="text-3xl font-semibold relative text-gray-900 mb-7 course-title">
         Top <mark>Course</mark>
       </h2>

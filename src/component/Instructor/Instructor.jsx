@@ -7,7 +7,7 @@ const Instructor = () => {
       description:
         "Top instructors from around the world teach millions of students on EduMall.",
       buttonText: "Start teaching today",
-      imageSrc: "../../../png/Instructor/banner-image-group-teachers.png", // Replace with actual image path
+      imageSrc: "../../../png/Instructor/banner-image-group-teachers.png", 
       altText: "Instructors",
       background: "#F6F3ED",
     },
@@ -16,14 +16,14 @@ const Instructor = () => {
       description:
         "Create an account to receive our newsletter, course recommendations, and promotions.",
       buttonText: "Register for free",
-      imageSrc: "../../../png/Instructor/banner-image-laptop.png", // Replace with actual image path
+      imageSrc: "../../../png/Instructor/banner-image-laptop.png", 
       altText: "Access Education",
       background: "#EEF0F4",
     },
   ];
   return (
     <div>
-      <section className="container mx-auto py-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="container mx-auto px-3 py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feature, index) => (
           <div
             key={index}
@@ -31,7 +31,7 @@ const Instructor = () => {
             style={{ backgroundColor: feature.background }}
           >
             {/* Text Content */}
-            <div className="col-span-7  p-14">
+            <div className="md:col-span-7 col-span-12  p-14">
               <h3 className="text-xl font-bold text-gray-900">
                 {feature.title}
               </h3>
@@ -43,7 +43,7 @@ const Instructor = () => {
               </button>
             </div>
             {/* Image */}
-            <div className=" col-span-5 flex flex-col-reverse">
+            <div className="md:col-span-5 col-span-12 flex flex-col-reverse">
               <img
                 src={feature.imageSrc}
                 alt={feature.altText}

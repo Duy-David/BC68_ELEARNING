@@ -77,8 +77,8 @@ const AboutUs = () => {
 
   return (
     <>
-      <section className=" container py-10">
-        <div className="mx-auto grid grid-cols-4 ">
+      <section className=" container py-12 mx-auto px-3">
+        <div className=" grid grid-cols-4 ">
           <div className="text-left mb-8 md:col-span-1 col-span-4">
             <h2 className="text-3xl font-semibold relative text-gray-900 about-title">
               People Say <br /> About <mark className="">EduMall</mark>
