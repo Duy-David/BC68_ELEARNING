@@ -35,12 +35,16 @@ const DetailCourse = () => {
         console.log(err);
       });
   }, [maKhoaHoc]);
-  const courseEnrolled = {
-    maKhoaHoc: "",
-    taiKfhoan: "",
-  };
+  // const courseEnrolled = {
+  //   maKhoaHoc: "",
+  //   taiKhoan: "",
+  // };
   if (!detailCourse) {
-    return <><Loading/></>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
   console.log(detailCourse);
   // const dispatch = useDispatch();
@@ -123,9 +127,7 @@ const DetailCourse = () => {
                 which must be completed before it can be accessed:
               </p>
               <div className="mt-4">
-                <div
-                  className="inline-block text-blue-600 bg-gray-100 px-4 py-2 rounded-md"
-                >
+                <div className="inline-block text-blue-600 bg-gray-100 px-4 py-2 rounded-md">
                   Artificial Intelligence & Machine Learning
                 </div>
               </div>
@@ -187,7 +189,7 @@ const DetailCourse = () => {
           </div>
           <div className=" my-5 col-span-2 md:col-span-1  ">
             <div className=" sticky top-4 md:top-16 bg-white p-4  col-span-1">
-              <CourseInfo detailCourse={detailCourse} maKhoaHoc={maKhoaHoc}/>
+              <CourseInfo detailCourse={detailCourse} maKhoaHoc={maKhoaHoc} />
             </div>
           </div>
         </div>
