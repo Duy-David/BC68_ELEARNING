@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/cartSlice";
 import { pathChildren, pathDefault } from "../../common/path";
 import { setStatusModal } from "../../redux/headerSlice";
-import { getLocalStorage } from "../../util/util";
+import IconCartEmpty from "../Icon/IconCartEmpty";
+
 const CartPopOver = () => {
   const { user } = useSelector((state) => state.authSlice);
   // const { setStatusModal } = useSelector((state) => state.headerSlice);
@@ -15,7 +16,7 @@ const CartPopOver = () => {
   const totalAmountStorage = Number(localStorage.getItem("totalAmount"));
   console.log(totalAmountStorage);
   // console.log(localStorage.getItem('totalAmount'))
-  console.log(cartItems);
+  // console.log(cartItems);
   const dispatch = useDispatch();
   const handleRemoveFromCart = (courseId) => {
     dispatch(removeFromCart(courseId));
@@ -38,7 +39,6 @@ const CartPopOver = () => {
     <>
       <ul className="header_cart__list overflow-y-auto max-h-[70vh] flex flex-col">
         {cartItems.map((course, index) => {
-          // console.log(course);
           return (
             <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
               <li className="header_cart__item  space-x-2">
@@ -81,7 +81,7 @@ const CartPopOver = () => {
             <>
               {" "}
               <Link
-                to={`personal-infornation/${user.taiKhoan}`}
+                to={`/personal-infornation/${user.taiKhoan}?tab=3`}
                 className="btn btn-primary"
               >
                 Checkout
@@ -105,24 +105,26 @@ const CartPopOver = () => {
       rootClassName="header_cart_content"
       placement="bottom"
       title={false}
-      content={content}
+      content={
+        cartItems.length === 0 ? (
+          <>
+            <IconCartEmpty className="w-16 mx-auto mt-10 mb-2" />
+            <p className="mx-12 pb-8">Chưa có khóa học</p>
+          </>
+        ) : (
+          content
+        )
+      }
       arrow={false}
       trigger="click"
       visible={visible}
       onVisibleChange={handleVisibleChange}
     >
-      {user ? (
-        <Link className="header_cart_btn">
-          <FontAwesomeIcon icon={faBasketShopping} />
-          <span>{cartItems.length}</span>
-        </Link>
-      ) : (
-        <button className="header_cart_btn ">
-          {" "}
-          <FontAwesomeIcon icon={faBasketShopping} />
-          <span>{cartItems.length}</span>
-        </button>
-      )}
+      <button className="header_cart_btn ">
+        {" "}
+        <FontAwesomeIcon icon={faBasketShopping} />
+        {cartItems.length !== 0 && <span>{cartItems.length}</span>}
+      </button>
     </Popover>
   );
 };

@@ -3,7 +3,6 @@ import {
   FolderOpenOutlined,
   GiftOutlined,
   InfoCircleOutlined,
-  LogoutOutlined,
   MailOutlined,
   PoweroffOutlined,
   TeamOutlined,
@@ -45,16 +44,17 @@ const LoggedInUserInfo = () => {
 
   const items = [
     user.maLoaiNguoiDung === "GV"
-    ? {
-        label: (
-          <Link to={pathDefault.admin} className="font-semibold">
-            Go to Admin Page
-          </Link>
-        ),
-        key: "0",
-        icon: <ToolFilled />,
-      }
-    : null,
+      ? {
+          label: (
+            <Link to={pathDefault.admin} className="font-semibold">
+              Go to Admin Page
+            </Link>
+          ),
+          key: "0",
+          icon: <ToolFilled />,
+        }
+      : null,
+
     {
       label: <Link to={pathDefault.homePage}>My Message</Link>,
       key: "1",
@@ -121,7 +121,7 @@ const LoggedInUserInfo = () => {
         </span>
       ),
       key: "6",
-      icon: <LogoutOutlined />,
+      icon: <PoweroffOutlined />,
       danger: true,
     },
   ];

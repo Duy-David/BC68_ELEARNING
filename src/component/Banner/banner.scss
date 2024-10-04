@@ -54,6 +54,13 @@
 }
 
 // search
+.scene .banner_search {
+  pointer-events: auto !important;
+}
+
+.scene input {
+  pointer-events: auto !important ;
+}
 .banner_search {
   max-width: 800px;
   position: relative;
