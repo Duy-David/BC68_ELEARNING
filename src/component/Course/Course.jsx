@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
-import { Popover, Tabs } from "antd";
+import { Button, Dropdown, Popover, Tabs } from "antd";
 import CourseCard from "../CourseCard/CourseCard";
 import "./course.scss";
 import { Link } from "react-router-dom";
@@ -9,9 +9,16 @@ import CourseInfo from "../CourseInfo/CourseInfo";
 import useResponsive from "../../hooks/useResponsive";
 import { useDispatch, useSelector } from "react-redux";
 import { setListCourse, setListCourseCategory } from "../../redux/courseSlice";
-
+import "../../../node_modules/slick-carousel/slick/slick.css";
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
+import IconCategory from "../Icon/Iconheaders";
 const Course = () => {
-  const screenSize = useResponsive();
+  const isResponsive = useResponsive({
+    sm: 640,
+    md: 768,
+    lg: 1024,
+  });
+
   const dispatch = useDispatch();
   useEffect(() => {
     quanLyKhoaHocService
@@ -37,50 +44,136 @@ const Course = () => {
   const { listCourse, listCourseCategory } = useSelector(
     (state) => state.courseSlice
   );
+  const [activeTab, setActiveTab] = useState(
+    listCourseCategory[0]?.maDanhMuc || ""
+  );
+
+  const handleTabClick = (maDanhMuc) => {
+    setActiveTab(maDanhMuc);
+  };
 
   // console.log(listCourseCategory);
   const sortedCourses = (courses) => {
-    return courses
-      .sort((a, b) => b.luotXem - a.luotXem) 
-      .slice(0, 10); 
+    return courses.sort((a, b) => b.luotXem - a.luotXem).slice(0, 10);
   };
 
   console.log(listCourse);
   const items = listCourseCategory.map((category, index) => ({
-    label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
-    key: category.maDanhMuc,
-    children: (
-      <div
-        key={index}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10"
-      >
-        {sortedCourses(
-          listCourse.filter(
-            (course) =>
-              course.danhMucKhoaHoc.maDanhMucKhoahoc === category.maDanhMuc
-          )
-        ).map((course) => (
-          // <Link
-          //   key={course.maKhoaHoc}
-          //   to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
-          // >
-            // {/* <Popover content={<CourseInfo course={course} />}> */}
-            <div key={course.maKhoaHoc} className="course-item">
-              <CourseCard course={course} />
-            </div>
-            // {/* </Popover> */}
-          // </Link>
-        ))}
-      </div>
-    ),
+    key: category.tenDanhMuc,
+    label: <Button  onClick={() => handleTabClick(category.maDanhMuc)} className="">{category.tenDanhMuc}</Button>,
   }));
+
+  //   label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
+  //   key: category.maDanhMuc,
+  //   children: (
+  //     <div
+  //       key={index}
+  //       className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10"
+  //     >
+  //       {sortedCourses(
+  //         listCourse.filter(
+  //           (course) =>
+  //             course.danhMucKhoaHoc.maDanhMucKhoahoc === category.maDanhMuc
+  //         )
+  //       ).map((course) => (
+  //         // <Link
+  //         //   key={course.maKhoaHoc}
+  //         //   to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
+  //         // >
+  //         // {/* <Popover content={<CourseInfo course={course} />}> */}
+  //         <div key={course.maKhoaHoc} className="course-item">
+  //           <CourseCard course={course} />
+  //         </div>
+  //         // {/* </Popover> */}
+  //         // </Link>
+  //       ))}
+  //     </div>
+  //   ),
+  // }));
   return (
     <div className="container my-10">
       <h2 className="text-3xl font-semibold relative text-gray-900 mb-7 course-title">
         Top <mark>Course</mark>
       </h2>
 
-      <Tabs defaultActiveKey="1" centered items={items} />
+      <div className="mb-10">
+        {!isResponsive.lg ? (
+          <div className="flex flex-wrap justify-center md:gap-3 gap-5">
+            {listCourseCategory.map((category) => (
+              <button
+                key={category.maDanhMuc}
+                onClick={() => handleTabClick(category.maDanhMuc)}
+                className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-lg  ${
+                  activeTab === category.maDanhMuc
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-100 text-gray-700"
+                } hover:bg-blue-500 hover:text-white`}
+              >
+                {category.tenDanhMuc}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="">
+            {" "}
+            <Dropdown
+              menu={{
+                items,
+              }}
+              placement="topLeft"
+              arrow
+            >
+              <Button
+              >
+                <div className="category_icon">
+                  <IconCategory />
+                </div>
+              </Button>
+            </Dropdown>
+          </div>
+        )}
+      </div>
+      {/* <div className="flex flex-wrap justify-center gap-5 mb-6">
+        {listCourseCategory.map((category) => (
+          <button
+            key={category.maDanhMuc}
+            onClick={() => handleTabClick(category.maDanhMuc)}
+            className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-lg  ${
+              activeTab === category.maDanhMuc
+                ? "bg-blue-500 text-white"
+                : "bg-gray-100 text-gray-700"
+            } hover:bg-blue-500 hover:text-white`}
+          >
+            {category.tenDanhMuc}
+          </button>
+        ))}
+      </div> */}
+
+      {/* Tab content */}
+      <div className="tab-content">
+        {listCourseCategory.map((category) => (
+          <div
+            key={category.maDanhMuc}
+            className={`${
+              activeTab === category.maDanhMuc ? "block" : "hidden"
+            }`}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {sortedCourses(
+                listCourse.filter(
+                  (course) =>
+                    course.danhMucKhoaHoc.maDanhMucKhoahoc ===
+                    category.maDanhMuc
+                )
+              ).map((course) => (
+                <div key={course.maKhoaHoc} className="course-item">
+                  <CourseCard course={course} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
