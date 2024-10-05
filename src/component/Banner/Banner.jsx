@@ -39,7 +39,7 @@ const Banner = () => {
             <div className="banner_right w-full md:w-1/2">
               <div className="slider-image px-4">
                 <div className="relative">
-                  <img src="assets/home-01-hero-image.png" alt="" />
+                  <img src="png/banner/home-01-hero-image.png" alt="" />
                   <div className="absolute -bottom-6 left-0 p-5 bg-white shadow-2xl rounded-lg max-w-[255px]">
                     <IconBell className="w-14 h-14 p-4 rounded-full bg-[#ffc221] absolute -top-8 -left-7 icon-white" />
                     <p>
