@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { limitCharacter } from "../../util/util";
 import { Popover } from "antd";
 import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NotificationContext } from "../../App"
 
 const CourseCard = ({ course }) => {
+  // const { maKhoaHoc } = useParams();  
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authSlice);
@@ -23,7 +24,7 @@ const CourseCard = ({ course }) => {
     );
   };
   const handleAddToCart = () => {
-    dispatch(addToCart(detailCourse));
+    dispatch(addToCart(course));
   };
 
   const content = (
@@ -60,7 +61,7 @@ const CourseCard = ({ course }) => {
           if (user) {
             quanLyKhoaHocService
               .postDangkyKhoaHoc(user.accessToken, {
-                maKhoaHoc,
+                maKhoaHoc: course.maKhoaHoc,
                 taiKhoan: user.taiKhoan,
               })
               .then((res) => {
@@ -74,7 +75,7 @@ const CourseCard = ({ course }) => {
           } else {
             handleNotification(
               "Tính năng cần phải được đăng nhập mới thực hiện được",
-              "warn"
+              "warn", 
             );
             openLogin();
           }
