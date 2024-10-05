@@ -5,10 +5,6 @@ import { Breadcrumb, Rate } from "antd";
 import CourseInfo from "../../component/CourseInfo/CourseInfo";
 import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
-import Loading from "../../component/Loading/Loading";
 import WithLoading from "../../component/WithLoading/WithLoading";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
@@ -45,7 +41,7 @@ const DetailCourse = () => {
  
   return (
     <WithLoading>
-      <div className="container pl-4">
+      <div className="container mx-auto pb-10 px-3">
         <Breadcrumb
           className=" my-4"
           items={[

@@ -24,7 +24,7 @@ const CourseCatelogies = () => {
   }, [maDanhMuc, listCourse]);
   return (
     <WithLoading>
-      <div className="container">
+      <div className="container mx-auto pb-10 px-3">
         <Breadcrumb
           className="my-4"
           items={[

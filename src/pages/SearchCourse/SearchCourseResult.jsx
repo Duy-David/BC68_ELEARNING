@@ -34,7 +34,7 @@ const SearchCourseResult = () => {
 
   return (
     <WithLoading>
-      <div className="container">
+      <div className="container mx-auto pb-10 px-3">
         <Breadcrumb
           separator=""
           className="py-5"

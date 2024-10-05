@@ -138,7 +138,7 @@ const PersonalInformation = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container mx-auto pb-10 px-3">
         <Space
           style={{
             marginBottom: 24,
