@@ -60,10 +60,20 @@ const Course = () => {
   console.log(listCourse);
   const items = listCourseCategory.map((category, index) => ({
     key: category.tenDanhMuc,
-    label: <Button  onClick={() => handleTabClick(category.maDanhMuc)} className="">{category.tenDanhMuc}</Button>,
+    label: (
+      <Button
+        onClick={() => handleTabClick(category.maDanhMuc)}
+        className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-md  ${
+          activeTab === category.maDanhMuc
+            ? "bg-blue-500 text-white"
+            : "bg-gray-100 text-gray-700"
+        } hover:bg-blue-500 hover:text-white`}
+      >
+        {category.tenDanhMuc}
+      </Button>
+    ),
   }));
 
-  //   label: <div className="text-2xl font-medium">{category.tenDanhMuc}</div>,
   //   key: category.maDanhMuc,
   //   children: (
   //     <div
@@ -92,62 +102,48 @@ const Course = () => {
   // }));
   return (
     <div className="container my-12 px-3 mx-auto">
-      <h2 className="text-3xl font-semibold relative text-gray-900 mb-7 course-title">
-        Top <mark>Course</mark>
-      </h2>
+      <div className="flex justify-between">
+        <h2 className="text-3xl font-semibold relative text-gray-900 mb-7 course-title">
+          Top <mark>Course</mark>
+        </h2>
 
-      <div className="mb-10">
-        {!isResponsive.lg ? (
-          <div className="flex flex-wrap justify-center md:gap-3 gap-5">
-            {listCourseCategory.map((category) => (
-              <button
-                key={category.maDanhMuc}
-                onClick={() => handleTabClick(category.maDanhMuc)}
-                className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-lg  ${
-                  activeTab === category.maDanhMuc
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-100 text-gray-700"
-                } hover:bg-blue-500 hover:text-white`}
+        <div className="mb-2">
+          {!isResponsive.lg ? (
+            <div className="flex flex-wrap justify-center md:gap-3 gap-5">
+              {listCourseCategory.map((category) => (
+                <button
+                  key={category.maDanhMuc}
+                  onClick={() => handleTabClick(category.maDanhMuc)}
+                  className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-md  ${
+                    activeTab === category.maDanhMuc
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-700"
+                  } hover:bg-blue-500 hover:text-white`}
+                >
+                  {category.tenDanhMuc}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="">
+              {" "}
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="topLeft"
+                arrow
               >
-                {category.tenDanhMuc}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div className="">
-            {" "}
-            <Dropdown
-              menu={{
-                items,
-              }}
-              placement="topLeft"
-              arrow
-            >
-              <Button
-              >
-                <div className="category_icon">
-                  <IconCategory />
-                </div>
-              </Button>
-            </Dropdown>
-          </div>
-        )}
+                <Button>
+                  <div className="category_icon">
+                    <IconCategory />
+                  </div>
+                </Button>
+              </Dropdown>
+            </div>
+          )}
+        </div>
       </div>
-      {/* <div className="flex flex-wrap justify-center gap-5 mb-6">
-        {listCourseCategory.map((category) => (
-          <button
-            key={category.maDanhMuc}
-            onClick={() => handleTabClick(category.maDanhMuc)}
-            className={`px-4 py-2 border rounded-lg transition-colors duration-200 xl:text-lg  ${
-              activeTab === category.maDanhMuc
-                ? "bg-blue-500 text-white"
-                : "bg-gray-100 text-gray-700"
-            } hover:bg-blue-500 hover:text-white`}
-          >
-            {category.tenDanhMuc}
-          </button>
-        ))}
-      </div> */}
 
       {/* Tab content */}
       <div className="tab-content">
