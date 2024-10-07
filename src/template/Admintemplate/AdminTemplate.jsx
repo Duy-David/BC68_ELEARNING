@@ -25,8 +25,17 @@ const AdminTemplate = () => {
 
   useEffect(() => {
     let dataLocal = getLocalStorage("user");
+<<<<<<< Updated upstream
     console.log(dataLocal);
+<<<<<<< HEAD
     dataLocal.maLoaiNguoiDung !== "GV"
+=======
+    dataLocal.maLoaiNguoiDung  !== "GV"
+=======
+    console.log("dataLocal", dataLocal);
+    dataLocal.maLoaiNguoiDung !== "GV"
+>>>>>>> Stashed changes
+>>>>>>> devHai
       ? (window.location.href = "https://www.google.com/")
       : null;
   }, []);
