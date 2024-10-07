@@ -28,7 +28,11 @@ const ManagerCourse = () => {
     taiKhoan: "",
   });
 
+<<<<<<< Updated upstream
   // const [listCourse, setListCourse] = useState([]);
+=======
+  // cost [listCourse, setListCourse] = useState([]);
+>>>>>>> Stashed changes
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
   const { listCourse } = useSelector((state) => state.courseSlice);
@@ -251,7 +255,6 @@ const ManagerCourse = () => {
       // width: '20%',
       ...getColumnSearchProps("tenKhoaHoc"),
     },
-  
 
     {
       title: "Lượt Xem",
@@ -287,8 +290,15 @@ const ManagerCourse = () => {
         return (
           <Space size="middle" className="">
             <button
+<<<<<<< Updated upstream
               className="bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/80 "
               onClick={() => showModalEnrroll(record)}
+=======
+              className="bg-green-500 text-white py-2 px-2  rounded-md duration-300 hover:bg-green-500/80 "
+              onClick={() =>
+                navigate(`/admin/ghi-danh-khoa-hoc/${record.maKhoaHoc}`)
+              }
+>>>>>>> Stashed changes
             >
               Ghi Danh
             </button>
