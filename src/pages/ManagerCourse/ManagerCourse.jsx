@@ -198,22 +198,22 @@ const ManagerCourse = () => {
     quanLyKhoaHocService
       .putCapNhatKhoaHoc(courseValue)
       .then((res) => {
-        const validationErrors = validateForm();
-        if (Object.keys(validationErrors).length === 0) {
-          const formData = new FormData();
-          formValues.taiKhoanNguoiTao = userLocal.taiKhoan;
-          formValues.biDanh = formValues.tenKhoaHoc
-            .toLowerCase()
-            .replace(/\s+/g, "-");
+        // const validationErrors = validateForm();
+        // if (Object.keys(validationErrors).length === 0) {
+        //   const formData = new FormData();
+        //   formValues.taiKhoanNguoiTao = userLocal.taiKhoan;
+        //   formValues.biDanh = formValues.tenKhoaHoc
+        //     .toLowerCase()
+        //     .replace(/\s+/g, "-");
 
-          for (let key in formValues) {
-            formData.append(key, formValues[key]);
-          }
+        //   for (let key in formValues) {
+        //     formData.append(key, formValues[key]);
+        //   }
           console.log(res);
           handleNotification("Sửa dữ liệu thành công", "success");
           getAllKhoaHoc();
           setIsModalOpen(false);
-        }
+        // }
         // resetForm();
       })
       .catch((err) => {
@@ -223,7 +223,7 @@ const ManagerCourse = () => {
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    setCourseValue({ ...courseValue, [name]: value });
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -327,7 +327,7 @@ const ManagerCourse = () => {
               footer={[]}
             >
               <form id="course-form" onSubmit={handleSubmit}>
-                {/* <img src={courseValue.hinhAnh} alt="" className="h-16" /> */}
+                <img src={courseValue.hinhAnh} alt="Null" className="h-16" />
                 <div className="grid grid-cols-2 gap-4">
                   <InputCustom
                     contentLabel={"Mã Khóa Học"}
@@ -436,7 +436,7 @@ const ManagerCourse = () => {
                       <option value="GP05">GP05</option>
                     </select>
                   </div>
-                  <InputCustom
+                  {/* <InputCustom
                     contentLabel={"Hình ảnh"}
                     // placeHolder={"Vui lòng nhập mô tả"}
                     // classWrapper="w-full "
@@ -444,7 +444,7 @@ const ManagerCourse = () => {
                     // value={courseValue.hinhAnh}
                     onChange={handleImageChange}
                     type="file"
-                  />
+                  /> */}
                   <div className="flex items-end justify-center mt-5">
                     <button
                       className="px-4 py-2 bg-black text-white rounded-lg"
