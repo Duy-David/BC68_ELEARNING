@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Radio, Space, Tabs } from "antd";
+import { Space, Tabs } from "antd";
 import Instructor from "../../component/Instructor/Instructor";
 import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
@@ -10,6 +10,7 @@ import { pathDefault } from "../../common/path";
 import MyCourses from "../MyCourses/MyCourses";
 import MyCart from "../MyCart/MyCart";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import { getLocalStorage, setLocalStorage } from "../../util/util";
 
 const PersonalInformation = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -19,8 +20,17 @@ const PersonalInformation = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "1";
 
+  // fix show welcome robot
+  const [robotLoaded, setRobotLoaded] = useState(() => {
+    return getLocalStorage("robotLoaded") === "true";
+  });
   const handleTabChange = (key) => {
-    setSearchParams({ tab: key });
+    if (key === "1" && !robotLoaded) {
+      setLocalStorage("robotLoaded", "true");
+      window.location.href = `/personal-infornation/${user.taiKhoan}?tab=1`;
+    } else {
+      setSearchParams({ tab: key }); // important! => để text và hình render cùng lúc
+    }
   };
 
   useEffect(() => {
@@ -29,9 +39,6 @@ const PersonalInformation = () => {
       setSearchParams({ tab: "1" });
     }
   }, [searchParams, setSearchParams]);
-
-  // console.log(user);
-  const dispatch = useDispatch();
   // const { handleNotification } = useContext(NotificationContext);
 
   const userInfo = user
@@ -46,11 +53,6 @@ const PersonalInformation = () => {
     : {};
   const userFields = Object.entries(userInfo);
   const [tabPosition, setTabPosition] = useState("left");
-  // const options = {
-  //   animationData: HelloAnimation,
-  //   loop: true,
-  // };
-  const [animationKey, setAnimationKey] = useState(0);
 
   const options = {
     animationData: HelloAnimation,
@@ -58,15 +60,6 @@ const PersonalInformation = () => {
   };
   const { View: LottieView } = useLottie(options);
 
-  // Remount animation when switching back to tab 1
-  console.log(currentTab);
-  useEffect(() => {
-    if (currentTab === "1") {
-      setAnimationKey((prevKey) => prevKey + 1);
-    }
-  }, [currentTab]);
-  // const { View } = useLottie(options);
-  console.log(animationKey);
   const items = [
     {
       key: "1",
@@ -126,15 +119,6 @@ const PersonalInformation = () => {
       ),
     },
   ];
-
-  // useEffect(() => {
-  //   if (user) {
-  //     // Điều hướng đến URL với hoTen bằng user.taiKhoan
-  //     navigate(`/personal-infornation/${user.taiKhoan}`);
-  //   } else {
-  //     navigate(`/${pathDefault.login}`);
-  //   }
-  // }, [user, navigate]);
 
   return (
     <>

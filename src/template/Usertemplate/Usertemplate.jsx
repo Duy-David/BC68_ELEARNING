@@ -6,14 +6,22 @@ import "./user-template.scss";
 import ScrollToTop from "react-scroll-to-top";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import { useSelector } from "react-redux";
+import { removeItemLocalStorage } from "../../util/util";
 
 const Usertemplate = () => {
-  // const { isLoading } = useSelector((state) => state.loadingSlice.isLoading);
+  // fix show welcome robot
+  const { user } = useSelector((state) => state.authSlice);
+  if (user) {
+    location.pathname != `/personal-infornation/${user.taiKhoan}` &&
+      removeItemLocalStorage("robotLoaded");
+  }
+
   return (
     <div className="mx-auto">
       <Header />
 
-      <WithLoading> 
+      <WithLoading>
         <main>
           {/*  */}
           <Outlet />
