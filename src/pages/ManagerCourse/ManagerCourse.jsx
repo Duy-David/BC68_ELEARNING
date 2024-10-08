@@ -28,11 +28,7 @@ const ManagerCourse = () => {
     taiKhoan: "",
   });
 
-<<<<<<< Updated upstream
-  // const [listCourse, setListCourse] = useState([]);
-=======
   // cost [listCourse, setListCourse] = useState([]);
->>>>>>> Stashed changes
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
   const { listCourse } = useSelector((state) => state.courseSlice);
@@ -290,15 +286,8 @@ const ManagerCourse = () => {
         return (
           <Space size="middle" className="">
             <button
-<<<<<<< Updated upstream
               className="bg-green-500 text-white py-2 px-3  rounded-md duration-300 hover:bg-green-500/80 "
               onClick={() => showModalEnrroll(record)}
-=======
-              className="bg-green-500 text-white py-2 px-2  rounded-md duration-300 hover:bg-green-500/80 "
-              onClick={() =>
-                navigate(`/admin/ghi-danh-khoa-hoc/${record.maKhoaHoc}`)
-              }
->>>>>>> Stashed changes
             >
               Ghi Danh
             </button>
@@ -328,10 +317,12 @@ const ManagerCourse = () => {
                   value={formikEnroll.values.taiKhoan}
                 />
 
-                <button type="submit" className="my-6 bg-blue-700 hover:bg-blue-700/80 px-5 py-2 rounded-lg text-white">
+                <button
+                  type="submit"
+                  className="my-6 bg-blue-700 hover:bg-blue-700/80 px-5 py-2 rounded-lg text-white"
+                >
                   Ghi Danh
                 </button>
-               
               </form>
             </Modal>
             <button
