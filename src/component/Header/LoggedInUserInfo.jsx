@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemLocalStorage } from "../../util/util";
 import { setValueUser } from "../../redux/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMedal , faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { NotificationContext } from "../../App";
 import { pathDefault } from "../../common/path";
 
@@ -71,12 +71,10 @@ const LoggedInUserInfo = () => {
     },
     {
       label: (
-        <Link to={`/personal-infornation/${user.taiKhoan}?tab=3`}>
-          My Cart
-        </Link>
+        <Link to={`/personal-infornation/${user.taiKhoan}?tab=3`}>My Cart</Link>
       ),
       key: "3",
-      icon:  <FontAwesomeIcon icon={faBasketShopping} />,
+      icon: <FontAwesomeIcon icon={faBasketShopping} />,
     },
     {
       label: (
@@ -89,7 +87,7 @@ const LoggedInUserInfo = () => {
     },
     {
       label: <Link to={pathDefault.homePage}>Refer a Friend</Link>,
-      key: "4",
+      key: "5",
       icon: <GiftOutlined />,
     },
     {
@@ -106,7 +104,7 @@ const LoggedInUserInfo = () => {
             : "The class you are teaching"}
         </Link>
       ),
-      key: "5",
+      key: "6",
       icon:
         user.maLoaiNguoiDung == "HV" ? (
           <TeamOutlined />
@@ -120,7 +118,7 @@ const LoggedInUserInfo = () => {
           <strong>Logout</strong> ({user.taiKhoan})
         </span>
       ),
-      key: "6",
+      key: "7",
       icon: <PoweroffOutlined />,
       danger: true,
     },
