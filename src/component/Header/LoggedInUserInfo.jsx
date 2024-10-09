@@ -63,7 +63,7 @@ const LoggedInUserInfo = () => {
     {
       label: (
         <Link to={`/personal-infornation/${user.taiKhoan}?tab=2`}>
-          MY Information
+          My Information
         </Link>
       ),
       key: "2",

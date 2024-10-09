@@ -41,16 +41,28 @@ const PersonalInformation = () => {
   }, [searchParams, setSearchParams]);
   // const { handleNotification } = useContext(NotificationContext);
 
+  // const userInfo = user
+  //   ? {
+  //       Account: user.taiKhoan,
+  //       Email: user.email,
+  //       "Full Name": user.hoTen,
+  //       Phone: user.soDT,
+  //       "Group Code": user.maNhom,
+  //       Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
+  //     }
+  //   : {};
+
   const userInfo = user
     ? {
         Account: user.taiKhoan,
-        Email: user.email,
+        Email: <input value={user.email} />,
         "Full Name": user.hoTen,
         Phone: user.soDT,
         "Group Code": user.maNhom,
         Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
       }
     : {};
+
   const userFields = Object.entries(userInfo);
   const [tabPosition, setTabPosition] = useState("left");
 
