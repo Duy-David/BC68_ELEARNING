@@ -13,7 +13,7 @@ import { nguoiDungService } from "../../service/nguoiDung.service";
 
 const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
-  const [disable, setDisable] = useState(false);
+  const [isDisable, setIsDisable] = useState(false);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
   const [triggerSearch, setTriggerSearch] = useState(false);
@@ -160,6 +160,7 @@ const ManagerUser = () => {
   const showModal = () => {
     formik.resetForm();
     setIsModalOpen(true);
+    setIsDisable(false);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -196,7 +197,7 @@ const ManagerUser = () => {
   // Edit user infor
   const handleEdit = (taiKhoan) => {
     console.log("taiKhoan", taiKhoan);
-    setDisable(true);
+    setIsDisable(true);
     nguoiDungService
       .timKiemNguoiDung(taiKhoan)
       .then((res) => {
@@ -270,7 +271,7 @@ const ManagerUser = () => {
   // handle submit
   const handleUserCreate = () => {
     console.log(formik.values);
-    setDisable(false);
+    // setIsDisable(false);
 
     nguoiDungService
       .themNguoiDung(accessToken, formik.values)
@@ -334,7 +335,7 @@ const ManagerUser = () => {
               onBlur={formik.handleBlur}
               touched={formik.touched}
               errors={formik.errors?.taiKhoan}
-              disabled={disable}
+              disabled={isDisable}
             />
             <InputCustom
               contentLabel={"Mật Khẩu"}
