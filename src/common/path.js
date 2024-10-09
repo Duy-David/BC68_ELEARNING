@@ -1,3 +1,5 @@
+import ManagerUserRegister from "../pages/ManagerUserRegister/ManagerUserRegister";
+
 export const pathDefault = {
   homePage: "/",
   notFound: "*",
@@ -14,6 +16,7 @@ export const pathChildren = {
   ...pathDefault,
   adminLogin: pathDefault.admin + "/login",
   managerUser: pathDefault.admin + "/manager-user",
+  managerUserRegister: pathDefault.admin + "/manager-user-register/:taiKhoan",
   createUser: pathDefault.admin + "/create-user",
   managerCourse: pathDefault.admin + "/manager-Course",
   createCourse: pathDefault.admin + "/create-Course",

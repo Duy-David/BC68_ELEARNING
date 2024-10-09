@@ -15,7 +15,7 @@ export const quanLyKhoaHocService = {
   getThongTinKhoaHoc: (maKhoaHoc) => {
     return http.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
   },
- 
+
   postThemKhoaHoc: (accessToken, data) => {
     return http.post(`QuanLyKhoaHoc/ThemKhoaHoc`, data, {
       headers: {
@@ -55,7 +55,7 @@ export const quanLyKhoaHocService = {
       },
     });
   },
- 
+
   postDangkyKhoaHoc: (accessToken, data) => {
     return http.post(`QuanLyKhoaHoc/DangKyKhoaHoc`, data, {
       headers: {
@@ -76,7 +76,7 @@ export const quanLyKhoaHocService = {
       `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKhoaHoc}`
     );
   },
-  postGhiDanhKhoaHoc: (enrollData ,accessToken) => {
+  postGhiDanhKhoaHoc: (enrollData, accessToken) => {
     return http.post("/QuanLyKhoaHoc/GhiDanhKhoaHoc", enrollData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -113,7 +113,7 @@ export const quanLyKhoaHocService = {
       },
     });
   },
- 
+
   deletedHuyGhiDanh: (courseCode, taiKhoan, accessToken) => {
     const data = { maKhoaHoc: courseCode, taiKhoan: taiKhoan };
     return http.post("/QuanLyKhoaHoc/HuyGhiDanh", data, {
@@ -126,5 +126,8 @@ export const quanLyKhoaHocService = {
     return http.get(
       `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=GP01`
     );
+  },
+  layToanBoDanhSachKhoaHoc: () => {
+    return http.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01");
   },
 };

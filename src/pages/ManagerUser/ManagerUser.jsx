@@ -6,71 +6,95 @@ import InputCustom from "../../component/Input/InputCustom";
 import { Formik, useFormik } from "formik";
 import { NotificationContext } from "../../App";
 import * as yup from "yup";
-// AntDesign Table
-const columns = (handleDelete, handleEdit) => [
-  {
-    title: "Tài Khoản",
-    dataIndex: "taiKhoan",
-    key: "taiKhoan",
-  },
-  {
-    title: "Họ Tên",
-    dataIndex: "hoTen",
-    key: "hoTen",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Số Điện Thoại",
-    dataIndex: "soDT",
-    key: "soDT",
-  },
-  {
-    title: "Chức Vụ",
-    key: "maLoaiNguoiDung",
-    dataIndex: "maLoaiNguoiDung",
-    render: (_, { maLoaiNguoiDung }) => (
-      <>
-        <Tag
-          color={maLoaiNguoiDung == "GV" ? "geekblue" : "green"}
-          key={maLoaiNguoiDung}
-        >
-          {maLoaiNguoiDung.toUpperCase()}
-        </Tag>
-      </>
-    ),
-  },
-  {
-    title: "Hành Động",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <button
-          onClick={() => handleDelete(record.taiKhoan)}
-          className="text-white deleteBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-600"
-        >
-          Xoá
-        </button>
-        <button
-          onClick={() => handleEdit(record.taiKhoan)}
-          className="text-white editBtn py-2 px-3 bg-blue-500 rounded-md font-bold hover:bg-blue-600"
-        >
-          Sửa
-        </button>
-      </Space>
-    ),
-  },
-];
+import { notiValidate } from "../../common/notiValidate";
+import { Navigate, useNavigate } from "react-router-dom";
+import { pathChildren } from "../../common/path";
+import { nguoiDungService } from "../../service/nguoiDung.service";
 
 const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
-  // const [editData, setEditData] = useState([]);
+  const [disable, setDisable] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+  const [triggerSearch, setTriggerSearch] = useState(false);
+
+  const accessToken = JSON.parse(localStorage.getItem("user")).accessToken;
 
   const { handleNotification } = useContext(NotificationContext);
+
+  // AntDesign Table
+  const columns = (handleDelete, handleEdit) => [
+    {
+      title: "Tài Khoản",
+      dataIndex: "taiKhoan",
+      key: "taiKhoan",
+    },
+    {
+      title: "Họ Tên",
+      dataIndex: "hoTen",
+      key: "hoTen",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Số Điện Thoại",
+      dataIndex: "soDT",
+      key: "soDT",
+    },
+    {
+      title: "Chức Vụ",
+      key: "maLoaiNguoiDung",
+      dataIndex: "maLoaiNguoiDung",
+      render: (_, { maLoaiNguoiDung }) => (
+        <>
+          <Tag
+            color={maLoaiNguoiDung == "GV" ? "geekblue" : "green"}
+            key={maLoaiNguoiDung}
+          >
+            {maLoaiNguoiDung.toUpperCase()}
+          </Tag>
+        </>
+      ),
+    },
+    {
+      title: "Hành Động",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <button
+            onClick={() =>
+              navigate(
+                `${pathChildren.managerUserRegister.replace(
+                  ":taiKhoan",
+                  record.taiKhoan
+                )}`
+              )
+            }
+            // onClick={() => console.log(record)}
+            className="text-white deleteBtn py-2 px-3 bg-blue-500 rounded-md font-bold hover:bg-blue-600"
+          >
+            Ghi Danh
+          </button>
+          <button
+            onClick={() => handleDelete(record.taiKhoan)}
+            className="text-white deleteBtn py-2 px-3 bg-red-500 rounded-md font-bold hover:bg-red-600"
+          >
+            Xoá
+          </button>
+          <button
+            onClick={() => handleEdit(record.taiKhoan)}
+            className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-600"
+          >
+            Sửa
+          </button>
+        </Space>
+      ),
+    },
+  ];
 
   // Formik
   const formik = useFormik({
@@ -84,40 +108,41 @@ const ManagerUser = () => {
       maNhom: "GP01",
     },
     validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .email("Invalid email")
-        .required("Không được bỏ trống."),
       taiKhoan: yup
         .string()
-        .required("Không được bỏ trống.")
-        .min(4, "ít nhất 4 ký tự"),
-      hoTen: yup
+        .required(notiValidate.empty)
+        .min(3, notiValidate.min(3))
+        .max(10, notiValidate.max(10)),
+      email: yup
         .string()
-        .required("Không được bỏ trống.")
-        .min(6, "ít nhất 6 ký tự"),
+        .required(notiValidate.empty)
+        .email(notiValidate.email),
       matKhau: yup
         .string()
-        .required("Không được bỏ trống.")
-        .min(6, "Ít nhất 6 ký tự.")
-        .matches(/[A-Z]/, "Phải có ít nhất một ký tự viết hoa."),
+        .required(notiValidate.empty)
+        .matches(
+          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^~`;,.()?&#])[A-Za-z\d@$!%*^~`;,.()?&#]{8,}$/,
+          notiValidate.password
+        ),
+      hoTen: yup
+        .string()
+        .required(notiValidate.empty)
+        .matches(/^[A-Za-zÀ-ỹà-ỹ\s]+$/, notiValidate.fullname),
       soDT: yup
         .string()
-        .required("Không được bỏ trống.")
-        .matches(/^[0-9]{10}$/, "Số điện thoại phải là 10 chữ số."),
-      maLoaiNguoiDung: yup.string().required("Không được bỏ trống."),
+        .required(notiValidate.empty)
+        .matches(
+          /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/,
+          notiValidate.phone
+        ),
+      maLoaiNguoiDung: yup.string().required(notiValidate.empty),
       maNhom: yup.string().required("Loại mã Nhóm như: GP01, GP02..."),
     }),
     onSubmit: (values) => {
       console.log("formik values", formik.values);
-      http
-        .put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", values, {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("user")).accessToken
-            }`,
-          },
-        })
+
+      nguoiDungService
+        .putThongTinNguoiDung(values, accessToken)
         .then((res) => {
           console.log(res);
           handleNotification("Cập nhật thành công!", "success");
@@ -145,32 +170,35 @@ const ManagerUser = () => {
 
   // gọi data để render lên trang
   useEffect(() => {
-    http
-      .get("/QuanLyNguoiDung/LayDanhSachNguoiDung")
-      .then((res) => {
-        // console.log(res.data);
-        let userArray = res.data.map((item, index) => {
-          return {
-            key: index,
-            taiKhoan: item.taiKhoan,
-            hoTen: item.hoTen,
-            email: item.email,
-            soDT: item.soDt,
-            maLoaiNguoiDung: item.maLoaiNguoiDung,
-          };
+    if (userData.length === 0) {
+      nguoiDungService
+        .layDanhSachNguoiDung()
+        .then((res) => {
+          // console.log(res.data);
+          let userArray = res.data.map((item, index) => {
+            return {
+              key: index,
+              taiKhoan: item.taiKhoan,
+              hoTen: item.hoTen,
+              email: item.email,
+              soDT: item.soDt,
+              maLoaiNguoiDung: item.maLoaiNguoiDung,
+            };
+          });
+          setUserData(userArray);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setUserData(userArray);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    }
+  }, [userData]);
 
   // Edit user infor
   const handleEdit = (taiKhoan) => {
     console.log("taiKhoan", taiKhoan);
-    http
-      .get(`/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01&tuKhoa=${taiKhoan}`)
+    setDisable(true);
+    nguoiDungService
+      .timKiemNguoiDung(taiKhoan)
       .then((res) => {
         console.log("res.data[0]", res.data[0]);
         // setEditData(res.data[0]);
@@ -198,18 +226,15 @@ const ManagerUser = () => {
 
   // delete tài khoản
   const handleDelete = (taiKhoan) => {
-    // console.log(JSON.parse(localStorage.getItem("user")));
-    http
-      .delete(`/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).accessToken
-          }`,
-        },
-      })
+    nguoiDungService
+      .deleteUser(accessToken, taiKhoan)
       .then((res) => {
         console.log(res);
         handleNotification("Delete thành công!", "success");
+        // setUserData([]);
+        handleSearch();
+        // handleSearch;
+        // setTriggerSearch(true);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -217,18 +242,38 @@ const ManagerUser = () => {
       });
   };
 
+  // handle Search
+  const handleSearch = (e) => {
+    let searchValue = e.target.value;
+    setSearchText(searchValue);
+    setTriggerSearch((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (!searchText) return setUserData([]);
+
+    const setTime = setTimeout(() => {
+      nguoiDungService
+        .timKiemNguoiDung(searchText)
+        .then((res) => {
+          console.log(res.data);
+          setUserData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 1000);
+
+    return () => clearTimeout(setTime);
+  }, [searchText, triggerSearch]);
+
   // handle submit
   const handleUserCreate = () => {
     console.log(formik.values);
+    setDisable(false);
 
-    http
-      .post("/QuanLyNguoiDung/ThemNguoiDung", formik.values, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).accessToken
-          }`,
-        },
-      })
+    nguoiDungService
+      .themNguoiDung(accessToken, formik.values)
       .then((res) => {
         console.log(res);
         handleNotification("Tạo mới thành công!", "success");
@@ -242,15 +287,28 @@ const ManagerUser = () => {
 
   return (
     <div className="user_manager">
-      <div className="container">
-        <div className="user_manager_title flex justify-between mb-5">
-          <h1 className="font-bold text-4xl">Quản Lý Người Dùng</h1>
-          <button
-            onClick={() => showModal()}
-            className="bg-green-500 py-2 px-4 rounded-md text-white font-bold hover:bg-green-600"
-          >
-            Thêm Người Dùng
-          </button>
+      <div className="user_manager_head">
+        <div className="user_manager_title">
+          <div className="user_manager_title flex justify-between mb-5">
+            <h1 className="font-bold text-4xl">Quản Lý Người Dùng</h1>
+            <button
+              onClick={() => showModal()}
+              className="bg-green-500 py-2 px-4 rounded-md text-white font-bold hover:bg-green-600"
+            >
+              Thêm Người Dùng
+            </button>
+          </div>
+          <div className="user_manager_search flex justify-center items-center mb-3">
+            <input
+              className="w-2/3 border border-1 px-2 py-3 rounded-md mr-3"
+              type="text"
+              placeHolder={"Nhập tài khoản hoặc tên người dùng"}
+              onChange={handleSearch}
+            />
+            <button className=" bg-gray-500 py-2 px-4 text-white rounded-md font-bold hover:bg-gray-600 inline-block">
+              Tìm Kiếm
+            </button>
+          </div>
         </div>
         <Table
           columns={columns(handleDelete, handleEdit)}
@@ -264,6 +322,7 @@ const ManagerUser = () => {
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
+          footer={null}
         >
           <form id="user-form" onSubmit={formik.handleSubmit}>
             <InputCustom
@@ -275,6 +334,7 @@ const ManagerUser = () => {
               onBlur={formik.handleBlur}
               touched={formik.touched}
               errors={formik.errors?.taiKhoan}
+              disabled={disable}
             />
             <InputCustom
               contentLabel={"Mật Khẩu"}
@@ -357,7 +417,7 @@ const ManagerUser = () => {
               Thêm Người Dùng
             </button>
             <button
-              className="bg-blue-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-blue-600"
+              className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
               type="submit"
             >
               Cập Nhật
