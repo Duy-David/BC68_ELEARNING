@@ -311,15 +311,15 @@ const ManagerCourse = () => {
       // width: '30%',
       ...getColumnSearchProps("maKhoaHoc"),
     },
-    {
-      title: "Hình Ảnh",
-      dataIndex: "hinhẢnh",
-      key: "hinhAnh",
-      // ...getColumnSearchProps("ngayTao"),
-      render: (_, record) => {
-        return <img src={record.hinhAnh} alt="Null" className="w-20" />;
-      },
-    },
+    // {
+    //   title: "Hình Ảnh",
+    //   dataIndex: "hinhẢnh",
+    //   key: "hinhAnh",
+    //   // ...getColumnSearchProps("ngayTao"),
+    //   render: (_, record) => {
+    //     return <img src={record.hinhAnh} alt="Null" className="w-20" />;
+    //   },
+    // },
     {
       title: "Tên Khóa Học",
       dataIndex: "tenKhoaHoc",

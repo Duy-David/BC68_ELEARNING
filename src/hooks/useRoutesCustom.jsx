@@ -12,6 +12,7 @@ import { pathChildren, pathDefault } from "../common/path";
 // import AdminTemplate from "../template/Admintemplate/AdminTemplate";
 import { Skeleton } from "antd";
 import { svgPathData } from "@fortawesome/free-brands-svg-icons/faAirbnb";
+import ManagerUserRegister from "../pages/ManagerUserRegister/ManagerUserRegister";
 
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
@@ -127,11 +128,11 @@ const useRoutesCustom = () => {
           ),
         },
         {
-          path: pathChildren.createUser,
+          path: pathChildren.managerUserRegister,
           // index: true,
           element: (
             <Suspense fallback={<Skeleton />}>
-              <CreateUser />
+              <ManagerUserRegister />
             </Suspense>
           ),
         },
