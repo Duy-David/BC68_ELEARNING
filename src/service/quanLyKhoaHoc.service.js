@@ -41,9 +41,13 @@ export const quanLyKhoaHocService = {
       },
     });
   },
-  putCapNhatKhoaHoc: (kh) => {
-    return http.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, kh, {});
+  putCapNhatKhoaHoc: (data) => {
+    return http.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, data);
   },
+  postCapNhatKhoaHoc: (formdata) => {
+    return http.post("QuanLyKhoaHoc/CapNhatKhoaHocUpload", formdata);
+  },
+
   deleteKhoaHoc: (MaKhoaHoc, accessToken) => {
     return http.delete(`/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${MaKhoaHoc}`, {
       headers: {
@@ -118,5 +122,9 @@ export const quanLyKhoaHocService = {
       },
     });
   },
-
+  layDanhSachKhoaHoc: (data) => {
+    return http.get(
+      `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=GP01`
+    );
+  },
 };
