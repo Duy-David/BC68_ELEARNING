@@ -15,6 +15,31 @@ export const nguoiDungService = {
       },
     });
   },
+  layDanhSachKhoaHocChuaDangKy: (accessToken, taiKhoan) => {
+    return http.post(
+      `/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${taiKhoan}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  },
+  layDanhSachKhoaHocChoXetDuyet: (accessToken, data) => {
+    return http.post(`/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
+  layDanhSachKhoaHocDaXetDuyet: (accessToken, data) => {
+    return http.post(`/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  },
   layDanhSachNguoiDung: () => {
     return http.get("/QuanLyNguoiDung/LayDanhSachNguoiDung");
   },

@@ -10,74 +10,6 @@ import { nguoiDungService } from "../../service/nguoiDung.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { UserOutlined } from "@ant-design/icons";
-// waiting course
-const waiting_columns = [
-  {
-    title: "STT",
-    dataIndex: "stt",
-    key: "stt",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Tên Khoá Học",
-    dataIndex: "tenKhoaHoc",
-    key: "tenKhoaHoc",
-  },
-  {
-    title: "Chờ Xác Nhận",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <button className="bg-blue-500 py-2 px-3 rounded-md text-white font-bold">
-          Xác Thực
-        </button>
-        <button className="bg-red-500 py-2 px-3 rounded-md text-white font-bold">
-          Huỷ
-        </button>
-      </Space>
-    ),
-  },
-];
-const waiting_data = [
-  {
-    stt: "1",
-    tenKhoaHoc: "John Brown",
-    action: ["nice", "developer"],
-  },
-];
-
-// approved course
-const approved_columns = [
-  {
-    title: "STT",
-    dataIndex: "stt",
-    key: "stt",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Tên Khoá Học",
-    dataIndex: "tenKhoaHoc",
-    key: "tenKhoaHoc",
-  },
-  {
-    title: "Chờ Xác Nhận",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <button className="bg-red-500 py-2 px-3 rounded-md text-white font-bold">
-          Huỷ
-        </button>
-      </Space>
-    ),
-  },
-];
-const approved_data = [
-  {
-    stt: "1",
-    tenKhoaHoc: "John Brown",
-    action: ["nice", "developer"],
-  },
-];
 
 const ManagerUserRegister = () => {
   const accessToken = JSON.parse(localStorage.getItem("user")).accessToken;
@@ -87,6 +19,90 @@ const ManagerUserRegister = () => {
   const [approvedData, setApprovedData] = useState([]);
   const [user, setUser] = useState(null);
   const { handleNotification } = useContext(NotificationContext);
+
+  // waiting course
+  const waiting_columns = [
+    {
+      title: "STT",
+      dataIndex: "stt",
+      key: "stt",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Tên Khoá Học",
+      dataIndex: "tenKhoaHoc",
+      key: "tenKhoaHoc",
+    },
+    {
+      title: "Chờ Xác Nhận",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <button
+            onClick={() => handleRegister(record)}
+            className="bg-blue-500 py-2 px-3 rounded-md text-white font-bold"
+          >
+            Xác Thực
+          </button>
+          <button
+            onClick={() => handleHuyGhiDanh(record)}
+            className="bg-red-500 py-2 px-3 rounded-md text-white font-bold"
+          >
+            Huỷ
+          </button>
+        </Space>
+      ),
+    },
+  ];
+
+  // approved course
+  const approved_columns = [
+    {
+      title: "STT",
+      dataIndex: "stt",
+      key: "stt",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Tên Khoá Học",
+      dataIndex: "tenKhoaHoc",
+      key: "tenKhoaHoc",
+    },
+    {
+      title: "Chờ Xác Nhận",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <button
+            onClick={() => handleHuyGhiDanh(record)}
+            className="bg-red-500 py-2 px-3 rounded-md text-white font-bold"
+          >
+            Huỷ
+          </button>
+        </Space>
+      ),
+    },
+  ];
+
+  // Huy ghi danh
+  const handleHuyGhiDanh = (record) => {
+    console.log("record", record);
+    const data = {
+      maKhoaHoc: record.maKhoaHoc,
+      taiKhoan: taiKhoan,
+    };
+    quanLyKhoaHocService
+      .postHuyGhiDanh(accessToken, data)
+      .then((res) => {
+        console.log(res);
+
+        handleNotification(res.data, "success");
+      })
+      .catch((err) => {
+        console.log(err);
+        handleNotification("Có lỗi xảy ra, vui lòng thử lại!", "error");
+      });
+  };
 
   // Lấy taiKhoan user
   const { taiKhoan } = useParams();
@@ -107,13 +123,15 @@ const ManagerUserRegister = () => {
         handleNotification(err.response.data, "error");
       });
   }, []);
-  //   lấy danh sách khoá học
+
+  //   lấy danh sách khoá học chưa ghi danh
   useEffect(() => {
-    quanLyKhoaHocService
-      .layToanBoDanhSachKhoaHoc()
+    nguoiDungService
+      .layDanhSachKhoaHocChuaDangKy(accessToken, taiKhoan)
       .then((res) => {
         // console.log(res.data);
         const khoaHocArr = res.data;
+
         // SET OPTIONS
         const khoaHocSelect = khoaHocArr.map((item, index) => {
           return {
@@ -123,35 +141,78 @@ const ManagerUserRegister = () => {
           };
         });
         setOptions(khoaHocSelect);
+        // console.log(khoaHocSelect);
+      })
+      .catch((err) => {
+        // console.log(err.response.data);
+        console.log(err);
+        console.log(accessToken);
+        console.log(taiKhoan);
+      });
+  }, []);
+
+  // Lấy danh sách khoá học chờ xét duyệt
+  useEffect(() => {
+    let data = {
+      taiKhoan: taiKhoan,
+    };
+    nguoiDungService
+      .layDanhSachKhoaHocChoXetDuyet(accessToken, data)
+      .then((res) => {
+        // console.log("cho xet", res);
+        // console.log(res.data);
+        const khoaHocArr = res.data;
+
+        // SET OPTIONS
         // Set waitingData
         const waitingArr = khoaHocArr.map((item, index) => {
           return {
             stt: index + 1,
             tenKhoaHoc: item.tenKhoaHoc,
+            maKhoaHoc: item.maKhoaHoc,
             // action: ["nice", "developer"],
           };
         });
         setWaitingData(waitingArr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // Lấy danh sách khoá học đã xét duyệt
+  useEffect(() => {
+    let data = {
+      taikhoan: taiKhoan,
+    };
+    nguoiDungService
+      .layDanhSachKhoaHocDaXetDuyet(accessToken, data)
+      .then((res) => {
+        // console.log("da xet", res);
+        // console.log(res.data);
+        const khoaHocArr = res.data;
 
         // Set approved data
         const approvedArr = khoaHocArr.map((item, index) => {
           return {
             stt: index + 1,
             tenKhoaHoc: item.tenKhoaHoc,
+            maKhoaHoc: item.maKhoaHoc,
             // action: ["nice", "developer"],
           };
         });
         setApprovedData(approvedArr);
+        // console.log("approvedArr", approvedArr);
       })
       .catch((err) => {
-        // console.log(err.response.data);
         console.log(err);
       });
   }, []);
 
   // Handle Register
-
-  const handleRegister = () => {
+  const handleRegister = (record) => {
+    console.log("record", record);
+    if (record) setMaKhoaHoc(record.maKhoaHoc);
     const info = {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
@@ -160,20 +221,20 @@ const ManagerUserRegister = () => {
       .postGhiDanhKhoaHoc(info, accessToken)
       .then((res) => {
         // console.log(res);
-        console.log(info);
-        console.log(res.data);
-        handleNotification(res.data, "success");
+        // console.log(info);
+        // console.log(res.data);
+        handleNotification("Xác thực thành công!", "success");
       })
       .catch((err) => {
         console.log(err);
         handleNotification("Có lỗi xảy ra, vui lòng thử lại!", "error");
       });
   };
-  console.log(user);
+
   return (
     <div className="manager_user_register">
       <div className="container">
-      <h3 className="text-black text-3xl mb-5">Ghi danh khoá học</h3>
+        <h3 className="text-black text-3xl mb-5">Ghi danh khoá học</h3>
 
         <div
           className="grid grid-cols-2  pb-20"
@@ -216,7 +277,7 @@ const ManagerUserRegister = () => {
               allowClear="true"
               size="large"
               style={{ width: "100%" }}
-              placeholder="Chọn Khoá Học Ghi Danh"
+              placeholder="Chọn Khoá Học Chưa Ghi Danh"
               onChange={handleChange}
               options={options}
             />
