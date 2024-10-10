@@ -4,7 +4,8 @@
 .header_section {
   background-color: #fff;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
-  padding: 10px 0;
+  padding-top: 15px;
+  padding-bottom: 10px;
   &.sticky {
     animation: sticky 1s;
   }

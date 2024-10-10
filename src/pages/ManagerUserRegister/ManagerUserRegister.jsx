@@ -6,7 +6,10 @@ import { http } from "../../service/config";
 import { useParams } from "react-router-dom";
 import { NotificationContext } from "../../App";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
-
+import { nguoiDungService } from "../../service/nguoiDung.service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { UserOutlined } from "@ant-design/icons";
 // waiting course
 const waiting_columns = [
   {
@@ -68,7 +71,7 @@ const ManagerUserRegister = () => {
   const [maKhoaHoc, setMaKhoaHoc] = useState("");
   const [waitingData, setWaitingData] = useState([]);
   const [approvedData, setApprovedData] = useState([]);
-
+  const [user, setUser] = useState(null);
   const { handleNotification } = useContext(NotificationContext);
 
   // Lấy taiKhoan user
@@ -79,7 +82,17 @@ const ManagerUserRegister = () => {
     // console.log(`selected ${value}`);
     setMaKhoaHoc(value);
   };
-
+  useEffect(() => {
+    nguoiDungService
+      .timKiemNguoiDung(taiKhoan)
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data[0]);
+      })
+      .catch((err) => {
+        handleNotification(err.response.data, "error");
+      });
+  }, []);
   //   lấy danh sách khoá học
   useEffect(() => {
     quanLyKhoaHocService
@@ -143,27 +156,64 @@ const ManagerUserRegister = () => {
         handleNotification("Có lỗi xảy ra, vui lòng thử lại!", "error");
       });
   };
-
+  console.log(user);
   return (
     <div className="manager_user_register">
       <div className="container">
+      <h3 className="text-black text-3xl mb-5">Ghi danh khoá học</h3>
+
         <div
-          className="manager_user_select_course justify-center flex pb-20"
+          className="grid grid-cols-2  pb-20"
           style={{ borderBottom: "1px solid black" }}
         >
-          <Select
-            // mode="tags"
-            style={{
-              width: "70%",
-              height: "43px",
-            }}
-            placeholder="Chọn Khoá Học Ghi Danh"
-            onChange={handleChange}
-            options={options}
-          />
+          <div className="col-span-1 flex">
+            {user?.maLoaiNguoiDung == "HV" ? (
+              <>
+                <UserOutlined className="iconUser text-6xl  bg-[#a23f6e] text-white px-12 rounded-full" />
+              </>
+            ) : (
+              <>
+                <span className="iconUser text-6xl bg-[#cdaa35] text-white px-12 rounded-full">
+                  <FontAwesomeIcon icon={faMedal} />
+                </span>
+              </>
+            )}
+            <div className="flex-col col-span-1  ml-5 h-full">
+              <h4 className="font-sans text-lg font-bold mb-3">
+                Tài khoản: {user?.taiKhoan}
+              </h4>
+              <p className="font-sans text-base mb-2">
+                Tên học viên: {user?.hoTen}
+              </p>
+              <p className="font-sans text-base mb-2">Email: {user?.email}</p>
+              <p className="font-sans text-base mb-2">
+                Điện thoại: {user?.soDt}
+              </p>
+              <p className="font-sans text-base mb-2">
+                Chức danh: {user?.tenLoaiNguoiDung}
+              </p>
+            </div>
+          </div>
 
-          <div className="user_course_register px-2 py-2 ml-3 bg-blue-500 text-white font-bold rounded-md ">
-            <button onClick={handleRegister}>Ghi Danh</button>
+          <div className="manager_user_select_course col-span-1 flex-col  text-center">
+            <h4 className="font-sans text-lg font-bold mb-3">Chọn khoá học</h4>
+            <Select
+              // mode="tags"
+              showSearch="true"
+              allowClear="true"
+              size="large"
+              style={{ width: "100%" }}
+              placeholder="Chọn Khoá Học Ghi Danh"
+              onChange={handleChange}
+              options={options}
+            />
+
+            <button
+              className="user_course_register px-4 py-3 mt-5 bg-blue-500 text-white font-bold rounded-md hover:bg-yellow-5`00   font-sans text-base"
+              onClick={handleRegister}
+            >
+              Ghi Danh
+            </button>
           </div>
         </div>
         <div
