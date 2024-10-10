@@ -15,6 +15,7 @@ const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
   const [isDisable, setIsDisable] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [newDeleteUser, setNewDeleteUser] = useState(false);
   const navigate = useNavigate();
   const [triggerSearch, setTriggerSearch] = useState(false);
 
@@ -171,7 +172,7 @@ const ManagerUser = () => {
 
   // gọi data để render lên trang
   useEffect(() => {
-    if (userData.length === 0) {
+    if (userData.length === 0 || newDeleteUser === true) {
       nguoiDungService
         .layDanhSachNguoiDung()
         .then((res) => {
@@ -187,12 +188,13 @@ const ManagerUser = () => {
             };
           });
           setUserData(userArray);
+          setNewDeleteUser(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userData]);
+  }, [userData, newDeleteUser]);
 
   // Edit user infor
   const handleEdit = (taiKhoan) => {
@@ -227,15 +229,13 @@ const ManagerUser = () => {
 
   // delete tài khoản
   const handleDelete = (taiKhoan) => {
+    console.log("userData", userData);
     nguoiDungService
       .deleteUser(accessToken, taiKhoan)
       .then((res) => {
         console.log(res);
         handleNotification("Delete thành công!", "success");
-        // setUserData([]);
-        handleSearch();
-        // handleSearch;
-        // setTriggerSearch(true);
+        setNewDeleteUser(true);
       })
       .catch((error) => {
         console.log(error.response.data);
