@@ -441,7 +441,7 @@ const ManagerCourse = () => {
                     onBlur={handleBlur}
                     touched={touched.maKhoaHoc}
                     errors={errors.maKhoaHoc}
-                    // disabled={true}
+                    disabled={true}
                   />
                   <InputCustom
                     contentLabel={"Tên Khóa Học"}
@@ -508,7 +508,7 @@ const ManagerCourse = () => {
                     value={values.taiKhoanNguoiTao}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    disabled={true}
+                    // disabled={true}
                   />
 
                   <InputCustom

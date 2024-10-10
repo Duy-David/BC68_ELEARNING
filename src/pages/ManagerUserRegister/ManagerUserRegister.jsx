@@ -19,7 +19,20 @@ const ManagerUserRegister = () => {
   const [approvedData, setApprovedData] = useState([]);
   const [user, setUser] = useState(null);
   const { handleNotification } = useContext(NotificationContext);
-
+  const getAllKhoaHoc = () => {
+    quanLyKhoaHocService
+      .layDanhSachKhoaHoc("")
+      .then((res) => {
+        // console.log("response in get all khoa hoc: ", res);
+        dispatch(setListCourse(res.data));
+      })
+      .catch((err) => {
+        // console.log("error in get all khoa hoc: ", err);
+      });
+  };
+  useEffect(() => {
+    getAllKhoaHoc();
+  }, []);
   // waiting course
   const waiting_columns = [
     {
