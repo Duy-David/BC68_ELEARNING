@@ -14,6 +14,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { pathChildren } from "../../common/path";
 import WithLoading from "../../component/WithLoading/WithLoading";
 import { notiValidate } from "../../common/notiValidate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ManagerCourse = () => {
   // const [courseValue, setCourseValue] = useState({
@@ -155,7 +157,22 @@ const ManagerCourse = () => {
       ),
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  // const [renderCourse, setRenderCourse] = useState(null);
+  const getAllKhoaHoc = () => {
+    quanLyKhoaHocService
+      .layDanhSachKhoaHoc("")
+      .then((res) => {
+        // console.log("response in get all khoa hoc: ", res);
+        dispatch(setListCourse(res.data));
+      })
+      .catch((err) => {
+        // console.log("error in get all khoa hoc: ", err);
+      });
+  };
+  useEffect(() => {
+    getAllKhoaHoc();
+  }, [isModalOpen]);
+  
   const {
     handleChange,
     handleSubmit,
@@ -207,38 +224,35 @@ const ManagerCourse = () => {
       quanLyKhoaHocService
         .putCapNhatKhoaHoc(values)
         .then((res) => {
-          console.log(res);
-          // let values = res.data;
-          // let formData = new FormData();
-          // if (uploadImage) {
-          //   formData.append("File", uploadImage);
-          // }
-          // for (let key in values) {
-          //   if (key !== "hinhAnh" || uploadImage) {
-          //     // Chỉ thêm 'hinhAnh' nếu có upload
-          //     formData.append(key, values[key]);
-          //   }
-          // }
-          // console.log(formData);
-          // quanLyKhoaHocService
-          //   .postCapNhatKhoaHoc(formData)
-          //   .then((res) => {
-          //     // handleNotification("Sửa dữ liệu thành công", "success");
-          //     // getAllKhoaHoc();
-          //     //   handleReset();
-          //     //   console.log(formData)
-          //     if (res.data.hinhAnhUrl) {
-          //       setImageUrl(res.data.hinhAnhUrl);
-          //     }
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //     handleNotification(err.response.data, "error");
-          //   });
+          console.log("res1", res);
+          let values = res.data;
+          let formData = new FormData();
+          if (uploadImage) {
+            formData.append("File", uploadImage);
+          }
+          for (let key in values) {
+            if (key !== "hinhAnh" || uploadImage) {
+              // Chỉ thêm 'hinhAnh' nếu có upload
+              formData.append(key, values[key]);
+            }
+          }
+          console.log("formdata", formData);
+          quanLyKhoaHocService
+            .postCapNhatKhoaHoc(formData)
+            .then((res2) => {
+              getAllKhoaHoc();
+              handleNotification("Sửa dữ liệu thành công", "success");
+
+              console.log("res2", res2.data);
+            })
+            .catch((err2) => {
+              console.log(err2);
+              // handleNotification(err.response.data, "error");
+            });
           console.log(res.data);
-          handleNotification("Sửa dữ liệu thành công", "success");
-          getAllKhoaHoc();
+          setImageUrl(null)
           setIsModalOpen(false);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -268,21 +282,6 @@ const ManagerCourse = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const getAllKhoaHoc = () => {
-    quanLyKhoaHocService
-      .layDanhSachKhoaHoc("")
-      .then((res) => {
-        console.log("response in get all khoa hoc: ", res);
-        dispatch(setListCourse(res.data));
-      })
-      .catch((err) => {
-        console.log("error in get all khoa hoc: ", err);
-      });
-  };
-
-  useEffect(() => {
-    getAllKhoaHoc();
-  }, []);
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
@@ -311,15 +310,15 @@ const ManagerCourse = () => {
       // width: '30%',
       ...getColumnSearchProps("maKhoaHoc"),
     },
-    // {
-    //   title: "Hình Ảnh",
-    //   dataIndex: "hinhẢnh",
-    //   key: "hinhAnh",
-    //   // ...getColumnSearchProps("ngayTao"),
-    //   render: (_, record) => {
-    //     return <img src={record.hinhAnh} alt="Null" className="w-20" />;
-    //   },
-    // },
+    {
+      title: "Hình Ảnh",
+      dataIndex: "hinhẢnh",
+      key: "hinhAnh",
+      // ...getColumnSearchProps("ngayTao"),
+      render: (_, record) => {
+        return <img src={record.hinhAnh} alt="Null" className="w-20" />;
+      },
+    },
     {
       title: "Tên Khóa Học",
       dataIndex: "tenKhoaHoc",
@@ -393,10 +392,13 @@ const ManagerCourse = () => {
               open={isModalOpen}
               // onOk={handleOk}
               onCancel={handleCancel}
+              destroyOnClose={true}
+              afterClose={handleReset}
               footer={[]}
+
             >
               <form id="course-form" onSubmit={handleSubmit}>
-                {/* <div className="w-full p-3">
+                <div className="w-full p-3">
                   <label className="block mb-2 text-sm font-medium text-gray-900">
                     Hình Ảnh
                   </label>
@@ -409,24 +411,25 @@ const ManagerCourse = () => {
                     className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                   />
                   {errorImage && <p className="text-red-500">{errorImage}</p>}
-                </div> */}
-                {/* {imageUrl && (
+                </div>
+                {imageUrl ? (
                   <div className="flex">
-                    <img className="w-2/3" src={imageUrl} alt="" />
+                    <img className="h-16" src={imageUrl} alt="" />
                     <button
-                      className=" font-black text-5xl mt-2 mr-2 text-red-500"
+                      className="font-black text-lg mt-2 mr-2 text-red-500"
                       onClick={() => {
                         setImageUrl("");
-                        setFieldValue("hinhAnh", "");
+                        setFieldValue("hinhAnh", null);
+                        
                       }}
                     >
-                      xóa{" "}
-                      {/* <i class="fa-sharp fa-regular fa-trash-can"></i> */}
-                {/* </button>
+                    <FontAwesomeIcon icon={faTrash} />
+                    </button>
                   </div>
-                )} */}
+                ) : (
+                  <img src={values.hinhAnh} alt="" className="h-16" />
+                )}
 
-                <img src={values.hinhAnh} alt="Null" className="h-16" />
                 <div className="grid grid-cols-2 gap-4">
                   <InputCustom
                     contentLabel={"Mã Khóa Học"}
