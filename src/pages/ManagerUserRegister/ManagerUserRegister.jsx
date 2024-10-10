@@ -35,13 +35,6 @@ const waiting_columns = [
     ),
   },
 ];
-const waiting_data = [
-  {
-    stt: "1",
-    tenKhoaHoc: "John Brown",
-    action: ["nice", "developer"],
-  },
-];
 
 // approved course
 const approved_columns = [
@@ -66,13 +59,6 @@ const approved_columns = [
         </button>
       </Space>
     ),
-  },
-];
-const approved_data = [
-  {
-    stt: "1",
-    tenKhoaHoc: "John Brown",
-    action: ["nice", "developer"],
   },
 ];
 
@@ -110,6 +96,7 @@ const ManagerUserRegister = () => {
           };
         });
         setOptions(khoaHocSelect);
+        console.log(khoaHocSelect);
         // Set waitingData
         const waitingArr = khoaHocArr.map((item, index) => {
           return {
