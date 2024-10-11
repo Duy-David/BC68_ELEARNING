@@ -7,7 +7,7 @@ const Instructor = () => {
       description:
         "Top instructors from around the world teach millions of students on EduMall.",
       buttonText: "Start teaching today",
-      imageSrc: "../../../png/Instructor/banner-image-group-teachers.png", 
+      imageSrc: "../../../png/Instructor/banner-image-group-teachers.png",
       altText: "Instructors",
       background: "#F6F3ED",
     },
@@ -16,14 +16,14 @@ const Instructor = () => {
       description:
         "Create an account to receive our newsletter, course recommendations, and promotions.",
       buttonText: "Register for free",
-      imageSrc: "../../../png/Instructor/banner-image-laptop.png", 
+      imageSrc: "../../../png/Instructor/banner-image-laptop.png",
       altText: "Access Education",
       background: "#EEF0F4",
     },
   ];
   return (
     <div>
-      <section className="container mx-auto px-3 py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="container mx-auto px-3 py-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {features.map((feature, index) => (
           <div
             key={index}

@@ -57,7 +57,9 @@ const Register = ({ handleCancel, openLogin }) => {
         .catch((err) => {
           console.log(err);
           handleNotification(
-            `ERROR! :: ${err.message} :: ${err.response.data}`,
+            `ERROR! ${err.message && ":: " + err.message} ${
+              err.response.data && ":: " + err.response.data
+            }`,
             "error"
           );
         });

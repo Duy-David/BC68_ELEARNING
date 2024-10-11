@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Space, Tabs } from "antd";
@@ -11,10 +11,19 @@ import MyCourses from "../MyCourses/MyCourses";
 import MyCart from "../MyCart/MyCart";
 import WithLoading from "../../component/WithLoading/WithLoading";
 import { getLocalStorage, setLocalStorage } from "../../util/util";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import InputCustormMin from "../../component/Input/InputCustormMin";
+import { notiValidate } from "../../common/notiValidate";
+import { nguoiDungService } from "../../service/nguoiDung.service";
+import { setValueUser } from "../../redux/authSlice";
 
 const PersonalInformation = () => {
+  const [editStatus, setEditSatatus] = useState("");
   const { user } = useSelector((state) => state.authSlice);
+  const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // fix tabs antd
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,6 +48,7 @@ const PersonalInformation = () => {
       setSearchParams({ tab: "1" });
     }
   }, [searchParams, setSearchParams]);
+
   // const { handleNotification } = useContext(NotificationContext);
 
   // const userInfo = user
@@ -46,24 +56,13 @@ const PersonalInformation = () => {
   //       Account: user.taiKhoan,
   //       Email: user.email,
   //       "Full Name": user.hoTen,
-  //       Phone: user.soDT,
+  //       Phone: user.soDt,
   //       "Group Code": user.maNhom,
   //       Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
   //     }
   //   : {};
 
-  const userInfo = user
-    ? {
-        Account: user.taiKhoan,
-        Email: <input value={user.email} />,
-        "Full Name": user.hoTen,
-        Phone: user.soDT,
-        "Group Code": user.maNhom,
-        Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
-      }
-    : {};
-
-  const userFields = Object.entries(userInfo);
+  // const userFields = Object.entries(userInfo);
   const [tabPosition, setTabPosition] = useState("left");
 
   const options = {
@@ -71,6 +70,79 @@ const PersonalInformation = () => {
     loop: true,
   };
   const { View: LottieView } = useLottie(options);
+  console.log("user 01", user);
+  const {
+    handleSubmit,
+    values,
+    setValues,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleReset,
+  } = useFormik({
+    initialValues: {
+      taiKhoan: user.taiKhoan,
+      email: user.email,
+      matKhau: "",
+      hoTen: user.hoTen,
+      soDT: user.soDT,
+      maNhom: user.maNhom,
+      maLoaiNguoiDung: user.maLoaiNguoiDung,
+    },
+    // validate
+    validationSchema: yup.object({
+      email: yup
+        .string()
+        .required(notiValidate.empty)
+        .email(notiValidate.email),
+      hoTen: yup
+        .string()
+        .required(notiValidate.empty)
+        .matches(/^[A-Za-zÀ-ỹà-ỹ\s]+$/, notiValidate.fullname),
+      soDT: yup
+        .string()
+        .required(notiValidate.empty)
+        .matches(
+          /(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/,
+          notiValidate.phone
+        ),
+    }),
+    onSubmit: (values) => {
+      console.log("value submit", values);
+      nguoiDungService
+        .putThongTinNguoiDung(values, user.accessToken)
+        .then((res) => {
+          console.log("res", res);
+          setLocalStorage("user", {
+            ...res.data,
+            soDT: res.data.soDt,
+            matKhau: "",
+            accessToken: user.accessToken,
+          });
+          dispatch(
+            setValueUser({
+              ...res.data,
+              soDT: res.data.soDt,
+              matKhau: "",
+              accessToken: user.accessToken,
+            })
+          );
+          handleNotification("Cập nhật thành công!", "success");
+        })
+        .catch((err) => {
+          console.log(err);
+          handleNotification(
+            `ERROR! ${err.message && ":: " + err.message} ${
+              err.response.data && ":: " + err.response.data
+            }`,
+            "error"
+          );
+        });
+
+      setEditSatatus("");
+    },
+  });
 
   const items = [
     {
@@ -100,14 +172,106 @@ const PersonalInformation = () => {
       label: <p>Personal Information</p>,
       children: (
         <WithLoading>
-          <h2 className="text-center text-6xl my-8">BASIC INFOMATION</h2>
-          <div className="grid grid-cols-2 gap-7 px-8">
-            {userFields.map(([label, value], index) => (
-              <p key={index} className=" text-2xl">
-                <span className="font-medium"> {label}</span>: {value}
-              </p>
-            ))}
-          </div>
+          <h2 className="text-center text-5xl my-8">BASIC INFORMATION</h2>
+          <form
+            className={`updateInfoUser${
+              editStatus != "" ? " " + editStatus : ""
+            }`}
+          >
+            <div className="grid grid-cols-1 w-fit mx-auto lg:grid-cols-2 lg:w-auto gap-5 px-8">
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Account:"
+                classLabel="font-medium"
+                className="p-2"
+                value={values?.taiKhoan}
+                disabled
+              />
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Email:"
+                classLabel="font-medium"
+                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
+                name="email"
+                onChange={handleChange}
+                value={values?.email}
+                onBlur={handleBlur}
+                errors={errors.email}
+                touched={touched.email}
+              />
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Full Name:"
+                classLabel="font-medium"
+                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
+                name="hoTen"
+                onChange={handleChange}
+                value={values?.hoTen}
+                onBlur={handleBlur}
+                errors={errors.hoTen}
+                touched={touched.hoTen}
+              />
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Phone:"
+                classLabel="font-medium"
+                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
+                name="soDT"
+                onChange={handleChange}
+                value={values?.soDT}
+                onBlur={handleBlur}
+                errors={errors.soDT}
+                touched={touched.soDT}
+              />
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Group Code:"
+                classLabel="font-medium"
+                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
+                name="maNhom"
+                onChange={handleChange}
+                value={values?.maNhom}
+                disabled
+              />
+              <InputCustormMin
+                classWrapper="flex items-center gap-x-3 text-xl"
+                contentLabel="Role:"
+                classLabel="font-medium"
+                className="p-2"
+                name="maLoaiNguoiDung"
+                value={user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student"}
+                disabled
+              />
+
+              <div className="flex items-center justify-end gap-x-10 mt-3">
+                {editStatus === "editing" ? (
+                  <button
+                    className="px-3 py-2 font-semibold text-sm text-white bg-red-600 hover:bg-red-900 rounded-lg shadow-md"
+                    type="button"
+                    onClick={() => {
+                      setValues(user);
+                      setEditSatatus("");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                ) : null}
+                <button
+                  onClick={() => {
+                    if (editStatus === "editing") {
+                      handleSubmit();
+                    }
+
+                    setEditSatatus("editing");
+                  }}
+                  className="px-3 py-2 font-semibold text-sm bg-blue-600 hover:bg-yellow-500 text-white rounded-lg shadow-md"
+                  type="button"
+                >
+                  {editStatus === "editing" ? "Update" : "Edit information"}
+                </button>
+              </div>
+            </div>
+          </form>
           <Instructor />
         </WithLoading>
       ),
@@ -153,3 +317,5 @@ const PersonalInformation = () => {
 };
 
 export default PersonalInformation;
+
+// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiY29uZ2t0aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkdWIiwibmJmIjoxNzI4NDU4NzM5LCJleHAiOjE3Mjg0NjIzMzl9.g2yzrajzlEAh1DUb_gK5_Nx6Ro6Zg0AmkqcsfQ0p3WU

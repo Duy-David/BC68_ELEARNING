@@ -32,7 +32,7 @@ const ManagerCourse = () => {
 
   const [listCourse, setListCourse] = useState([]);
   const [uploadImage, setUploadImage] = useState(null);
-  // const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [errorImage, setErrorImage] = useState("");
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
@@ -207,46 +207,43 @@ const ManagerCourse = () => {
       quanLyKhoaHocService
         .putCapNhatKhoaHoc(values)
         .then((res) => {
-          console.log(res);
-          // let values = res.data;
-          // let formData = new FormData();
-          // if (uploadImage) {
-          //   formData.append("File", uploadImage);
-          // }
-          // for (let key in values) {
-          //   if (key !== "hinhAnh" || uploadImage) {
-          //     // Chỉ thêm 'hinhAnh' nếu có upload
-          //     formData.append(key, values[key]);
-          //   }
-          // }
-          // console.log(formData);
-          // quanLyKhoaHocService
-          //   .postCapNhatKhoaHoc(formData)
-          //   .then((res) => {
-          //     // handleNotification("Sửa dữ liệu thành công", "success");
-          //     // getAllKhoaHoc();
-          //     //   handleReset();
-          //     //   console.log(formData)
-          //     if (res.data.hinhAnhUrl) {
-          //       setImageUrl(res.data.hinhAnhUrl);
-          //     }
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //     handleNotification(err.response.data, "error");
-          //   });
+          let values = res.data;
+          let formData = new FormData();
+          if (uploadImage) {
+            formData.append("File", uploadImage);
+          }
+          // console.log(values);
+          for (let key in values) {
+            if (key !== "hinhAnh" || uploadImage) {
+              // Chỉ thêm 'hinhAnh' nếu có upload
+              formData.append(key, values[key]);
+            }
+          }
+          console.log(formData);
+          quanLyKhoaHocService
+            .postCapNhatKhoaHoc(formData)
+            .then((res2) => {
+              console.log("res2", res2);
+              handleNotification("Sửa dữ liệu thành công", "success");
+            })
+            .catch((err2) => {
+              console.log(err2);
+              handleNotification(err2.response.data, "error");
+            });
+
+          // putCapNhat...
           console.log(res.data);
-          handleNotification("Sửa dữ liệu thành công", "success");
-          getAllKhoaHoc();
+          // handleNotification("Sửa dữ liệu thành công", "success");
           setIsModalOpen(false);
+          setImageUrl(null);
         })
         .catch((err) => {
           console.log(err);
           handleNotification(err.response.data, "error");
+          setImageUrl(null);
         });
     },
   });
-  const [imageUrl, setImageUrl] = useState("");
 
   const showModal = (record) => {
     setValues({
@@ -272,17 +269,17 @@ const ManagerCourse = () => {
     quanLyKhoaHocService
       .layDanhSachKhoaHoc("")
       .then((res) => {
-        console.log("response in get all khoa hoc: ", res);
+        // console.log("response in get all khoa hoc: ", res);
         dispatch(setListCourse(res.data));
       })
       .catch((err) => {
-        console.log("error in get all khoa hoc: ", err);
+        // console.log("error in get all khoa hoc: ", err);
       });
   };
-
+  console.log(isModalOpen);
   useEffect(() => {
     getAllKhoaHoc();
-  }, []);
+  }, [isModalOpen]);
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
@@ -303,6 +300,7 @@ const ManagerCourse = () => {
       setErrorImage(""); // Clear error
     }
   };
+
   const columns = [
     {
       title: "Mã Khóa Học",
@@ -313,7 +311,7 @@ const ManagerCourse = () => {
     },
     {
       title: "Hình Ảnh",
-      dataIndex: "hinhẢnh",
+      dataIndex: "hinhAnh",
       key: "hinhAnh",
       // ...getColumnSearchProps("ngayTao"),
       render: (_, record) => {
@@ -394,9 +392,11 @@ const ManagerCourse = () => {
               // onOk={handleOk}
               onCancel={handleCancel}
               footer={[]}
+              destroyOnClose={true}
+              afterClose={handleReset}
             >
               <form id="course-form" onSubmit={handleSubmit}>
-                {/* <div className="w-full p-3">
+                <div className="w-full p-3">
                   <label className="block mb-2 text-sm font-medium text-gray-900">
                     Hình Ảnh
                   </label>
@@ -409,8 +409,8 @@ const ManagerCourse = () => {
                     className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                   />
                   {errorImage && <p className="text-red-500">{errorImage}</p>}
-                </div> */}
-                {/* {imageUrl && (
+                </div>
+                {imageUrl ? (
                   <div className="flex">
                     <img className="w-2/3" src={imageUrl} alt="" />
                     <button
@@ -421,12 +421,11 @@ const ManagerCourse = () => {
                       }}
                     >
                       xóa{" "}
-                      {/* <i class="fa-sharp fa-regular fa-trash-can"></i> */}
-                {/* </button>
+                    </button>
                   </div>
-                )} */}
-
-                <img src={values.hinhAnh} alt="Null" className="h-16" />
+                ) : (
+                  <img className="w-2/3" src={values.hinhAnh} alt="" />
+                )}
                 <div className="grid grid-cols-2 gap-4">
                   <InputCustom
                     contentLabel={"Mã Khóa Học"}

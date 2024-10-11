@@ -1,1 +1,12 @@
 @import "./../../common/helpers/variables";
+
+.updateInfoUser input[disabled],
+.updateInfoUser input:disabled,
+.updateInfoUser input[disabled="true"],
+.updateInfoUser input.disabled {
+  background-color: white !important;
+  pointer-events: none;
+}
+.editing input {
+  background-color: #fff4e6 !important;
+}

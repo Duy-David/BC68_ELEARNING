@@ -34,11 +34,12 @@ const LoginPage = ({ handleCancel, openRegister }) => {
       matKhau: "",
     },
     onSubmit: async (values) => {
-      // console.log(values);
+      console.log(values);
       try {
         // call api
         const result = await authService.signIn(values);
         // lưu local storage và redux store
+        console.log(result);
         setLocalStorage("user", result.data);
         dispatch(setValueUser(result.data));
         // chuyển hướng người dùng
@@ -49,10 +50,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
         }, 1000);
       } catch (error) {
         console.log(error);
-        handleNotification(
-          `${error.response.data}`,
-          "error"
-        );
+        handleNotification(`${error.response.data}`, "error");
       }
     },
     validationSchema: yup.object({
