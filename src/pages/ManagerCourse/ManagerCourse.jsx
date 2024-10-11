@@ -34,7 +34,7 @@ const ManagerCourse = () => {
 
   const [listCourse, setListCourse] = useState([]);
   const [uploadImage, setUploadImage] = useState(null);
-  // const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [errorImage, setErrorImage] = useState("");
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
@@ -236,31 +236,32 @@ const ManagerCourse = () => {
               formData.append(key, values[key]);
             }
           }
-          console.log("formdata", formData);
+          console.log(formData);
           quanLyKhoaHocService
             .postCapNhatKhoaHoc(formData)
             .then((res2) => {
-              getAllKhoaHoc();
+              getAllKhoaHoc()
+              console.log("res2", res2);
               handleNotification("Sửa dữ liệu thành công", "success");
-
-              console.log("res2", res2.data);
             })
             .catch((err2) => {
               console.log(err2);
-              // handleNotification(err.response.data, "error");
+              handleNotification(err2.response.data, "error");
             });
+
+          // putCapNhat...
           console.log(res.data);
-          setImageUrl(null)
+          // handleNotification("Sửa dữ liệu thành công", "success");
           setIsModalOpen(false);
-          
+          setImageUrl(null);
         })
         .catch((err) => {
           console.log(err);
           handleNotification(err.response.data, "error");
+          setImageUrl(null);
         });
     },
   });
-  const [imageUrl, setImageUrl] = useState("");
 
   const showModal = (record) => {
     setValues({
@@ -302,6 +303,7 @@ const ManagerCourse = () => {
       setErrorImage(""); // Clear error
     }
   };
+
   const columns = [
     {
       title: "Mã Khóa Học",
@@ -312,7 +314,7 @@ const ManagerCourse = () => {
     },
     {
       title: "Hình Ảnh",
-      dataIndex: "hinhẢnh",
+      dataIndex: "hinhAnh",
       key: "hinhAnh",
       // ...getColumnSearchProps("ngayTao"),
       render: (_, record) => {
@@ -395,7 +397,6 @@ const ManagerCourse = () => {
               destroyOnClose={true}
               afterClose={handleReset}
               footer={[]}
-
             >
               <form id="course-form" onSubmit={handleSubmit}>
                 <div className="w-full p-3">
