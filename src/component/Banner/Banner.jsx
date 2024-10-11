@@ -15,7 +15,7 @@ const Banner = () => {
 
   return (
     <section className="slider-section px-3">
-      <div className="container mx-auto pb-10 scene" ref={sceneEl}>
+      <div className="container mx-auto pb-12 scene" ref={sceneEl}>
         <div className="banner_content">
           <div className="flex items-center flex-wrap">
             <div className="banner_left w-full md:w-1/2">

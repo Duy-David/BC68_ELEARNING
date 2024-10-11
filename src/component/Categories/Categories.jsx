@@ -90,31 +90,4 @@ const Categories = () => {
 
 export default Categories;
 
-// https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhMucKhoaHoc
 
-// [
-//   {   <CloudServerOutlined />
-//     maDanhMuc: "BackEnd",
-//     tenDanhMuc: "Lập trình Backend",
-//   },
-//   {
-//     maDanhMuc: "Design",
-//     tenDanhMuc: "Thiết kế Web",
-//   },
-//   {   <FontAwesomeIcon icon={faCode} />
-//     maDanhMuc: "DiDong",
-//     tenDanhMuc: "Lập trình di động",
-//   },
-//   {
-//     maDanhMuc: "FrontEnd",
-//     tenDanhMuc: "Lập trình Front end",
-//   },
-//   {
-//     maDanhMuc: "FullStack",
-//     tenDanhMuc: "Lập trình Full Stack",
-//   },
-//   {
-//     maDanhMuc: "TuDuy",
-//     tenDanhMuc: "Tư duy lập trình",
-//   },
-// ];

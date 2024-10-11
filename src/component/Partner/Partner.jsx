@@ -35,7 +35,7 @@ const Partner = () => {
   ];
   return (
     <>
-      <section className=" container py-10 px-3 mx-auto">
+      <section className=" container py-12 px-3 mx-auto">
         <div className=" grid lg:grid-cols-4 grid-cols-1">
           <div className="text-left mb-8 col-span-1">
             <h2 className="text-3xl font-semibold relative text-gray-900 partner-title">
