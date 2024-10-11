@@ -54,7 +54,7 @@ const Course = () => {
 
   // console.log(listCourseCategory);
   const sortedCourses = (courses) => {
-    return courses.sort((a, b) => b.luotXem - a.luotXem).slice(0, 10);
+    return courses.sort((a, b) => b.luotXem - a.luotXem).slice(0, 6);
   };
 
   console.log(listCourse);
@@ -74,32 +74,7 @@ const Course = () => {
     ),
   }));
 
-  //   key: category.maDanhMuc,
-  //   children: (
-  //     <div
-  //       key={index}
-  //       className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10"
-  //     >
-  //       {sortedCourses(
-  //         listCourse.filter(
-  //           (course) =>
-  //             course.danhMucKhoaHoc.maDanhMucKhoahoc === category.maDanhMuc
-  //         )
-  //       ).map((course) => (
-  //         // <Link
-  //         //   key={course.maKhoaHoc}
-  //         //   to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
-  //         // >
-  //         // {/* <Popover content={<CourseInfo course={course} />}> */}
-  //         <div key={course.maKhoaHoc} className="course-item">
-  //           <CourseCard course={course} />
-  //         </div>
-  //         // {/* </Popover> */}
-  //         // </Link>
-  //       ))}
-  //     </div>
-  //   ),
-  // }));
+  ;
   return (
     <div className="container my-12 px-3 mx-auto">
       <div className="flex justify-between">
@@ -154,7 +129,7 @@ const Course = () => {
               activeTab === category.maDanhMuc ? "block" : "hidden"
             }`}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {sortedCourses(
                 listCourse.filter(
                   (course) =>
