@@ -15,6 +15,8 @@ const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
   const [isDisable, setIsDisable] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [newDeleteUser, setNewDeleteUser] = useState(false);
+  const [updateUser, setUpdateUser] = useState(false);
   const navigate = useNavigate();
   const [triggerSearch, setTriggerSearch] = useState(false);
 
@@ -86,7 +88,10 @@ const ManagerUser = () => {
             Xoá
           </button>
           <button
-            onClick={() => handleEdit(record.taiKhoan)}
+            onClick={() => {
+              handleEdit(record.taiKhoan);
+              setUpdateUser(true);
+            }}
             className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-600"
           >
             Sửa
@@ -171,7 +176,7 @@ const ManagerUser = () => {
 
   // gọi data để render lên trang
   useEffect(() => {
-    if (userData.length === 0) {
+    if (userData.length === 0 || newDeleteUser === true) {
       nguoiDungService
         .layDanhSachNguoiDung()
         .then((res) => {
@@ -187,12 +192,13 @@ const ManagerUser = () => {
             };
           });
           setUserData(userArray);
+          setNewDeleteUser(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userData]);
+  }, [userData, newDeleteUser]);
 
   // Edit user infor
   const handleEdit = (taiKhoan) => {
@@ -227,15 +233,13 @@ const ManagerUser = () => {
 
   // delete tài khoản
   const handleDelete = (taiKhoan) => {
+    console.log("userData", userData);
     nguoiDungService
       .deleteUser(accessToken, taiKhoan)
       .then((res) => {
         console.log(res);
         handleNotification("Delete thành công!", "success");
-        // setUserData([]);
-        handleSearch();
-        // handleSearch;
-        // setTriggerSearch(true);
+        setNewDeleteUser(true);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -279,6 +283,7 @@ const ManagerUser = () => {
         console.log(res);
         handleNotification("Tạo mới thành công!", "success");
         formik.resetForm();
+        handleCancel()
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -293,7 +298,10 @@ const ManagerUser = () => {
           <div className="user_manager_title flex justify-between mb-5">
             <h1 className="font-bold text-4xl">Quản Lý Người Dùng</h1>
             <button
-              onClick={() => showModal()}
+              onClick={() => {
+                showModal();
+                setUpdateUser(false);
+              }}
               className="bg-green-500 py-2 px-4 rounded-md text-white font-bold hover:bg-green-600"
             >
               Thêm Người Dùng
@@ -409,20 +417,24 @@ const ManagerUser = () => {
               touched={formik.touched}
               errors={formik.errors?.maNhom}
             />
+            {/* <div className=""></div> */}
 
-            <button
-              onClick={handleUserCreate}
-              type="button"
-              className="bg-green-500 mr-3 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-green-600"
-            >
-              Thêm Người Dùng
-            </button>
-            <button
-              className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
-              type="submit"
-            >
-              Cập Nhật
-            </button>
+            {updateUser ? (
+              <button
+                className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
+                type="submit"
+              >
+                Cập Nhật
+              </button>
+            ) : (
+              <button
+                onClick={handleUserCreate}
+                type="button"
+                className="bg-green-500 mr-3 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-green-600"
+              >
+                Thêm Người Dùng
+              </button>
+            )}
           </form>
         </Modal>
       </div>

@@ -15,6 +15,11 @@ const ManagerUserRegister = () => {
   const accessToken = JSON.parse(localStorage.getItem("user")).accessToken;
   const [options, setOptions] = useState([]);
   const [maKhoaHoc, setMaKhoaHoc] = useState("");
+  const [xacThuc, setXacThuc] = useState(true);
+  const [loadingPage, setLoadingPage] = useState(true);
+  const [newRegister, setNewRegister] = useState(true);
+  const [newXacThuc, setNewXacThuc] = useState(true);
+  const [selectValue, setSelectValue] = useState(null);
   const [waitingData, setWaitingData] = useState([]);
   const [approvedData, setApprovedData] = useState([]);
   const [user, setUser] = useState(null);
@@ -52,7 +57,7 @@ const ManagerUserRegister = () => {
       render: (_, record) => (
         <Space size="middle">
           <button
-            onClick={() => handleRegister(record)}
+            onClick={() => handleXacThuc(record)}
             className="bg-blue-500 py-2 px-3 rounded-md text-white font-bold"
           >
             Xác Thực
@@ -110,6 +115,7 @@ const ManagerUserRegister = () => {
         console.log(res);
 
         handleNotification(res.data, "success");
+        setNewRegister((prev) => !prev);
       })
       .catch((err) => {
         console.log(err);
@@ -123,6 +129,7 @@ const ManagerUserRegister = () => {
   // Lấy mã khoá học
   const handleChange = (value) => {
     // console.log(`selected ${value}`);
+    setSelectValue(value);
     setMaKhoaHoc(value);
   };
   useEffect(() => {
@@ -162,7 +169,7 @@ const ManagerUserRegister = () => {
         console.log(accessToken);
         console.log(taiKhoan);
       });
-  }, []);
+  }, [newRegister]);
 
   // Lấy danh sách khoá học chờ xét duyệt
   useEffect(() => {
@@ -191,7 +198,7 @@ const ManagerUserRegister = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newXacThuc]);
 
   // Lấy danh sách khoá học đã xét duyệt
   useEffect(() => {
@@ -220,23 +227,40 @@ const ManagerUserRegister = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newRegister]);
+
+  // Handle Xác Thực
+  const handleXacThuc = (record) => {
+    if (record) {
+      console.log("ben trong handleXacThuc");
+      setMaKhoaHoc(record.maKhoaHoc);
+      setXacThuc((prev) => !prev);
+    }
+    console.log("record", record.maKhoaHoc);
+  };
+  useEffect(() => {
+    if (!loadingPage) {
+      handleRegister();
+    } else {
+      setLoadingPage(false);
+    }
+    console.log("ben trong useEffect");
+  }, [xacThuc]);
 
   // Handle Register
-  const handleRegister = (record) => {
-    console.log("record", record);
-    if (record) setMaKhoaHoc(record.maKhoaHoc);
+  const handleRegister = () => {
     const info = {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
     };
+    console.log("info", info);
     quanLyKhoaHocService
       .postGhiDanhKhoaHoc(info, accessToken)
       .then((res) => {
-        // console.log(res);
-        // console.log(info);
-        // console.log(res.data);
-        handleNotification("Xác thực thành công!", "success");
+        handleNotification("Ghi Danh thành công!", "success");
+        setNewRegister((prev) => !prev);
+        setNewXacThuc((prev) => !prev);
+        setSelectValue(null);
       })
       .catch((err) => {
         console.log(err);
@@ -293,6 +317,7 @@ const ManagerUserRegister = () => {
               placeholder="Chọn Khoá Học Chưa Ghi Danh"
               onChange={handleChange}
               options={options}
+              value={selectValue}
             />
 
             <button
