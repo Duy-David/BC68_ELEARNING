@@ -15,7 +15,8 @@ const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
   const [isDisable, setIsDisable] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [newDeleteUser, setNewDeleteUser] = useState(false);
+  const [hideBtn, setHideBtn] = useState();
+  const [newUserArr, setNewUserArr] = useState(false);
   const navigate = useNavigate();
   const [triggerSearch, setTriggerSearch] = useState(false);
 
@@ -148,6 +149,7 @@ const ManagerUser = () => {
           console.log(res);
           handleNotification("Cập nhật thành công!", "success");
           formik.resetForm();
+          setNewUserArr(true);
         })
         .catch((err) => {
           console.log(err);
@@ -162,6 +164,7 @@ const ManagerUser = () => {
     formik.resetForm();
     setIsModalOpen(true);
     setIsDisable(false);
+    setHideBtn(false);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -172,7 +175,7 @@ const ManagerUser = () => {
 
   // gọi data để render lên trang
   useEffect(() => {
-    if (userData.length === 0 || newDeleteUser === true) {
+    if (userData.length === 0 || newUserArr === true) {
       nguoiDungService
         .layDanhSachNguoiDung()
         .then((res) => {
@@ -188,13 +191,13 @@ const ManagerUser = () => {
             };
           });
           setUserData(userArray);
-          setNewDeleteUser(false);
+          setNewUserArr(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userData, newDeleteUser]);
+  }, [userData, newUserArr]);
 
   // Edit user infor
   const handleEdit = (taiKhoan) => {
@@ -216,9 +219,9 @@ const ManagerUser = () => {
           ...formik.values,
           ...userInfo,
         });
-
-        console.log("userInfo", userInfo);
+        // console.log("userInfo", userInfo);
         // console.log("editData", editData);
+        setHideBtn(true);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -235,7 +238,7 @@ const ManagerUser = () => {
       .then((res) => {
         console.log(res);
         handleNotification("Delete thành công!", "success");
-        setNewDeleteUser(true);
+        setNewUserArr(true);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -279,6 +282,7 @@ const ManagerUser = () => {
         console.log(res);
         handleNotification("Tạo mới thành công!", "success");
         formik.resetForm();
+        setNewUserArr(true);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -413,6 +417,7 @@ const ManagerUser = () => {
             <button
               onClick={handleUserCreate}
               type="button"
+              hidden={hideBtn}
               className="bg-green-500 mr-3 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-green-600"
             >
               Thêm Người Dùng
@@ -420,6 +425,7 @@ const ManagerUser = () => {
             <button
               className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
               type="submit"
+              hidden={!hideBtn}
             >
               Cập Nhật
             </button>
