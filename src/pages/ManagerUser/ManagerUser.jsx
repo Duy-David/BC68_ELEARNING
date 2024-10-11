@@ -17,6 +17,8 @@ const ManagerUser = () => {
   const [searchText, setSearchText] = useState("");
   const [newDeleteUser, setNewDeleteUser] = useState(false);
   const [updateUser, setUpdateUser] = useState(false);
+  const [hideBtn, setHideBtn] = useState();
+  const [newUserArr, setNewUserArr] = useState(false);
   const navigate = useNavigate();
   const [triggerSearch, setTriggerSearch] = useState(false);
 
@@ -90,7 +92,7 @@ const ManagerUser = () => {
           <button
             onClick={() => {
               handleEdit(record.taiKhoan);
-              setUpdateUser(true);
+              // setUpdateUser(true);
             }}
             className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-600"
           >
@@ -152,6 +154,8 @@ const ManagerUser = () => {
           console.log(res);
           handleNotification("Cập nhật thành công!", "success");
           formik.resetForm();
+          setNewUserArr(true);
+          handleCancel()
         })
         .catch((err) => {
           console.log(err);
@@ -166,6 +170,7 @@ const ManagerUser = () => {
     formik.resetForm();
     setIsModalOpen(true);
     setIsDisable(false);
+    setHideBtn(false);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -176,7 +181,7 @@ const ManagerUser = () => {
 
   // gọi data để render lên trang
   useEffect(() => {
-    if (userData.length === 0 || newDeleteUser === true) {
+    if (userData.length === 0 || newUserArr === true) {
       nguoiDungService
         .layDanhSachNguoiDung()
         .then((res) => {
@@ -192,13 +197,13 @@ const ManagerUser = () => {
             };
           });
           setUserData(userArray);
-          setNewDeleteUser(false);
+          setNewUserArr(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [userData, newDeleteUser]);
+  }, [userData, newUserArr]);
 
   // Edit user infor
   const handleEdit = (taiKhoan) => {
@@ -220,9 +225,9 @@ const ManagerUser = () => {
           ...formik.values,
           ...userInfo,
         });
-
-        console.log("userInfo", userInfo);
+        // console.log("userInfo", userInfo);
         // console.log("editData", editData);
+        setHideBtn(true);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -239,7 +244,7 @@ const ManagerUser = () => {
       .then((res) => {
         console.log(res);
         handleNotification("Delete thành công!", "success");
-        setNewDeleteUser(true);
+        setNewUserArr(true);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -283,7 +288,9 @@ const ManagerUser = () => {
         console.log(res);
         handleNotification("Tạo mới thành công!", "success");
         formik.resetForm();
+        setNewUserArr(true);
         handleCancel()
+
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -300,7 +307,7 @@ const ManagerUser = () => {
             <button
               onClick={() => {
                 showModal();
-                setUpdateUser(false);
+                // setUpdateUser(false);
               }}
               className="bg-green-500 py-2 px-4 rounded-md text-white font-bold hover:bg-green-600"
             >
@@ -417,24 +424,22 @@ const ManagerUser = () => {
               touched={formik.touched}
               errors={formik.errors?.maNhom}
             />
-            {/* <div className=""></div> */}
-
-            {updateUser ? (
-              <button
-                className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
-                type="submit"
-              >
-                Cập Nhật
-              </button>
-            ) : (
-              <button
-                onClick={handleUserCreate}
-                type="button"
-                className="bg-green-500 mr-3 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-green-600"
-              >
-                Thêm Người Dùng
-              </button>
-            )}
+          
+            <button
+              onClick={handleUserCreate}
+              type="button"
+              hidden={hideBtn}
+              className="bg-green-500 mr-3 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-green-600"
+            >
+              Thêm Người Dùng
+            </button>
+            <button
+              className="bg-orange-500 py-2 px-4 mt-3 text-white rounded-md font-bold hover:bg-orange-600"
+              type="submit"
+              hidden={!hideBtn}
+            >
+              Cập Nhật
+            </button>
           </form>
         </Modal>
       </div>
