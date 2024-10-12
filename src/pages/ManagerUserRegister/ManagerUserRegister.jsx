@@ -185,7 +185,7 @@ const ManagerUserRegister = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [newXacThuc]);
+  }, [newXacThuc, newRegister]);
 
   // Lấy danh sách khoá học đã xét duyệt
   useEffect(() => {
