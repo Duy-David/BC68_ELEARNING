@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./admin-template.scss";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,

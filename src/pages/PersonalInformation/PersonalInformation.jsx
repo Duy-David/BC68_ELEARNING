@@ -55,7 +55,6 @@ const PersonalInformation = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  
   const [tabPosition, setTabPosition] = useState("left");
 
   const options = {
@@ -140,7 +139,7 @@ const PersonalInformation = () => {
   const items = [
     {
       key: "1",
-      label: <p>My Information</p>,
+      label: <p>Welcome back!</p>,
       children: (
         <>
           <div className="flex space-x-6">
@@ -289,7 +288,6 @@ const PersonalInformation = () => {
     },
   ];
 
-
   return (
     <>
       <div className="container mx-auto pb-10 px-3">
@@ -304,7 +302,7 @@ const PersonalInformation = () => {
           activeKey={currentTab}
           onChange={handleTabChange}
           // defaultActiveKey="3"
-          centered={isResponsive.md} 
+          centered={isResponsive.md}
         />
       </div>
     </>
@@ -312,4 +310,3 @@ const PersonalInformation = () => {
 };
 
 export default PersonalInformation;
-
