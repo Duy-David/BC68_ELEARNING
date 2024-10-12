@@ -17,6 +17,7 @@ import InputCustormMin from "../../component/Input/InputCustormMin";
 import { notiValidate } from "../../common/notiValidate";
 import { nguoiDungService } from "../../service/nguoiDung.service";
 import { setValueUser } from "../../redux/authSlice";
+import useResponsive from "../../hooks/useResponsive";
 
 const PersonalInformation = () => {
   const [editStatus, setEditSatatus] = useState("");
@@ -28,6 +29,11 @@ const PersonalInformation = () => {
   // fix tabs antd
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "1";
+  const isResponsive = useResponsive({
+    sm: 640,
+    md: 768,
+    lg: 1024,
+  });
 
   // fix show welcome robot
   const [robotLoaded, setRobotLoaded] = useState(() => {
@@ -49,20 +55,7 @@ const PersonalInformation = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  // const { handleNotification } = useContext(NotificationContext);
-
-  // const userInfo = user
-  //   ? {
-  //       Account: user.taiKhoan,
-  //       Email: user.email,
-  //       "Full Name": user.hoTen,
-  //       Phone: user.soDt,
-  //       "Group Code": user.maNhom,
-  //       Role: user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student",
-  //     }
-  //   : {};
-
-  // const userFields = Object.entries(userInfo);
+  
   const [tabPosition, setTabPosition] = useState("left");
 
   const options = {
@@ -296,6 +289,7 @@ const PersonalInformation = () => {
     },
   ];
 
+
   return (
     <>
       <div className="container mx-auto pb-10 px-3">
@@ -305,11 +299,12 @@ const PersonalInformation = () => {
           }}
         ></Space>
         <Tabs
-          tabPosition={tabPosition}
+          tabPosition={isResponsive.md ? "top" : "left"}
           items={items}
           activeKey={currentTab}
           onChange={handleTabChange}
           // defaultActiveKey="3"
+          centered={isResponsive.md} 
         />
       </div>
     </>
@@ -318,4 +313,3 @@ const PersonalInformation = () => {
 
 export default PersonalInformation;
 
-// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiY29uZ2t0aSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkdWIiwibmJmIjoxNzI4NDU4NzM5LCJleHAiOjE3Mjg0NjIzMzl9.g2yzrajzlEAh1DUb_gK5_Nx6Ro6Zg0AmkqcsfQ0p3WU
