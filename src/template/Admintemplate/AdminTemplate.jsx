@@ -14,6 +14,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import Loading from "../../component/Loading/Loading";
 import WithLoading from "../../component/WithLoading/WithLoading";
 import LoggedInUserInfo from "../../component/Header/LoggedInUserInfo";
+import "./admin-template.scss";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -69,8 +70,8 @@ const AdminTemplate = () => {
                 background: colorBgContainer,
               }}
             >
-              <div className="flex items-center justify-between px-4">
-                <div>
+              <div className="flex justify-between px-4">
+                <div className="">
                   <Button
                     type="text"
                     icon={
@@ -90,7 +91,9 @@ const AdminTemplate = () => {
                     Back to HomePage
                   </Button>
                 </div>
-                <LoggedInUserInfo />
+                <div className="pr-5">
+                  <LoggedInUserInfo />
+                </div>
               </div>
             </Header>
             <Content
