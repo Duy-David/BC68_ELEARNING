@@ -20,7 +20,7 @@ import { setValueUser } from "../../redux/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { NotificationContext } from "../../App";
-import { pathDefault } from "../../common/path";
+import { pathChildren, pathDefault } from "../../common/path";
 import useResponsive from "../../hooks/useResponsive";
 
 const LoggedInUserInfo = () => {
@@ -52,9 +52,9 @@ const LoggedInUserInfo = () => {
     user.maLoaiNguoiDung === "GV"
       ? {
           label: (
-            <Link to={pathDefault.admin} className="font-semibold">
-              Go to Admin Page
-            </Link>
+              <Link to={pathChildren.managerUser} className="font-semibold ">
+                Go to Admin Page
+              </Link>
           ),
           key: "0",
           icon: <ToolFilled />,
@@ -69,7 +69,7 @@ const LoggedInUserInfo = () => {
     {
       label: (
         <Link to={`/personal-infornation/${user.taiKhoan}?tab=2`}>
-          My Information
+          My Profile
         </Link>
       ),
       key: "2",

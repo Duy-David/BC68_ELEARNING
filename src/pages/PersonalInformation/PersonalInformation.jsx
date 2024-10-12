@@ -140,7 +140,7 @@ const PersonalInformation = () => {
   const items = [
     {
       key: "1",
-      label: <p>Home</p>,
+      label: <p>My Information</p>,
       children: (
         <>
           <div className="flex space-x-6">
@@ -162,7 +162,7 @@ const PersonalInformation = () => {
     },
     {
       key: "2",
-      label: <p>Personal Information</p>,
+      label: <p>My Profile</p>,
       children: (
         <WithLoading>
           <h2 className="text-center text-5xl my-8">BASIC INFORMATION</h2>

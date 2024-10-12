@@ -1,0 +1,16 @@
+.adminPage {
+  .userOnline .ant-space-item:has(.iconUser)::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+body:has(.adminPage)
+  .ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item:first-child {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
