@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./admin-template.scss";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -12,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Loading from "../../component/Loading/Loading";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import LoggedInUserInfo from "../../component/Header/LoggedInUserInfo";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const AdminTemplate = () => {
     <WithLoading>
       <>
         {" "}
-        <Layout className="min-h-full">
+        <Layout className="min-h-full adminPage">
           <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className="demo-logo-vertical" />
             <Menu
@@ -67,22 +69,29 @@ const AdminTemplate = () => {
                 background: colorBgContainer,
               }}
             >
-              <Button
-                type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={() => setCollapsed(!collapsed)}
-                style={{
-                  fontSize: "16px",
-                  width: 64,
-                  height: 64,
-                }}
-              />
-              <Button
-                onClick={handleBackToHomePage}
-                style={{ marginRight: "20px" }}
-              >
-                Back to HomePage
-              </Button>
+              <div className="flex items-center justify-between px-4">
+                <div>
+                  <Button
+                    type="text"
+                    icon={
+                      collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                    }
+                    onClick={() => setCollapsed(!collapsed)}
+                    style={{
+                      fontSize: "16px",
+                      width: 64,
+                      height: 64,
+                    }}
+                  />
+                  <Button
+                    onClick={handleBackToHomePage}
+                    style={{ marginRight: "20px" }}
+                  >
+                    Back to HomePage
+                  </Button>
+                </div>
+                <LoggedInUserInfo />
+              </div>
             </Header>
             <Content
               style={{
