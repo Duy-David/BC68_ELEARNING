@@ -89,13 +89,13 @@ const Header = () => {
           </div>
 
           <div className="header_inner flex items-center">
-            <div className="header_search relative hidden sm:block">
+            <div className="header_search relative hidden sm:block min-w-fit max-w-[400px] sm:min-w-0 lg:max-w-[270px] xl:max-w-[640px] xl:min-w-[380px] 2xl:min-w-[600px]">
               <FormSearchBar />
             </div>
             <nav className="header_navBar hidden lg:block">
               <NavBarMenu />
             </nav>
-            <div className="header_cart ml-1 mr-3 lg:ml-5 lg:mr-7">
+            <div className="header_cart ml-1 mr-3 lg:mx-0">
               <CartPopOver />
             </div>
             {/* check đăng nhập */}
