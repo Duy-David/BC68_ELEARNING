@@ -117,8 +117,8 @@ const CartPopOver = () => {
       }
       arrow={false}
       trigger="click"
-      visible={visible}
-      onVisibleChange={handleVisibleChange}
+      open={visible}
+      onOpenChange={handleVisibleChange}
     >
       <button className="header_cart_btn ">
         {" "}
