@@ -49,7 +49,7 @@
     }
     .header_inner {
       .header_search {
-        max-width: 400px;
+        // max-width: 640px;
         position: relative;
         padding: 0 10px;
         label:not(.ant-radio-wrapper) {
@@ -396,6 +396,8 @@
 }
 
 //  fix < sm-screen
+@media (max-width: 490px) {
+}
 @media (min-width: 415px) {
 }
 @media (min-width: 558px) {

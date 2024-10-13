@@ -28,7 +28,6 @@ const Categories = () => {
         console.log(err);
       });
   }, []);
-  // console.log(listCategories);
 
   const getIcon = (maDanhMuc) => {
     switch (maDanhMuc) {
@@ -89,5 +88,3 @@ const Categories = () => {
 };
 
 export default Categories;
-
-

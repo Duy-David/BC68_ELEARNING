@@ -26,7 +26,6 @@ const FormSearchBar = () => {
       quanLyKhoaHocService
         .searchKhoaHocTheoTen(valueSearch)
         .then((res) => {
-          console.log(res);
           if (res.data.length > 0) {
             const newListCourseSuggest = res.data
               .slice(0, 6)

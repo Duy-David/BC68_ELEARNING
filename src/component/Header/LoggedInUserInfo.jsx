@@ -52,9 +52,9 @@ const LoggedInUserInfo = () => {
     user.maLoaiNguoiDung === "GV"
       ? {
           label: (
-              <Link to={pathChildren.managerUser} className="font-semibold ">
-                Go to Admin Page
-              </Link>
+            <Link to={pathChildren.managerUser} className="font-semibold ">
+              Go to Admin Page
+            </Link>
           ),
           key: "0",
           icon: <ToolFilled />,
@@ -137,7 +137,7 @@ const LoggedInUserInfo = () => {
       menu={{
         items,
       }}
-      trigger={["hover"]}
+      // trigger={["click"]}
       arrow
     >
       <Link
@@ -147,7 +147,7 @@ const LoggedInUserInfo = () => {
         to={`/personal-infornation/${user.taiKhoan}`}
       >
         <Space size={"small"}>
-          <span className="font-semibold hover:text-[#0071dc] hidden lg:inline-block">
+          <span className="font-semibold hover:text-[#0071dc] hidden xl:inline-block">
             {user.hoTen}
           </span>
 

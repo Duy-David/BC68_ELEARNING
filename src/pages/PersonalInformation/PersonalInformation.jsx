@@ -62,7 +62,6 @@ const PersonalInformation = () => {
     loop: true,
   };
   const { View: LottieView } = useLottie(options);
-  console.log("user 01", user);
   const {
     handleSubmit,
     values,
@@ -101,11 +100,9 @@ const PersonalInformation = () => {
         ),
     }),
     onSubmit: (values) => {
-      console.log("value submit", values);
       nguoiDungService
         .putThongTinNguoiDung(values, user.accessToken)
         .then((res) => {
-          console.log("res", res);
           setLocalStorage("user", {
             ...res.data,
             soDT: res.data.soDt,
@@ -123,7 +120,6 @@ const PersonalInformation = () => {
           handleNotification("Cập nhật thành công!", "success");
         })
         .catch((err) => {
-          console.log(err);
           handleNotification(
             `ERROR! ${err.message && ":: " + err.message} ${
               err.response.data && ":: " + err.response.data
@@ -139,11 +135,11 @@ const PersonalInformation = () => {
   const items = [
     {
       key: "1",
-      label: <p>Welcome Back</p>,
+      label: <p>Welcome back!</p>,
       children: (
         <>
-          <div className=" lg:flex  space-x-6">
-            <div className="md:w-1/2  px-5 flex flex-col justify-center">
+          <div className="flex space-x-6">
+            <div className="md:w-1/2 w-full px-5 flex flex-col justify-center">
               {" "}
               <h2 className="text-center text-5xl mt-8 mb-4">
                 Welcome back, {user.taiKhoan}
@@ -154,7 +150,7 @@ const PersonalInformation = () => {
               </p>
             </div>
 
-            <div className=""> {LottieView}</div>
+            <div className="md:w-1/2 w-full"> {LottieView}</div>
           </div>
         </>
       ),
@@ -290,17 +286,12 @@ const PersonalInformation = () => {
 
   return (
     <>
-      <div
-        className={`container mx-auto pb-10 ${
-          isResponsive.md ? "px-3" : "px-6"
-        }`}
-      >
-        {/* <Space
+      <div className="container mx-auto pb-10 px-3">
+        <Space
           style={{
-            // marginBottom: 15,
-            marginLeft: 15,
+            marginBottom: 24,
           }}
-        ></Space> */}
+        ></Space>
         <Tabs
           tabPosition={isResponsive.md ? "top" : "left"}
           items={items}

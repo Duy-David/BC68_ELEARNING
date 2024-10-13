@@ -24,8 +24,6 @@ const DetailCourse = () => {
     quanLyKhoaHocService
       .getThongTinKhoaHoc(maKhoaHoc)
       .then((res) => {
-        console.log(res.data);
-        console.log(res.data.danhMucKhoaHoc.maDanhMucKhoahoc);
         setDetailCourse(res.data);
       })
       .catch((err) => {
@@ -36,9 +34,7 @@ const DetailCourse = () => {
     maKhoaHoc: "",
     taiKfhoan: "",
   };
-  
-  console.log(detailCourse);
- 
+
   return (
     <WithLoading>
       <div className="container mx-auto pb-10 px-3">
