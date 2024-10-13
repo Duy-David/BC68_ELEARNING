@@ -23,19 +23,19 @@ const Footer = () => {
               <h3>About</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link to={"javascript:void(0)"}>About Us</Link>
+                  <Link >About Us</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Courses</Link>
+                  <Link >Courses</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Instructor</Link>
+                  <Link >Instructor</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Events</Link>
+                  <Link >Events</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Become A Teacher</Link>
+                  <Link >Become A Teacher</Link>
                 </li>
               </ul>
             </div>
@@ -43,19 +43,19 @@ const Footer = () => {
               <h3>Links</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link to={"javascript:void(0)"}>News & Blogs</Link>
+                  <Link >News & Blogs</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Library</Link>
+                  <Link >Library</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Gallery</Link>
+                  <Link >Gallery</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Partners</Link>
+                  <Link >Partners</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Career</Link>
+                  <Link >Career</Link>
                 </li>
               </ul>
             </div>
@@ -63,19 +63,19 @@ const Footer = () => {
               <h3>Support</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link to={"javascript:void(0)"}>Documentation</Link>
+                  <Link >Documentation</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>FAQs</Link>
+                  <Link >FAQs</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Forum</Link>
+                  <Link >Forum</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Sitemap</Link>
+                  <Link >Sitemap</Link>
                 </li>
                 <li>
-                  <Link to={"javascript:void(0)"}>Contact Us</Link>
+                  <Link >Contact Us</Link>
                 </li>
               </ul>
             </div>
@@ -88,7 +88,7 @@ const Footer = () => {
             <ul className="flex justify-center">
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  to={"javascript:void(0)"}
+                  
                   className="hover:text-[#1C96E8]"
                 >
                   <FontAwesomeIcon icon={faTwitter} />
@@ -96,7 +96,7 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  to={"javascript:void(0)"}
+                  
                   className="hover:text-[#0866FF]"
                 >
                   <FontAwesomeIcon icon={faFacebookF} />
@@ -104,7 +104,7 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  to={"javascript:void(0)"}
+                  
                   className="hover:text-[#0A66C2]"
                 >
                   <FontAwesomeIcon icon={faLinkedinIn} />
@@ -112,7 +112,7 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  to={"javascript:void(0)"}
+                  
                   className="hover:text-[#ff0000]"
                 >
                   <FontAwesomeIcon icon={faYoutube} />
@@ -127,8 +127,8 @@ const Footer = () => {
               by BC68Xteam
             </p>
             <p className="flex justify-center space-x-8">
-              <Link to={"javascript:void(0)"}>Terms of Use</Link>
-              <Link to={"javascript:void(0)"}>Privacy Policy</Link>
+              <Link >Terms of Use</Link>
+              <Link >Privacy Policy</Link>
             </p>
           </div>
         </div>

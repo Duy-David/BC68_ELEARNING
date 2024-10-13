@@ -3,8 +3,14 @@ import { Button, Dropdown, Space } from "antd";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { Link } from "react-router-dom";
 import IconCategory from "../Icon/Iconheaders";
+import useResponsive from "../../hooks/useResponsive";
 
 const HeaderCategory = () => {
+  const isResponsive = useResponsive({
+    sm: 640,
+    md: 768,
+    lg: 1024,
+  });
   const [listCourseCategory, setListCoursCategory] = useState([]);
   useEffect(() => {
     quanLyKhoaHocService
@@ -36,9 +42,10 @@ const HeaderCategory = () => {
       arrow
     >
       <Button>
-        <div className="category_icon">
-          <IconCategory />
-        </div>
+      <div className="category_icon flex">
+        <IconCategory />
+        {!isResponsive.lg ? <span>Catelogy</span> : <></>}
+      </div>
       </Button>
     </Dropdown>
   );

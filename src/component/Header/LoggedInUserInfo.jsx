@@ -101,8 +101,8 @@ const LoggedInUserInfo = () => {
         <Link
           to={`${
             user.maLoaiNguoiDung == "HV"
-              ? "javascript:void(0)#become-teacher"
-              : "javascript:void(0)#list-class-teaching"
+              ? "#become-teacher"
+              : "#list-class-teaching"
           }`}
         >
           {user.maLoaiNguoiDung == "HV"

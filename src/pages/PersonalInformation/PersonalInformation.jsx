@@ -137,19 +137,25 @@ const PersonalInformation = () => {
       label: <p>Welcome back!</p>,
       children: (
         <>
-          <div className="flex space-x-6">
-            <div className="md:w-1/2 w-full px-5 flex flex-col justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className=" w-full px-5 flex flex-col justify-center">
               {" "}
               <h2 className="text-center text-5xl mt-8 mb-4">
                 Welcome back, {user.taiKhoan}
               </h2>
-              <p className="text-center text-xl italic link-style">
+              <p className="text-center text-xl  ">
                 Manage your info, privacy, and security to get EduMall course
-                better for you. <Link>Learn more</Link>
+                better for you.{" "}
+                <button
+                  onClick={() => handleTabChange("2")}
+                  className="text-blue-500 italic link-style hover:text-blue-800 font-normal"
+                >
+                  Learn more
+                </button>
               </p>
             </div>
 
-            <div className="md:w-1/2 w-full"> {LottieView}</div>
+            <div className=" w-full"> {LottieView}</div>
           </div>
         </>
       ),

@@ -19,7 +19,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY || window.pageYOffset;
+      const scrollPosition = window.scrollY
 
       setIsVisible({
         features: scrollPosition > 300,
@@ -33,11 +33,10 @@ const Homepage = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup sự kiện khi component bị unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  },[isVisible]);
 
   return (
     <>

@@ -86,7 +86,7 @@ const CourseCard = ({ course }) => {
     </div>
   );
   return (
-    <div className=" rounded-lg overflow-hidden shadow-lg bg-white">
+    <div className=" rounded-lg overflow-hidden shadow-xl bg-white">
       {/* Course Image */}{" "}
       <Popover content={content}>
         <div className="relative">
