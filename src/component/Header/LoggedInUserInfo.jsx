@@ -137,7 +137,7 @@ const LoggedInUserInfo = () => {
       menu={{
         items,
       }}
-      // trigger={["click"]}
+      trigger={["hover"]}
       arrow
     >
       <Link
