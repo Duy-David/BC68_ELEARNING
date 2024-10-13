@@ -109,11 +109,11 @@ const Course = () => {
                 placement="topLeft"
                 arrow
               >
-                <Button>
-                  <div className="category_icon">
-                    <IconCategory />
+                {/* <Button> */}
+                  <div className="category_icon ">
+                    <IconCategory w="26px" />
                   </div>
-                </Button>
+                {/* </Button> */}
               </Dropdown>
             </div>
           )}

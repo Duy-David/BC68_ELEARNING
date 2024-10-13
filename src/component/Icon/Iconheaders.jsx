@@ -1,7 +1,7 @@
 import React from "react";
 import useResponsive from "../../hooks/useResponsive";
 
-const Iconheaders = () => {
+const Iconheaders = ({w="18px"}) => {
   const isResponsive = useResponsive({
     sm: 640,
     md: 768,
@@ -10,8 +10,8 @@ const Iconheaders = () => {
   return (
     <div className="">
       <svg
-        width="18px"
-        height="18px"
+        width={w}
+        height={w}
         viewBox="0 0 18 18"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
