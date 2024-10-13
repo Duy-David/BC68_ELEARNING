@@ -14,9 +14,7 @@ const CartPopOver = () => {
   // const { setStatusModal } = useSelector((state) => state.headerSlice);
   const { cartItems, totalAmount } = useSelector((state) => state.cartSlice);
   const totalAmountStorage = Number(localStorage.getItem("totalAmount"));
-  console.log(totalAmountStorage);
-  // console.log(localStorage.getItem('totalAmount'))
-  // console.log(cartItems);
+
   const dispatch = useDispatch();
   const handleRemoveFromCart = (courseId) => {
     dispatch(removeFromCart(courseId));
@@ -40,8 +38,11 @@ const CartPopOver = () => {
       <ul className="header_cart__list overflow-y-auto max-h-[70vh] flex flex-col">
         {cartItems.map((course, index) => {
           return (
-            <Link to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}>
-              <li className="header_cart__item  space-x-2">
+            <Link
+              key={index}
+              to={`/course-catelogies/detail-course/${course.maKhoaHoc}`}
+            >
+              <li className="header_cart__item space-x-2">
                 <button
                   onClick={() => handleRemoveFromCart(course.maKhoaHoc)}
                   className="header_cart__close "
@@ -117,8 +118,8 @@ const CartPopOver = () => {
       }
       arrow={false}
       trigger="click"
-      visible={visible}
-      onVisibleChange={handleVisibleChange}
+      open={visible}
+      onOpenChange={handleVisibleChange}
     >
       <button className="header_cart_btn ">
         {" "}

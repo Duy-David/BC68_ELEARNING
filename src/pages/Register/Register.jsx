@@ -35,14 +35,13 @@ const Register = ({ handleCancel, openLogin }) => {
     },
 
     onSubmit: (values) => {
-      console.log("val1", values);
       authService
         .signUp({
           ...values,
           maNhom: "GP01",
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           handleNotification(
             "Đăng ký thành công! Bạn sẽ chuyển về Home page",
             "success"
@@ -55,7 +54,7 @@ const Register = ({ handleCancel, openLogin }) => {
           }, 2000);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           handleNotification(
             `ERROR! ${err.message && ":: " + err.message} ${
               err.response.data && ":: " + err.response.data

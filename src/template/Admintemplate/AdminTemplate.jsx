@@ -27,7 +27,7 @@ const AdminTemplate = () => {
 
   useEffect(() => {
     let dataLocal = getLocalStorage("user");
-    console.log(dataLocal);
+    // console.log(dataLocal);
     dataLocal.maLoaiNguoiDung !== "GV"
       ? (window.location.href = "https://www.google.com/")
       : null;

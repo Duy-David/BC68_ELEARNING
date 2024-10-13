@@ -62,7 +62,6 @@ const PersonalInformation = () => {
     loop: true,
   };
   const { View: LottieView } = useLottie(options);
-  console.log("user 01", user);
   const {
     handleSubmit,
     values,
@@ -101,11 +100,9 @@ const PersonalInformation = () => {
         ),
     }),
     onSubmit: (values) => {
-      console.log("value submit", values);
       nguoiDungService
         .putThongTinNguoiDung(values, user.accessToken)
         .then((res) => {
-          console.log("res", res);
           setLocalStorage("user", {
             ...res.data,
             soDT: res.data.soDt,
@@ -123,7 +120,6 @@ const PersonalInformation = () => {
           handleNotification("Cập nhật thành công!", "success");
         })
         .catch((err) => {
-          console.log(err);
           handleNotification(
             `ERROR! ${err.message && ":: " + err.message} ${
               err.response.data && ":: " + err.response.data

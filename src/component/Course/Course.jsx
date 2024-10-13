@@ -24,17 +24,15 @@ const Course = () => {
     quanLyKhoaHocService
       .getDanhMucKhoaHoc()
       .then((res) => {
-        console.log(res.data);
         dispatch(setListCourseCategory(res.data));
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
 
     quanLyKhoaHocService
       .getDanhSachKhoaHoc()
       .then((res) => {
-        console.log(res.data);
         dispatch(setListCourse(res.data));
       })
       .catch((err) => {
@@ -57,7 +55,6 @@ const Course = () => {
     return courses.sort((a, b) => b.luotXem - a.luotXem).slice(0, 5);
   };
 
-  console.log(listCourse);
   const items = listCourseCategory.map((category, index) => ({
     key: category.tenDanhMuc,
     label: (
@@ -74,7 +71,6 @@ const Course = () => {
     ),
   }));
 
-  ;
   return (
     <div className="container my-12 px-3 mx-auto">
       <div className="flex justify-between">

@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const course = action.payload;
-      console.log(course);
+      // console.log(course);
       const existingCourse = state.cartItems.find((item) => {
         item.maKhoaHoc == course.maKhoaHoc;
       });
@@ -48,14 +48,13 @@ const cartSlice = createSlice({
         state.cartItems.splice(courseIndex, 1);
         updateLocalStorage(state.cartItems, state.totalAmount);
       }
-      
+
       // if (state.totalAmount<=0) {
       //   return state.totalAmount=0
       // } else {
-        
-      // }  
+
+      // }
     },
-    
   },
 });
 

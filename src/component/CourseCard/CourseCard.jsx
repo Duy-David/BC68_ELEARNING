@@ -8,10 +8,10 @@ import { addToCart } from "../../redux/cartSlice";
 import { setStatusModal } from "../../redux/headerSlice";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { useDispatch, useSelector } from "react-redux";
-import { NotificationContext } from "../../App"
+import { NotificationContext } from "../../App";
 
 const CourseCard = ({ course }) => {
-  // const { maKhoaHoc } = useParams();  
+  // const { maKhoaHoc } = useParams();
   const { handleNotification } = useContext(NotificationContext);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authSlice);
@@ -65,7 +65,7 @@ const CourseCard = ({ course }) => {
                 taiKhoan: user.taiKhoan,
               })
               .then((res) => {
-                console.log(res);
+                // console.log(res);
                 handleNotification(res.data, "success");
                 dispatch(getValueCourseAPI());
               })
@@ -75,7 +75,7 @@ const CourseCard = ({ course }) => {
           } else {
             handleNotification(
               "Tính năng cần phải được đăng nhập mới thực hiện được",
-              "warn", 
+              "warn"
             );
             openLogin();
           }
@@ -85,7 +85,6 @@ const CourseCard = ({ course }) => {
       </button>{" "}
     </div>
   );
-  console.log(setStatusModal)
   return (
     <div className=" rounded-lg overflow-hidden shadow-lg bg-white">
       {/* Course Image */}{" "}
