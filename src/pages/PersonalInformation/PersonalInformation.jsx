@@ -6,7 +6,6 @@ import Instructor from "../../component/Instructor/Instructor";
 import { NotificationContext } from "../../App";
 import { useLottie } from "lottie-react";
 import HelloAnimation from "../../assets/animation/Animation-HELLO.json";
-import { pathDefault } from "../../common/path";
 import MyCourses from "../MyCourses/MyCourses";
 import MyCart from "../MyCart/MyCart";
 import WithLoading from "../../component/WithLoading/WithLoading";
