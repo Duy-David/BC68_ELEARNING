@@ -124,22 +124,28 @@ const MyCourses = () => {
                       </div>
                       {isRegistered ? (
                         <div className="space-x-3">
-                          <Tag color="#87d068" className="px-3 py-1 text-sm">
+                          <Tag
+                            color="#87d068"
+                            className="px-[15px] py-[4px] rounded-[6px] text-sm"
+                          >
                             Registered Course
                           </Tag>
                         </div>
                       ) : (
-                        <div className="space-x-3">
+                        <div className=" space-x-5 space-y-5">
                           <Button
-                            className="hover:bg-red-600"
+                            className="hover:bg-red-600 "
                             type="primary"
                             danger
                             onClick={() => handleUnEnroll(course.maKhoaHoc)}
                           >
                             Cancel registration
                           </Button>
-                          <Tag color="#2db7f5" className="px-3 py-1 text-sm">
-                            Course pending registration
+                          <Tag
+                            color="#2db7f5"
+                            className="px-[15px] py-[4px] rounded-[6px] text-sm text-center"
+                          >
+                            Course is awaiting confirmation
                           </Tag>
                         </div>
                       )}
@@ -197,14 +203,22 @@ const MyCourses = () => {
                           Registered Course
                         </Tag>
                       ) : (
-                        <Button
-                          className="hover:bg-red-600"
-                          type="primary"
-                          danger
-                          onClick={() => handleUnEnroll(course.maKhoaHoc)}
-                        >
-                          Cancel registration
-                        </Button>
+                        <div className=" space-x-5 space-y-5">
+                          <Button
+                            className="hover:bg-red-600 "
+                            type="primary"
+                            danger
+                            onClick={() => handleUnEnroll(course.maKhoaHoc)}
+                          >
+                            Cancel registration
+                          </Button>
+                          <Tag
+                            color="#2db7f5"
+                            className="px-[15px] py-[4px] rounded-[6px] text-sm text-center"
+                          >
+                            Course is awaiting confirmation
+                          </Tag>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -265,7 +279,7 @@ const MyCourses = () => {
                           </Tag>
                         </div>
                       ) : (
-                        <div className="space-x-3">
+                        <div className=" space-y-5 ">
                           <Button
                             className="hover:bg-red-600"
                             type="primary"
@@ -274,8 +288,8 @@ const MyCourses = () => {
                           >
                             Cancel registration
                           </Button>
-                          <Tag color="#2db7f5" className="px-3 py-1 text-sm">
-                            Course pending registration
+                          <Tag color="#2db7f5" className="px-[15px] py-[4px] rounded-[6px] text-sm text-center">
+                          Course is awaiting confirmation 
                           </Tag>
                         </div>
                       )}

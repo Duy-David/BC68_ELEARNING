@@ -55,7 +55,6 @@ const PersonalInformation = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  
   const [tabPosition, setTabPosition] = useState("left");
 
   const options = {
@@ -140,11 +139,11 @@ const PersonalInformation = () => {
   const items = [
     {
       key: "1",
-      label: <p>My Information</p>,
+      label: <p>Welcome Back</p>,
       children: (
         <>
-          <div className="flex space-x-6">
-            <div className="md:w-1/2 w-full px-5 flex flex-col justify-center">
+          <div className=" lg:flex  space-x-6">
+            <div className="md:w-1/2  px-5 flex flex-col justify-center">
               {" "}
               <h2 className="text-center text-5xl mt-8 mb-4">
                 Welcome back, {user.taiKhoan}
@@ -155,7 +154,7 @@ const PersonalInformation = () => {
               </p>
             </div>
 
-            <div className="md:w-1/2 w-full"> {LottieView}</div>
+            <div className=""> {LottieView}</div>
           </div>
         </>
       ),
@@ -289,22 +288,26 @@ const PersonalInformation = () => {
     },
   ];
 
-
   return (
     <>
-      <div className="container mx-auto pb-10 px-3">
-        <Space
+      <div
+        className={`container mx-auto pb-10 ${
+          isResponsive.md ? "px-3" : "px-6"
+        }`}
+      >
+        {/* <Space
           style={{
-            marginBottom: 24,
+            // marginBottom: 15,
+            marginLeft: 15,
           }}
-        ></Space>
+        ></Space> */}
         <Tabs
           tabPosition={isResponsive.md ? "top" : "left"}
           items={items}
           activeKey={currentTab}
           onChange={handleTabChange}
           // defaultActiveKey="3"
-          centered={isResponsive.md} 
+          centered={isResponsive.md}
         />
       </div>
     </>
@@ -312,4 +315,3 @@ const PersonalInformation = () => {
 };
 
 export default PersonalInformation;
-
