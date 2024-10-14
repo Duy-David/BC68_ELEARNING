@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { removeFromCart } from "../../redux/cartSlice";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import FeatureInDev from "../NotFound404/FeatureInDev";
 
 const MyCart = () => {
   const { cartItems } = useSelector((state) => state.cartSlice);
@@ -141,7 +142,11 @@ const MyCart = () => {
               pagination={false}
             />
             <div className="text-right my-3 ">
-              <button className="btn btn-primary">Payment</button>
+              <FeatureInDev
+                typeLabel="button"
+                contentLabel="Payment"
+                className="btn btn-primary"
+              />
             </div>
           </Card>
         </Space>

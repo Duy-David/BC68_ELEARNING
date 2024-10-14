@@ -31,6 +31,9 @@ const EnrollCourse = React.lazy(() =>
 const NotFound404 = React.lazy(() =>
   import("../pages/NotFound404/NotFound404")
 );
+const UnderConstructionPage = React.lazy(() =>
+  import("../pages/NotFound404/UnderConstructionPage")
+);
 const CourseCatelogies = React.lazy(() =>
   import("../pages/CourseCatelogies/CourseCatelogies")
 );
@@ -166,6 +169,15 @@ const useRoutesCustom = () => {
           ),
         },
       ],
+    },
+
+    {
+      path: pathDefault.underConstruction,
+      element: (
+        <Suspense fallback={<Skeleton />}>
+          <UnderConstructionPage />
+        </Suspense>
+      ),
     },
 
     // Route NotFound để dưới cùng

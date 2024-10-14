@@ -7,13 +7,11 @@ import {
   PoweroffOutlined,
   TeamOutlined,
   ToolFilled,
-  ToolOutlined,
-  ToolTwoTone,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemLocalStorage } from "../../util/util";
 import { setValueUser } from "../../redux/authSlice";
@@ -22,8 +20,10 @@ import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { NotificationContext } from "../../App";
 import { pathChildren, pathDefault } from "../../common/path";
 import useResponsive from "../../hooks/useResponsive";
+import FeatureInDev from "../../pages/NotFound404/FeatureInDev";
 
 const LoggedInUserInfo = () => {
+  const location = useLocation();
   const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.authSlice);
@@ -62,7 +62,14 @@ const LoggedInUserInfo = () => {
       : null,
 
     {
-      label: <Link to={pathDefault.homePage}>My Message</Link>,
+      // label: <Link to={pathDefault.homePage}>My Message</Link>,
+      label: (
+        <FeatureInDev
+          typeLabel="link"
+          contentLabel="My Message"
+          linkTo={location.pathname}
+        />
+      ),
       key: "1",
       icon: <MailOutlined />,
     },
@@ -92,24 +99,29 @@ const LoggedInUserInfo = () => {
       icon: <FolderOpenOutlined />,
     },
     {
-      label: <Link to={pathDefault.homePage}>Refer a Friend</Link>,
+      label: (
+        <FeatureInDev
+          typeLabel="link"
+          contentLabel="Refer a Friend"
+          linkTo={location.pathname}
+        />
+      ),
       key: "5",
       icon: <GiftOutlined />,
     },
     {
       label: (
-        <Link
-          to={`${
+        <FeatureInDev
+          typeLabel="link"
+          contentLabel={
             user.maLoaiNguoiDung == "HV"
-              ? "#become-teacher"
-              : "#list-class-teaching"
-          }`}
-        >
-          {user.maLoaiNguoiDung == "HV"
-            ? "Become a Teacher"
-            : "The class you are teaching"}
-        </Link>
+              ? "Become a Teacher"
+              : "The class you are teaching"
+          }
+          linkTo={location.pathname}
+        />
       ),
+
       key: "6",
       icon:
         user.maLoaiNguoiDung == "HV" ? (

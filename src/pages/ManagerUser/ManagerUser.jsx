@@ -155,7 +155,7 @@ const ManagerUser = () => {
           handleNotification("Cập nhật thành công!", "success");
           formik.resetForm();
           setNewUserArr(true);
-          handleCancel()
+          handleCancel();
         })
         .catch((err) => {
           console.log(err);
@@ -289,8 +289,7 @@ const ManagerUser = () => {
         handleNotification("Tạo mới thành công!", "success");
         formik.resetForm();
         setNewUserArr(true);
-        handleCancel()
-
+        handleCancel();
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -318,7 +317,7 @@ const ManagerUser = () => {
             <input
               className="w-2/3 border border-1 px-2 py-3 rounded-md mr-3"
               type="text"
-              placeHolder={"Nhập tài khoản hoặc tên người dùng"}
+              placeholder="Nhập tài khoản hoặc tên người dùng"
               onChange={handleSearch}
             />
             <button className=" bg-gray-500 py-2 px-4 text-white rounded-md font-bold hover:bg-gray-600 inline-block">
@@ -424,7 +423,7 @@ const ManagerUser = () => {
               touched={formik.touched}
               errors={formik.errors?.maNhom}
             />
-          
+
             <button
               onClick={handleUserCreate}
               type="button"

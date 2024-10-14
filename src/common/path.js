@@ -10,6 +10,7 @@ export const pathDefault = {
   courseCatelogies: "/course-catelogies/:maDanhMuc",
   detailCourse: "/course-catelogies/detail-course/:maKhoaHoc",
   personalInfornation: "personal-infornation/:hoTen",
+  underConstruction: "/dang-xay-dung",
 };
 
 export const pathChildren = {
