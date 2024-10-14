@@ -18,7 +18,6 @@ const SearchCourseResult = () => {
       quanLyKhoaHocService
         .searchKhoaHocTheoTen(valueParams)
         .then((res) => {
-          //   console.log(res.data.length);
           if (res.data.length > 0) {
             setListCourseSearch(res.data);
           } else {
@@ -26,7 +25,6 @@ const SearchCourseResult = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
           setListCourseSearch([]);
         });
     }
@@ -60,7 +58,6 @@ const SearchCourseResult = () => {
 
         <div className="text-center mb-5 line_deco">
           <span>
-            {console.log(listCourseSearch)}
             {listCourseSearch.length < 1 ? (
               "No matching courses found"
             ) : (

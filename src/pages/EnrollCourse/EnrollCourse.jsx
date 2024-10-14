@@ -37,7 +37,6 @@ const EnrollCourse = () => {
         setUserUnEnroll(res.data);
       })
       .catch((err) => {
-        console.log(err);
 
         handleNotification(
           err.response?.data || "Đã xảy ra lỗi không xác định",
@@ -94,7 +93,6 @@ const EnrollCourse = () => {
     quanLyKhoaHocService
       .postGhiDanhKhoaHoc(enrollData, user.accessToken)
       .then((res) => {
-        console.log(res);
         handleNotification(res.data, "success");
         setWaitListData((prevData) => [...prevData, ...res.data]);
         setSelectedUser([]);
@@ -103,7 +101,6 @@ const EnrollCourse = () => {
         fetchCourseStudentsList();
       })
       .catch((err) => {
-        console.log();
         handleNotification(
           err.response?.data || "Đã xảy ra lỗi không xác định",
           "error"
@@ -124,7 +121,6 @@ const EnrollCourse = () => {
         fetchWaitListData();
       })
       .catch((err) => {
-        console.log(err);
         handleNotification(
           err.response?.data || "Đã xảy ra lỗi không xác định",
           "error"
@@ -142,7 +138,6 @@ const EnrollCourse = () => {
             fetchUserUnEnroll(res.data);
           })
           .catch((err) => {
-            console.log(err);
             handleNotification(
               err.response?.data || "Đã xảy ra lỗi không xác định",
               "error"

@@ -65,7 +65,6 @@ const CourseCard = ({ course }) => {
                 taiKhoan: user.taiKhoan,
               })
               .then((res) => {
-                // console.log(res);
                 handleNotification(res.data, "success");
                 dispatch(getValueCourseAPI());
               })

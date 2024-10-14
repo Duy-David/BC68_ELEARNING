@@ -80,7 +80,6 @@ const MyCart = () => {
 
   const calculateTotals = (keys) => {
     const selectedItems = keys.map((key) => cartItems[key]);
-    // console.log(selectedItems);
     const newSubtotal = selectedItems.reduce(
       (acc, item) => acc + item.giaTien,
       0

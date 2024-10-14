@@ -41,7 +41,6 @@ const Register = ({ handleCancel, openLogin }) => {
           maNhom: "GP01",
         })
         .then((res) => {
-          // console.log(res);
           handleNotification(
             "Đăng ký thành công! Bạn sẽ chuyển về Home page",
             "success"
@@ -54,7 +53,6 @@ const Register = ({ handleCancel, openLogin }) => {
           }, 2000);
         })
         .catch((err) => {
-          // console.log(err);
           handleNotification(
             `ERROR! ${err.message && ":: " + err.message} ${
               err.response.data && ":: " + err.response.data

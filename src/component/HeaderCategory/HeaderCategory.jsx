@@ -16,7 +16,6 @@ const HeaderCategory = () => {
     quanLyKhoaHocService
       .getDanhMucKhoaHoc()
       .then((res) => {
-        // console.log(res.data);
         setListCoursCategory(res.data);
       })
       .catch((err) => {

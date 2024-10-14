@@ -96,7 +96,6 @@ const CourseInfo = ({ detailCourse }) => {
                 taiKhoan: user.taiKhoan,
               })
               .then((res) => {
-                console.log(res);
                 handleNotification(res.data, "success");
                 dispatch(getValueCourseAPI());
               })

@@ -47,7 +47,6 @@ const Course = () => {
     setActiveTab(maDanhMuc);
   };
 
-  // console.log(listCourseCategory);
   const sortedCourses = (courses) => {
     return courses.sort((a, b) => b.luotXem - a.luotXem).slice(0, 5);
   };

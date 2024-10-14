@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import InputCustom from "../../component/Input/InputCustom";
 import { Select } from "antd";
 import { Space, Table, Input } from "antd";
-import { http } from "../../service/config";
 import { useParams } from "react-router-dom";
 import { NotificationContext } from "../../App";
 import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
@@ -31,11 +29,10 @@ const ManagerUserRegister = () => {
     quanLyKhoaHocService
       .layDanhSachKhoaHoc("")
       .then((res) => {
-        // console.log("response in get all khoa hoc: ", res);
         dispatch(setListCourse(res.data));
       })
       .catch((err) => {
-        // console.log("error in get all khoa hoc: ", err);
+        console.log("error in get all khoa hoc: ", err);
       });
   };
   useEffect(() => {
@@ -107,7 +104,6 @@ const ManagerUserRegister = () => {
 
   // Huy ghi danh
   const handleHuyGhiDanh = (record) => {
-    console.log("record", record);
     const data = {
       maKhoaHoc: record.maKhoaHoc,
       taiKhoan: taiKhoan,
@@ -115,7 +111,6 @@ const ManagerUserRegister = () => {
     quanLyKhoaHocService
       .postHuyGhiDanh(accessToken, data)
       .then((res) => {
-        console.log(res);
 
         handleNotification(res.data, "success");
         setNewRegister((prev) => !prev);
@@ -131,7 +126,6 @@ const ManagerUserRegister = () => {
 
   // Lấy mã khoá học
   const handleChange = (value) => {
-    // console.log(`selected ${value}`);
     setSelectValue(value);
     setMaKhoaHoc(value);
   };
@@ -139,7 +133,6 @@ const ManagerUserRegister = () => {
     nguoiDungService
       .timKiemNguoiDung(taiKhoan)
       .then((res) => {
-        console.log(res.data);
         setUser(res.data[0]);
       })
       .catch((err) => {
@@ -152,19 +145,16 @@ const ManagerUserRegister = () => {
     nguoiDungService
       .layDanhSachKhoaHocChuaDangKy(accessToken, taiKhoan)
       .then((res) => {
-        // console.log(res.data);
         const khoaHocArr = res.data;
 
         // SET OPTIONS
         const khoaHocSelect = khoaHocArr.map((item, index) => {
           return {
-            // index: index,
             value: item.maKhoaHoc,
             label: item.tenKhoaHoc,
           };
         });
         setOptions(khoaHocSelect);
-        // console.log(khoaHocSelect);
       })
       .catch((err) => {
         console.log(err);
@@ -204,8 +194,7 @@ const ManagerUserRegister = () => {
     nguoiDungService
       .layDanhSachKhoaHocDaXetDuyet(accessToken, data)
       .then((res) => {
-        // console.log("da xet", res);
-        // console.log(res.data);
+       
         const khoaHocArr = res.data;
 
         // Set approved data
@@ -214,11 +203,10 @@ const ManagerUserRegister = () => {
             stt: index + 1,
             tenKhoaHoc: item.tenKhoaHoc,
             maKhoaHoc: item.maKhoaHoc,
-            // action: ["nice", "developer"],
           };
         });
         setApprovedData(approvedArr);
-        setSearchEnrolledList(approvedArr)
+        setSearchEnrolledList(approvedArr);
       })
       .catch((err) => {
         console.log(err);
@@ -228,7 +216,6 @@ const ManagerUserRegister = () => {
   // Handle Xác Thực
   const handleXacThuc = (record) => {
     if (record) {
-      console.log("ben trong handleXacThuc");
       setMaKhoaHoc(record.maKhoaHoc);
       setXacThuc((prev) => !prev);
     }
@@ -247,7 +234,6 @@ const ManagerUserRegister = () => {
       maKhoaHoc: maKhoaHoc,
       taiKhoan: taiKhoan,
     };
-    console.log("info", info);
     quanLyKhoaHocService
       .postGhiDanhKhoaHoc(info, accessToken)
       .then((res) => {
@@ -309,11 +295,11 @@ const ManagerUserRegister = () => {
           <div className="col-span-1 flex">
             {user?.maLoaiNguoiDung == "HV" ? (
               <>
-                <UserOutlined className="iconUser text-6xl  bg-[#a23f6e] text-white px-12 rounded-lg" />
+                <UserOutlined className="iconUser text-[100px] bg-[#cdaa35] text-white px-10 rounded-full" />
               </>
             ) : (
               <>
-                <span className="iconUser text-6xl bg-[#cdaa35] text-white px-12 rounded-lg">
+                <span className="iconUser text-[100px] bg-[#cdaa35] text-white px-10 rounded-full">
                   <FontAwesomeIcon icon={faMedal} />
                 </span>
               </>
@@ -374,6 +360,7 @@ const ManagerUserRegister = () => {
             />
           </div>
           <Table
+            key={searchWaitList.length}
             pagination={{ pageSize: 5 }}
             columns={waiting_columns}
             dataSource={searchWaitList}
@@ -394,6 +381,7 @@ const ManagerUserRegister = () => {
             />
           </div>
           <Table
+            key={searchEnrolledList.length}
             pagination={{ pageSize: 5 }}
             columns={approved_columns}
             dataSource={searchEnrolledList}
