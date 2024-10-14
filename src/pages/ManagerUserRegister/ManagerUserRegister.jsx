@@ -280,11 +280,11 @@ const ManagerUserRegister = () => {
           <div className="col-span-1 flex">
             {user?.maLoaiNguoiDung == "HV" ? (
               <>
-                <UserOutlined className="iconUser text-6xl  bg-[#a23f6e] text-white px-12 rounded-full" />
+                <UserOutlined className="iconUser text-6xl  bg-[#a23f6e] text-white px-12 rounded-lg" />
               </>
             ) : (
               <>
-                <span className="iconUser text-6xl bg-[#cdaa35] text-white px-12 rounded-full">
+                <span className="iconUser text-6xl bg-[#cdaa35] text-white px-12 rounded-lg">
                   <FontAwesomeIcon icon={faMedal} />
                 </span>
               </>

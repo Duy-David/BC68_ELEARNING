@@ -17,6 +17,9 @@ import { notiValidate } from "../../common/notiValidate";
 import { nguoiDungService } from "../../service/nguoiDung.service";
 import { setValueUser } from "../../redux/authSlice";
 import useResponsive from "../../hooks/useResponsive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
+import { UserOutlined } from "@ant-design/icons";
 
 const PersonalInformation = () => {
   const [editStatus, setEditSatatus] = useState("");
@@ -166,105 +169,130 @@ const PersonalInformation = () => {
       children: (
         <WithLoading>
           <h2 className="text-center text-5xl my-8">BASIC INFORMATION</h2>
-          <form
-            className={`updateInfoUser${
-              editStatus != "" ? " " + editStatus : ""
-            }`}
-          >
-            <div className="grid grid-cols-1 w-fit mx-auto lg:grid-cols-2 lg:w-auto gap-5 px-8">
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Account:"
-                classLabel="font-medium"
-                className="p-2"
-                value={values?.taiKhoan}
-                disabled
-              />
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Email:"
-                classLabel="font-medium"
-                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
-                name="email"
-                onChange={handleChange}
-                value={values?.email}
-                onBlur={handleBlur}
-                errors={errors.email}
-                touched={touched.email}
-              />
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Full Name:"
-                classLabel="font-medium"
-                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
-                name="hoTen"
-                onChange={handleChange}
-                value={values?.hoTen}
-                onBlur={handleBlur}
-                errors={errors.hoTen}
-                touched={touched.hoTen}
-              />
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Phone:"
-                classLabel="font-medium"
-                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
-                name="soDT"
-                onChange={handleChange}
-                value={values?.soDT}
-                onBlur={handleBlur}
-                errors={errors.soDT}
-                touched={touched.soDT}
-              />
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Group Code:"
-                classLabel="font-medium"
-                className={`p-2${editStatus === "editing" ? "" : " disabled"}`}
-                name="maNhom"
-                onChange={handleChange}
-                value={values?.maNhom}
-                disabled
-              />
-              <InputCustormMin
-                classWrapper="flex items-center gap-x-3 text-xl"
-                contentLabel="Role:"
-                classLabel="font-medium"
-                className="p-2"
-                name="maLoaiNguoiDung"
-                value={user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student"}
-                disabled
-              />
-
-              <div className="flex items-center justify-end gap-x-10 mt-3">
-                {editStatus === "editing" ? (
-                  <button
-                    className="px-3 py-2 font-semibold text-sm text-white bg-red-600 hover:bg-red-900 rounded-lg shadow-md"
-                    type="button"
-                    onClick={() => {
-                      setValues(user);
-                      setEditSatatus("");
-                    }}
-                  >
-                    Cancel
-                  </button>
-                ) : null}
-                <button
-                  onClick={() => {
-                    if (editStatus === "editing") {
-                      handleSubmit();
-                    }
-
-                    setEditSatatus("editing");
-                  }}
-                  className="px-3 py-2 font-semibold text-sm bg-blue-600 hover:bg-yellow-500 text-white rounded-lg shadow-md"
-                  type="button"
-                >
-                  {editStatus === "editing" ? "Update" : "Edit information"}
-                </button>
-              </div>
+          <div className=" grid gird-col-1 lg:grid-cols-3">
+            <div className=" text-center my-2 col-span-1">
+              {" "} 
+              {user?.maLoaiNguoiDung == "HV" ? (
+                <>
+                  <UserOutlined className="iconUser text-[190px]  bg-[#a23f6e] text-white rounded-lg" />
+                </>
+              ) : (
+                <>
+                  <span className="iconUser text-[190px] bg-[#cdaa35] px-8 text-white rounded-full">
+                    <FontAwesomeIcon icon={faMedal} />
+                  </span>
+                </>
+              )}
             </div>
-          </form>
+
+            <form 
+              className={`updateInfoUser${
+                editStatus != "" ? " " + editStatus : ""
+              } lg:col-span-2 col-span-1` }
+            >
+              <div className="grid grid-cols-1 w-fit mx-auto lg:grid-cols-2 lg:w-auto gap-5 px-8">
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Account:"
+                  classLabel="font-medium"
+                  className="p-2"
+                  value={values?.taiKhoan}
+                  disabled
+                />
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Email:"
+                  classLabel="font-medium"
+                  className={`p-2${
+                    editStatus === "editing" ? "" : " disabled"
+                  }`}
+                  name="email"
+                  onChange={handleChange}
+                  value={values?.email}
+                  onBlur={handleBlur}
+                  errors={errors.email}
+                  touched={touched.email}
+                />
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Full Name:"
+                  classLabel="font-medium"
+                  className={`p-2${
+                    editStatus === "editing" ? "" : " disabled"
+                  }`}
+                  name="hoTen"
+                  onChange={handleChange}
+                  value={values?.hoTen}
+                  onBlur={handleBlur}
+                  errors={errors.hoTen}
+                  touched={touched.hoTen}
+                />
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Phone:"
+                  classLabel="font-medium"
+                  className={`p-2${
+                    editStatus === "editing" ? "" : " disabled"
+                  }`}
+                  name="soDT"
+                  onChange={handleChange}
+                  value={values?.soDT}
+                  onBlur={handleBlur}
+                  errors={errors.soDT}
+                  touched={touched.soDT}
+                />
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Group Code:"
+                  classLabel="font-medium"
+                  className={`p-2${
+                    editStatus === "editing" ? "" : " disabled"
+                  }`}
+                  name="maNhom"
+                  onChange={handleChange}
+                  value={values?.maNhom}
+                  disabled
+                />
+                <InputCustormMin
+                  classWrapper="flex items-center gap-x-3 text-xl"
+                  contentLabel="Role:"
+                  classLabel="font-medium"
+                  className="p-2"
+                  name="maLoaiNguoiDung"
+                  value={user.maLoaiNguoiDung === "GV" ? "Teacher" : "Student"}
+                  disabled
+                />
+
+                <div className="flex items-center justify-end gap-x-10 mt-3">
+                  {editStatus === "editing" ? (
+                    <button
+                      className="px-3 py-2 font-semibold text-sm text-white bg-red-600 hover:bg-red-900 rounded-lg shadow-md"
+                      type="button"
+                      onClick={() => {
+                        setValues(user);
+                        setEditSatatus("");
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  ) : null}
+                  <button
+                    onClick={() => {
+                      if (editStatus === "editing") {
+                        handleSubmit();
+                      }
+
+                      setEditSatatus("editing");
+                    }}
+                    className="px-3 py-2 font-semibold text-sm bg-blue-600 hover:bg-yellow-500 text-white rounded-lg shadow-md"
+                    type="button"
+                  >
+                    {editStatus === "editing" ? "Update" : "Edit information"}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
           <Instructor />
         </WithLoading>
       ),

@@ -9,16 +9,13 @@ import { quanLyKhoaHocService } from "../../service/quanLyKhoaHoc.service";
 import { useNavigate } from "react-router-dom";
 import { NotificationContext } from "../../App";
 import { useParams } from "react-router-dom";
-// import Course from "../Course/Course";
 
 const CourseInfo = ({ detailCourse }) => {
   const { maKhoaHoc } = useParams();
   const { handleNotification } = useContext(NotificationContext);
   const { user } = useSelector((state) => state.authSlice);
-  // const { setStatusModal } = useSelector((state) => state.headerSlice);
-  // console.log(sets)
+
   const dispatch = useDispatch();
-  const [courseEnroll, setCourseEnroll] = useState();
   const navigate = useNavigate();
   const details = [
     { label: "Level", value: "Beginner" },
