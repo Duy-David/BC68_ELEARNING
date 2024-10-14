@@ -9,7 +9,7 @@ const IconFullStack = ({ className = "" }) => {
         viewBox="0 0 492 492"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         <path
           d="M178.4,41.8c-10.7,0-19.4,8.7-19.4,19.4s8.7,19.4,19.4,19.4s19.4-8.7,19.4-19.4

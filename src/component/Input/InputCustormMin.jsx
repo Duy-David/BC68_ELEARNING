@@ -46,7 +46,7 @@ const InputCustormMin = ({
         onBlur={onBlur}
         disabled={disabled}
         onFocus={onFocus}
-        enableShowPassBtn={enableShowPassBtn}
+        // enableShowPassBtn={enableShowPassBtn}
       />
       {/* show if password input */}
       {enableShowPassBtn === true && (

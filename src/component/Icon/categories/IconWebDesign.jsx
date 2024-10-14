@@ -9,7 +9,7 @@ const IconWebDesign = ({ className = "" }) => {
         viewBox="0 0 65 65"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         <path
           d="M34.9,16.5c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4C32.5,15.5,33.6,16.5,34.9,16.5

@@ -9,7 +9,7 @@ const IconArtDesign = ({ className = "" }) => {
         viewBox="0 0 40 42"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         <polygon
           fill="#D4E1F4"

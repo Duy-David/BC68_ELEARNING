@@ -5,7 +5,7 @@ const IconCartEmpty = ({ className = "" }) => {
     <div className={`${className}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         clip-rule="evenodd"
         image-rendering="optimizeQuality"
         shape-rendering="geometricPrecision"

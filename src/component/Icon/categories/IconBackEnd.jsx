@@ -9,7 +9,7 @@ const IconBackEnd = ({ className = "" }) => {
         viewBox="0 0 64 64"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         <path
           d="M57,45.5h-4c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h4c0.8,0,1.5-0.7,1.5-1.5S57.8,45.5,57,45.5z M57,47.5h-4
