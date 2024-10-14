@@ -168,9 +168,9 @@ const PersonalInformation = () => {
       label: <p>My Profile</p>,
       children: (
         <WithLoading>
-          <h2 className="text-center text-5xl my-8">BASIC INFORMATION</h2>
+          <h2 className="text-center text-5xl my-6">BASIC INFORMATION</h2>
           <div className=" grid gird-col-1 lg:grid-cols-3">
-            <div className=" text-center my-2 col-span-1">
+            <div className=" text-center  col-span-1 align-top">
               {" "} 
               {user?.maLoaiNguoiDung == "HV" ? (
                 <>
