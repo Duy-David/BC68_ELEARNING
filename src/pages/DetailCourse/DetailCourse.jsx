@@ -6,6 +6,8 @@ import CourseInfo from "../../component/CourseInfo/CourseInfo";
 import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
 import WithLoading from "../../component/WithLoading/WithLoading";
+import { useSelector } from "react-redux";
+import CourseCard from "../../component/CourseCard/CourseCard";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
   const learningObjectives = [
@@ -34,7 +36,19 @@ const DetailCourse = () => {
     maKhoaHoc: "",
     taiKfhoan: "",
   };
-
+  console.log(detailCourse);
+  const { listCourse } = useSelector((state) => state.courseSlice);
+  // console.table([listCourse])
+  console.log(listCourse);
+  const relatedCourses = listCourse
+    .filter(
+      (course) =>
+        course?.danhMucKhoaHoc.maDanhMucKhoahoc ==
+          detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc &&
+        course.maKhoaHoc !== detailCourse.maKhoaHoc
+    )
+    .sort((a, b) => b.luotXem - a.luotXem)
+    .slice(0, 5);
   return (
     <WithLoading>
       <div className="container mx-auto pb-10 px-3">
@@ -175,6 +189,15 @@ const DetailCourse = () => {
               <CourseInfo detailCourse={detailCourse} maKhoaHoc={maKhoaHoc} />
             </div>
           </div>
+        </div>
+        {/* relatedCourses */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Related Courses</h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-6 xl:gap-10">
+            {relatedCourses.map((course, index) => {
+              return <CourseCard key={index} course={course} />;
+            })}
+          </ul>
         </div>
       </div>
     </WithLoading>

@@ -14,7 +14,7 @@ const CourseInfo = ({ detailCourse }) => {
   const { maKhoaHoc } = useParams();
   const { handleNotification } = useContext(NotificationContext);
   const { user } = useSelector((state) => state.authSlice);
-
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = [
@@ -98,7 +98,7 @@ const CourseInfo = ({ detailCourse }) => {
                 taiKhoan: user.taiKhoan,
               })
               .then((res) => {
-                console.log(res)
+                console.log(res);
                 handleNotification(res.data, "success");
                 dispatch(getValueCourseAPI());
               })
@@ -116,7 +116,6 @@ const CourseInfo = ({ detailCourse }) => {
       >
         Enroll
       </button>{" "}
-      
     </div>
   );
 };
