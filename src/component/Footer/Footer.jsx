@@ -23,19 +23,21 @@ const Footer = () => {
               <h3>About</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link >About Us</Link>
+                  <Link to={pathDefault.underConstruction}>About Us</Link>
                 </li>
                 <li>
-                  <Link >Courses</Link>
+                  <Link to={pathDefault.underConstruction}>Courses</Link>
                 </li>
                 <li>
-                  <Link >Instructor</Link>
+                  <Link to={pathDefault.underConstruction}>Instructor</Link>
                 </li>
                 <li>
-                  <Link >Events</Link>
+                  <Link to={pathDefault.underConstruction}>Events</Link>
                 </li>
                 <li>
-                  <Link >Become A Teacher</Link>
+                  <Link to={pathDefault.underConstruction}>
+                    Become A Teacher
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -43,19 +45,19 @@ const Footer = () => {
               <h3>Links</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link >News & Blogs</Link>
+                  <Link to={pathDefault.underConstruction}>News & Blogs</Link>
                 </li>
                 <li>
-                  <Link >Library</Link>
+                  <Link to={pathDefault.underConstruction}>Library</Link>
                 </li>
                 <li>
-                  <Link >Gallery</Link>
+                  <Link to={pathDefault.underConstruction}>Gallery</Link>
                 </li>
                 <li>
-                  <Link >Partners</Link>
+                  <Link to={pathDefault.underConstruction}>Partners</Link>
                 </li>
                 <li>
-                  <Link >Career</Link>
+                  <Link to={pathDefault.underConstruction}>Career</Link>
                 </li>
               </ul>
             </div>
@@ -63,19 +65,19 @@ const Footer = () => {
               <h3>Support</h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link >Documentation</Link>
+                  <Link to={pathDefault.underConstruction}>Documentation</Link>
                 </li>
                 <li>
-                  <Link >FAQs</Link>
+                  <Link to={pathDefault.underConstruction}>FAQs</Link>
                 </li>
                 <li>
-                  <Link >Forum</Link>
+                  <Link to={pathDefault.underConstruction}>Forum</Link>
                 </li>
                 <li>
-                  <Link >Sitemap</Link>
+                  <Link to={pathDefault.underConstruction}>Sitemap</Link>
                 </li>
                 <li>
-                  <Link >Contact Us</Link>
+                  <Link to={pathDefault.underConstruction}>Contact Us</Link>
                 </li>
               </ul>
             </div>
@@ -88,7 +90,8 @@ const Footer = () => {
             <ul className="flex justify-center">
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  
+                  to={"https://x.com/elonmusk"}
+                  target="_blank"
                   className="hover:text-[#1C96E8]"
                 >
                   <FontAwesomeIcon icon={faTwitter} />
@@ -96,7 +99,8 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  
+                  to={"https://www.facebook.com/lophocviet"}
+                  target="_blank"
                   className="hover:text-[#0866FF]"
                 >
                   <FontAwesomeIcon icon={faFacebookF} />
@@ -104,7 +108,8 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  
+                  to={"https://www.linkedin.com/"}
+                  target="_blank"
                   className="hover:text-[#0A66C2]"
                 >
                   <FontAwesomeIcon icon={faLinkedinIn} />
@@ -112,7 +117,8 @@ const Footer = () => {
               </li>
               <li className="text-[22px] text-[#999] px-3 py-2">
                 <Link
-                  
+                  to={"https://www.youtube.com/@CyberSoftAcademy"}
+                  target="_blank"
                   className="hover:text-[#ff0000]"
                 >
                   <FontAwesomeIcon icon={faYoutube} />
@@ -127,8 +133,8 @@ const Footer = () => {
               by BC68Xteam
             </p>
             <p className="flex justify-center space-x-8">
-              <Link >Terms of Use</Link>
-              <Link >Privacy Policy</Link>
+              <Link to={pathDefault.underConstruction}>Terms of Use</Link>
+              <Link to={pathDefault.underConstruction}>Privacy Policy</Link>
             </p>
           </div>
         </div>

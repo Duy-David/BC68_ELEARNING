@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Space, Tabs } from "antd";
 import Instructor from "../../component/Instructor/Instructor";
@@ -22,6 +27,7 @@ import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import { UserOutlined } from "@ant-design/icons";
 
 const PersonalInformation = () => {
+  const location = useLocation();
   const [editStatus, setEditSatatus] = useState("");
   const { user } = useSelector((state) => state.authSlice);
   const { handleNotification } = useContext(NotificationContext);

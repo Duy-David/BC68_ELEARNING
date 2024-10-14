@@ -1,4 +1,5 @@
 import React from "react";
+import FeatureInDev from "../../pages/NotFound404/FeatureInDev";
 
 const Instructor = () => {
   const features = [
@@ -38,9 +39,11 @@ const Instructor = () => {
               <p className="mt-4 text-sm text-gray-600">
                 {feature.description}
               </p>
-              <button className="mt-6 px-6 py-3 bg-blue-600 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-md  transition duration-300">
-                {feature.buttonText}
-              </button>
+              <FeatureInDev
+                typeLabel="button"
+                className="mt-6 px-6 py-3 bg-blue-600 hover:bg-yellow-500 text-white font-semibold rounded-lg shadow-md  transition duration-300"
+                contentLabel={feature.buttonText}
+              />
             </div>
             {/* Image */}
             <div className="md:col-span-5 col-span-12 flex flex-col-reverse">

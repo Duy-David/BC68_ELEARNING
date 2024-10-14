@@ -32,14 +32,8 @@ const DetailCourse = () => {
         console.log(err);
       });
   }, [maKhoaHoc]);
-  const courseEnrolled = {
-    maKhoaHoc: "",
-    taiKfhoan: "",
-  };
-  console.log(detailCourse);
+ 
   const { listCourse } = useSelector((state) => state.courseSlice);
-  // console.table([listCourse])
-  console.log(listCourse);
   const relatedCourses = listCourse
     .filter(
       (course) =>

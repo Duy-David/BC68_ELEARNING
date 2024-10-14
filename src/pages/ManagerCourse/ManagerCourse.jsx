@@ -172,7 +172,7 @@ const ManagerCourse = () => {
   useEffect(() => {
     getAllKhoaHoc();
   }, [isModalOpen]);
-  
+
   const {
     handleChange,
     handleSubmit,
@@ -240,7 +240,7 @@ const ManagerCourse = () => {
           quanLyKhoaHocService
             .postCapNhatKhoaHoc(formData)
             .then((res2) => {
-              getAllKhoaHoc()
+              getAllKhoaHoc();
               console.log("res2", res2);
               handleNotification("Sửa dữ liệu thành công", "success");
             })
@@ -251,7 +251,6 @@ const ManagerCourse = () => {
 
           // putCapNhat...
           console.log(res.data);
-          // handleNotification("Sửa dữ liệu thành công", "success");
           setIsModalOpen(false);
           setImageUrl(null);
         })
@@ -421,10 +420,9 @@ const ManagerCourse = () => {
                       onClick={() => {
                         setImageUrl("");
                         setFieldValue("hinhAnh", null);
-                        
                       }}
                     >
-                    <FontAwesomeIcon icon={faTrash} />
+                      <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </div>
                 ) : (
