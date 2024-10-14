@@ -91,10 +91,10 @@ const CourseCard = ({ course }) => {
         <div className="relative">
           <img
             className="w-full h-auto md:h-48"
-            src={course.hinhAnh || "/public/png/course/hinhAnhCourse.png"}
+            src={course.hinhAnh || "/png/course/hinhAnhCourse.png"}
             onError={(e) => {
               e.target.onerror = null; 
-              e.target.src = "/public/png/course/hinhAnhCourse.png"; 
+              e.target.src = "/png/course/hinhAnhCourse.png"; 
             }}
             alt="Course"
           />

@@ -3,7 +3,7 @@ import "./aboutUs.scss";
 import Slider from "react-slick";
 import "../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../node_modules/slick-carousel/slick/slick-theme.css";
-import icon from "../../../public/svg/AboutUS/carousel.svg";
+import icon from "/svg/AboutUS/carousel.svg";
 
 const AboutUs = () => {
   let settings = {
