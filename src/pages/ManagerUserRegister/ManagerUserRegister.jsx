@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputCustom from "../../component/Input/InputCustom";
 import { Select } from "antd";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Input } from "antd";
 import { http } from "../../service/config";
 import { useParams } from "react-router-dom";
 import { NotificationContext } from "../../App";
@@ -10,6 +10,7 @@ import { nguoiDungService } from "../../service/nguoiDung.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { UserOutlined } from "@ant-design/icons";
+const { Search } = Input;
 
 const ManagerUserRegister = () => {
   const accessToken = JSON.parse(localStorage.getItem("user")).accessToken;
@@ -24,6 +25,8 @@ const ManagerUserRegister = () => {
   const [approvedData, setApprovedData] = useState([]);
   const [user, setUser] = useState(null);
   const { handleNotification } = useContext(NotificationContext);
+  const [searchWaitList, setSearchWaitList] = useState([]);
+  const [searchEnrolledList, setSearchEnrolledList] = useState([]);
   const getAllKhoaHoc = () => {
     quanLyKhoaHocService
       .layDanhSachKhoaHoc("")
@@ -38,7 +41,7 @@ const ManagerUserRegister = () => {
   useEffect(() => {
     getAllKhoaHoc();
   }, []);
-  // waiting course
+
   const waiting_columns = [
     {
       title: "STT",
@@ -164,10 +167,7 @@ const ManagerUserRegister = () => {
         // console.log(khoaHocSelect);
       })
       .catch((err) => {
-        // console.log(err.response.data);
         console.log(err);
-        console.log(accessToken);
-        console.log(taiKhoan);
       });
   }, [newRegister]);
 
@@ -179,21 +179,17 @@ const ManagerUserRegister = () => {
     nguoiDungService
       .layDanhSachKhoaHocChoXetDuyet(accessToken, data)
       .then((res) => {
-        // console.log("cho xet", res);
-        // console.log(res.data);
         const khoaHocArr = res.data;
 
-        // SET OPTIONS
-        // Set waitingData
         const waitingArr = khoaHocArr.map((item, index) => {
           return {
             stt: index + 1,
             tenKhoaHoc: item.tenKhoaHoc,
             maKhoaHoc: item.maKhoaHoc,
-            // action: ["nice", "developer"],
           };
         });
         setWaitingData(waitingArr);
+        setSearchWaitList(waitingArr);
       })
       .catch((err) => {
         console.log(err);
@@ -222,7 +218,7 @@ const ManagerUserRegister = () => {
           };
         });
         setApprovedData(approvedArr);
-        // console.log("approvedArr", approvedArr);
+        setSearchEnrolledList(approvedArr)
       })
       .catch((err) => {
         console.log(err);
@@ -236,7 +232,6 @@ const ManagerUserRegister = () => {
       setMaKhoaHoc(record.maKhoaHoc);
       setXacThuc((prev) => !prev);
     }
-    console.log("record", record.maKhoaHoc);
   };
   useEffect(() => {
     if (!loadingPage) {
@@ -244,7 +239,6 @@ const ManagerUserRegister = () => {
     } else {
       setLoadingPage(false);
     }
-    console.log("ben trong useEffect");
   }, [xacThuc]);
 
   // Handle Register
@@ -267,7 +261,42 @@ const ManagerUserRegister = () => {
         handleNotification("Có lỗi xảy ra, vui lòng thử lại!", "error");
       });
   };
+  const regexOptions = {
+    escapeSpecialChars: (str) =>
+      str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"),
+    caseInsensitive: "gi",
+  };
 
+  const handleSearchWaitList = (value) => {
+    const regex = new RegExp(
+      regexOptions.escapeSpecialChars(value),
+      regexOptions.caseInsensitive
+    );
+    const filteredData = waitingData.filter((course) =>
+      regex.test(course.tenKhoaHoc)
+    );
+    setSearchWaitList(filteredData);
+  };
+  const handleSearchEnrolledList = (value) => {
+    const regex = new RegExp(
+      regexOptions.escapeSpecialChars(value),
+      regexOptions.caseInsensitive
+    );
+    const filteredData = approvedData.filter((course) =>
+      regex.test(course.tenKhoaHoc)
+    );
+    setSearchEnrolledList(filteredData);
+  };
+  const handleInputChange = (e, type) => {
+    const value = e.target.value;
+    if (value === "") {
+      if (type === "waitList") {
+        setSearchWaitList(waitingData);
+      } else if (type === "enrolledList") {
+        setSearchEnrolledList(approvedData);
+      }
+    }
+  };
   return (
     <div className="manager_user_register">
       <div className="container">
@@ -332,20 +361,42 @@ const ManagerUserRegister = () => {
           className="waiting_course "
           style={{ borderBottom: "1px solid black" }}
         >
-          <h2 className="text-2xl my-3">Khoá học chờ xác thực</h2>
+          <div className="flex justify-between my-6">
+            <h4 className="font-sans text-lg font-bold mb-3">
+              Khoá học chờ xác thực
+            </h4>
+            <Search
+              placeholder="Tìm kiếm tên người dùng"
+              onSearch={(value) => handleSearchWaitList(value)}
+              className=" w-1/2"
+              onChange={(e) => handleInputChange(e, "waitList")}
+              size="large"
+            />
+          </div>
           <Table
             pagination={{ pageSize: 5 }}
             columns={waiting_columns}
-            dataSource={waitingData}
+            dataSource={searchWaitList}
           />
           ;
         </div>
         <div className="approved_course">
-          <h2 className="text-2xl my-3">Khoá học đã ghi danh</h2>
+          <div className="flex justify-between my-6">
+            <h4 className="font-sans text-lg font-bold mb-3">
+              Khoá học đã ghi danh
+            </h4>
+            <Search
+              placeholder="Tìm kiếm tên người dùng"
+              onSearch={(value) => handleSearchEnrolledList(value)}
+              className=" w-1/2"
+              onChange={(e) => handleInputChange(e, "enrolledList")}
+              size="large"
+            />
+          </div>
           <Table
             pagination={{ pageSize: 5 }}
             columns={approved_columns}
-            dataSource={approvedData}
+            dataSource={searchEnrolledList}
           />
           ;
         </div>
