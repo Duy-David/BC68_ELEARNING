@@ -10,6 +10,7 @@ import { notiValidate } from "../../common/notiValidate";
 import { Navigate, useNavigate } from "react-router-dom";
 import { pathChildren } from "../../common/path";
 import { nguoiDungService } from "../../service/nguoiDung.service";
+import { removeVietnameseTones } from "../../util/util";
 
 const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
@@ -246,7 +247,7 @@ const ManagerUser = () => {
   // handle Search
   const handleSearch = (e) => {
     let searchValue = e.target.value;
-    setSearchText(searchValue);
+    setSearchText(removeVietnameseTones(searchValue?.toLowerCase().trim()));
     setTriggerSearch((prev) => !prev);
   };
 
