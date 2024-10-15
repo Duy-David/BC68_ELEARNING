@@ -43,7 +43,7 @@ const HeaderCategory = () => {
       <Button>
       <div className="category_icon flex">
         <IconCategory />
-        {!isResponsive.lg ? <span>Catelogy</span> : <></>}
+        {!isResponsive.lg ? <span>Category</span> : <></>}
       </div>
       </Button>
     </Dropdown>

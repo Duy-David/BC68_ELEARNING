@@ -103,7 +103,7 @@ const Course = () => {
               >
                 {/* <Button> */}
                   <div className="category_icon flex space-x-2">
-                    <span>Catelogy</span>
+                    <span>Category</span>
                     <IconCategory />
                   </div>
                 {/* </Button> */}

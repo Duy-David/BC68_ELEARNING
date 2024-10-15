@@ -164,8 +164,7 @@ const ManagerCourse = () => {
       .then((res) => {
         dispatch(setListCourse(res.data));
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     getAllKhoaHoc();
@@ -307,7 +306,6 @@ const ManagerCourse = () => {
       title: "Hình Ảnh",
       dataIndex: "hinhAnh",
       key: "hinhAnh",
-      // ...getColumnSearchProps("ngayTao"),
       render: (_, record) => {
         return <img src={record.hinhAnh} alt="Null" className="w-20" />;
       },
@@ -333,9 +331,21 @@ const ManagerCourse = () => {
       dataIndex: "nguoiTao",
       key: "nguoiTao",
       ...getColumnSearchProps("nguoiTao"),
-      render: (text) => {
-        return <p>{text.taiKhoan}</p>;
-      },
+      render: (text, record) =>
+        searchedColumn === "nguoiTao" ? (
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={
+              record?.nguoiTao?.hoTen ? record.nguoiTao.hoTen.toString() : ""
+            }
+          />
+        ) : (
+          <div>{record?.nguoiTao?.hoTen}</div>
+        ),
+      onFilter: (value, record) =>
+        record.nguoiTao?.hoTen.toLowerCase().includes(value.toLowerCase()),
     },
 
     {
