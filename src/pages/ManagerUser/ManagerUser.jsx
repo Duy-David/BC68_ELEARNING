@@ -406,6 +406,7 @@ const ManagerUser = () => {
               onBlur={formik.handleBlur}
               touched={formik.touched}
               errors={formik.errors?.maNhom}
+              
             />
 
             <button
