@@ -41,16 +41,16 @@ const CreateCourse = () => {
       luotXem: 0,
       danhGia: 0,
       hinhAnh: "",
-      maNhom: "",
+      maNhom: "GP01",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
       taiKhoanNguoiTao: user.taiKhoan,
     },
     onSubmit: (value) => {
-
       quanLyKhoaHocService
         .postThemKhoaHoc(user.accessToken, value)
         .then((res) => {
+          console.log(res)
           let values = res.data;
           let formData = new FormData();
           if (uploadImage) {
@@ -66,6 +66,7 @@ const CreateCourse = () => {
           quanLyKhoaHocService
             .postCapNhatKhoaHoc(formData)
             .then((res) => {
+              console.log(res)
               handleNotification(
                 "Tạo khóa học thành công! Chuyển hướng về trang quản lý khoá học",
                 "success"
@@ -79,6 +80,7 @@ const CreateCourse = () => {
               }, 2000);
             })
             .catch((err) => {
+              console.log(err)
               handleNotification(err.response.data, "error");
             });
         })
@@ -240,29 +242,18 @@ const CreateCourse = () => {
             touched={touched.ngayTao}
             errors={errors.ngayTao}
           />
+          <InputCustom
+            contentLabel={"Mã nhóm"}
+            placeHolder={"Vui lòng Vui lòng chọn Mã nhóm"}
+            classWrapper="w-1/3 p-3 "
+            name={"maNhom"}
+            value={values.maNhom}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            disabled={true}
+          />
 
-          <div className="w-1/3 p-3">
-            <label className="block mb-2 text-sm font-medium text-gray-900">
-              Mã nhóm
-            </label>
-            <select
-              name="maNhom"
-              value={values.maNhom}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-            >
-              <option>Vui lòng chọn mã lớp</option>
-              {["GP01", "GP02", "GP03", "GP04", "GP05"].map((group) => (
-                <option value={group} key={group}>
-                  {group}
-                </option>
-              ))}
-            </select>
-            {errors.maNhom && touched.maNhom && (
-              <p className="text-red-500 block">{errors.maNhom}</p>
-            )}
-          </div>
+
           <div className=" w-full p-3">
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Mô tả khóa học

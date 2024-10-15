@@ -23,8 +23,7 @@ const Iconheaders = ({ w = "18px" }) => {
         </g>
       </svg>
 
-      {/* {!isResponsive.lg ? <></> : <span>Catelogy</span>} */}
-    </div>
+      </div>
   );
 };
 

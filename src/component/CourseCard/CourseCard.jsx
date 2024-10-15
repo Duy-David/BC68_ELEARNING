@@ -93,7 +93,7 @@ const CourseCard = ({ course }) => {
             src={course.hinhAnh || "/png/course/hinhAnhCourse.png"}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "/public/png/course/hinhAnhCourse.png";
+              e.target.src = "/png/course/hinhAnhCourse.png";
             }}
             alt="Course"
           />
