@@ -31,3 +31,79 @@ body:has(.adminPage)
   opacity: 0 !important;
   visibility: hidden !important;
 }
+
+.featureInDev {
+  // background-color: #fafafc;
+  // padding: 20vh 30px;
+  .ant-message-notice-content {
+    background-color: #fafafc !important;
+    .ant-message-custom-content {
+      flex-direction: column;
+      padding: 0 50px 20px;
+      svg {
+        width: 300px;
+
+        .st0 {
+          fill: #5c6f77;
+        }
+        .st1 {
+          fill: #dfdfdf;
+        }
+        .st2 {
+          fill: #ffffff;
+        }
+        .st3 {
+          fill: #0071dc;
+        }
+        .st4 {
+          fill: #f3f3f3;
+        }
+        .st5 {
+          fill: #415560;
+        }
+        .st6 {
+          fill: #0d0d0e;
+        }
+        .st7 {
+          fill: #fabea8;
+        }
+        .st8 {
+          fill: #fda68a;
+        }
+        .st9 {
+          fill: #fe715e;
+        }
+        .st10 {
+          fill: #f69875;
+        }
+        .st11 {
+          fill: #210b04;
+        }
+        .st12 {
+          fill: #2f3e46;
+        }
+        .st13 {
+          fill: #f11d3d;
+        }
+        .st14 {
+          fill: #bf5847;
+        }
+        .st15 {
+          fill: #072c35;
+        }
+        .st16 {
+          fill: #fad4b0;
+        }
+        .st17 {
+          fill: #bf5547;
+        }
+        .st18 {
+          fill: #fcc0a9;
+        }
+        .st19 {
+          fill: #0a0a0c;
+        }
+      }
+    }
+  }
+}
