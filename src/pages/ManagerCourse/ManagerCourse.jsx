@@ -18,20 +18,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ManagerCourse = () => {
-  // const [courseValue, setCourseValue] = useState({
-  //   maKhoaHoc: "",
-  //   biDanh: "",
-  //   tenKhoaHoc: "",
-  //   moTa: "",
-  //   luotXem: 0,
-  //   danhGia: 0,
-  //   hinhAnh: "",
-  //   maNhom: "",
-  //   ngayTao: "",
-  //   maDanhMucKhoahoc: "",
-  //   taiKhoanNguoiTao: "",
-  // });
-
   const [listCourse, setListCourse] = useState([]);
   const [uploadImage, setUploadImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -151,6 +137,7 @@ const ManagerCourse = () => {
           searchWords={[searchText]}
           autoEscape
           textToHighlight={text ? text.toString() : ""}
+          highlightTag="phuongduy" 
         />
       ) : (
         text
@@ -340,6 +327,7 @@ const ManagerCourse = () => {
             textToHighlight={
               record?.nguoiTao?.hoTen ? record.nguoiTao.hoTen.toString() : ""
             }
+            highlightTag="phuongduy" 
           />
         ) : (
           <div>{record?.nguoiTao?.hoTen}</div>
