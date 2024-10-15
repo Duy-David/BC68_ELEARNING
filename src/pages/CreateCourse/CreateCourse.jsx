@@ -19,7 +19,6 @@ const CreateCourse = () => {
   const [uploadImage, setUploadImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [errorImage, setErrorImage] = useState("");
-  //   console.log(uploadImage)
   const {
     handleChange,
     handleSubmit,
@@ -48,7 +47,6 @@ const CreateCourse = () => {
       taiKhoanNguoiTao: user.taiKhoan,
     },
     onSubmit: (value) => {
-      console.log(value);
 
       quanLyKhoaHocService
         .postThemKhoaHoc(user.accessToken, value)
@@ -64,7 +62,6 @@ const CreateCourse = () => {
               formData.append(key, values[key]);
             }
           }
-          console.log(formData);
 
           quanLyKhoaHocService
             .postCapNhatKhoaHoc(formData)
@@ -74,8 +71,6 @@ const CreateCourse = () => {
                 "success"
               );
               dispatch(getValueCourseAPI());
-              //   handleReset();
-              //   console.log(formData)
               if (res.data.hinhAnhUrl) {
                 setImageUrl(res.data.hinhAnhUrl);
               }
@@ -84,12 +79,10 @@ const CreateCourse = () => {
               }, 2000);
             })
             .catch((err) => {
-              console.log(err);
               handleNotification(err.response.data, "error");
             });
         })
         .catch((err) => {
-          console.log(err);
           handleNotification(err.response.data, "error");
         });
     },
@@ -120,7 +113,6 @@ const CreateCourse = () => {
       maDanhMucKhoaHoc: yup.string().required(notiValidate.empty),
     }),
   });
-  // console.log(errors);
   const handleImageChange = (e) => {
     const image = e.target.files[0];
     if (image) {

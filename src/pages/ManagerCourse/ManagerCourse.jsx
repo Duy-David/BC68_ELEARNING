@@ -162,11 +162,9 @@ const ManagerCourse = () => {
     quanLyKhoaHocService
       .layDanhSachKhoaHoc("")
       .then((res) => {
-        // console.log("response in get all khoa hoc: ", res);
         dispatch(setListCourse(res.data));
       })
       .catch((err) => {
-        // console.log("error in get all khoa hoc: ", err);
       });
   };
   useEffect(() => {
@@ -224,7 +222,6 @@ const ManagerCourse = () => {
       quanLyKhoaHocService
         .putCapNhatKhoaHoc(values)
         .then((res) => {
-          console.log("res1", res);
           let values = res.data;
           let formData = new FormData();
           if (uploadImage) {
@@ -232,25 +229,20 @@ const ManagerCourse = () => {
           }
           for (let key in values) {
             if (key !== "hinhAnh" || uploadImage) {
-              // Chỉ thêm 'hinhAnh' nếu có upload
               formData.append(key, values[key]);
             }
           }
-          console.log(formData);
           quanLyKhoaHocService
             .postCapNhatKhoaHoc(formData)
             .then((res2) => {
               getAllKhoaHoc();
-              console.log("res2", res2);
               handleNotification("Sửa dữ liệu thành công", "success");
             })
             .catch((err2) => {
-              console.log(err2);
               handleNotification(err2.response.data, "error");
             });
 
           // putCapNhat...
-          console.log(res.data);
           setIsModalOpen(false);
           setImageUrl(null);
         })
@@ -350,7 +342,6 @@ const ManagerCourse = () => {
       title: "Hành Động",
       key: "action",
       render: (_, record) => {
-        // console.log(record);
         return (
           <Space size="small" className="">
             <button

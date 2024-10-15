@@ -17,8 +17,6 @@ const Categories = () => {
     quanLyKhoaHocService
       .getDanhMucKhoaHoc()
       .then((res) => {
-        // console.log(res.data);
-
         const newListCategories = res.data.map((item) => {
           return { ...item, icon: getIcon(item.maDanhMuc) };
         });

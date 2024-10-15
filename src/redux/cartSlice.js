@@ -15,7 +15,6 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const course = action.payload;
-      // console.log(course);
       const existingCourse = state.cartItems.find((item) => {
         item.maKhoaHoc == course.maKhoaHoc;
       });

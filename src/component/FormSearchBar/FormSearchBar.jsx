@@ -19,7 +19,6 @@ const FormSearchBar = () => {
   const navigate = useNavigate();
 
   // tìm khóa học
-  // console.log("keywor==>", valueSearch ? true : false);
   useEffect(() => {
     // có nhập keywork mới cho chạy tìm kiếm
     if (valueSearch.length > 0) {
