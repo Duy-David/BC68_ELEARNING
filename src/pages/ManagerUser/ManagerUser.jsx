@@ -145,7 +145,6 @@ const ManagerUser = () => {
       maNhom: yup.string().required("Loại mã Nhóm như: GP01, GP02..."),
     }),
     onSubmit: (values) => {
-
       nguoiDungService
         .putThongTinNguoiDung(values, accessToken)
         .then((res) => {
@@ -221,6 +220,7 @@ const ManagerUser = () => {
           ...userInfo,
         });
         setHideBtn(true);
+        console.log("userInfo", userInfo);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -228,6 +228,7 @@ const ManagerUser = () => {
 
     setIsModalOpen(true);
   };
+  console.log("formik.setValues", formik.values);
 
   // delete tài khoản
   const handleDelete = (taiKhoan) => {
@@ -268,6 +269,11 @@ const ManagerUser = () => {
 
   // handle submit
   const handleUserCreate = () => {
+    // Kiểm tra xem form có hợp lệ hay không
+    if (!formik.isValid) {
+      handleNotification("Vui lòng kiểm tra lại các trường nhập!", "error");
+      return;
+    }
     nguoiDungService
       .themNguoiDung(accessToken, formik.values)
       .then((res) => {
@@ -340,7 +346,7 @@ const ManagerUser = () => {
               placeHolder={"Nhập Mật Khẩu"}
               name={"matKhau"}
               type="password"
-              value={formik.values?.matKhau}
+              value={formik.values?.matKhau || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
@@ -406,7 +412,6 @@ const ManagerUser = () => {
               onBlur={formik.handleBlur}
               touched={formik.touched}
               errors={formik.errors?.maNhom}
-              
             />
 
             <button
