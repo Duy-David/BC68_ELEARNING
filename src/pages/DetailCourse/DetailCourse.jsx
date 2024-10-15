@@ -20,6 +20,25 @@ const DetailCourse = () => {
     "Basic understanding of data management concepts and constructs such as relational database tables.",
     "Know how different pieces of data logically relate to one another.",
   ];
+  const paragraphs = [
+    `In this course, I take you from the fundamentals and concepts of
+     data modeling all the way through a number of specific concepts,
+     techniques, and implementations used in modern data management.
+     You'll learn many key concepts and best practices that lay the
+     foundation for mastering concepts like conceptual, logical, and
+     physical data modeling.`,
+
+    `Not only will you understand the theory and the best principles
+     to work by, but also to make the key decisions about designs and
+     techniques required by the specific tasks to maximize the value
+     and benefits of your data models.`,
+
+    `Through a number of organizations, they establish the need for
+     master data management when they handle key entities such as
+     customers or products in different locations. Good data modeling
+     can dramatically improve the efficiency and accuracy of large
+     data models.`,
+  ];
   const [detailCourse, setDetailCourse] = useState(null);
 
   useEffect(() => {
@@ -32,7 +51,7 @@ const DetailCourse = () => {
         console.log(err);
       });
   }, [maKhoaHoc]);
- 
+
   const { listCourse } = useSelector((state) => state.courseSlice);
   const relatedCourses = listCourse
     .filter(
@@ -107,7 +126,15 @@ const DetailCourse = () => {
             </div>
             {/* course img */}
             <div className=" my-8">
-              <img src={detailCourse?.hinhAnh} alt="" className="w-full" />
+              <img
+                src={detailCourse?.hinhAnh || "/png/course/hinhAnhCourse.png"}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/png/course/hinhAnhCourse.png";
+                }}
+                alt="Course"
+                className="w-full"
+              />
             </div>
 
             {/* Course Prerequisites */}
@@ -127,27 +154,11 @@ const DetailCourse = () => {
             {/* About This Course */}
             <div className="mb-6">
               <h2 className="text-lg font-bold">About This Course</h2>
-              <p className="text-gray-600 mt-2">
-                In this course, I take you from the fundamentals and concepts of
-                data modeling all the way through a number of specific concepts,
-                techniques, and implementations used in modern data management.
-                You'll learn many key concepts and best practices that lay the
-                foundation for mastering concepts like conceptual, logical, and
-                physical data modeling.
-              </p>
-              <p className="text-gray-600 mt-4">
-                Not only will you understand the theory and the best principles
-                to work by, but also to make the key decisions about designs and
-                techniques required by the specific tasks to maximize the value
-                and benefits of your data models.
-              </p>
-              <p className="text-gray-600 mt-4">
-                Through a number of organizations, they establish the need for
-                master data management when they handle key entities such as
-                customers or products in different locations. Good data modeling
-                can dramatically improve the efficiency and accuracy of large
-                data models.
-              </p>
+              {paragraphs.map((paragraph, index) => (
+                <p className="text-gray-600 mt-4" key={index}>
+                  {paragraph}
+                </p>
+              ))}
             </div>
 
             {/* Learning Objectives */}
@@ -185,7 +196,7 @@ const DetailCourse = () => {
           </div>
         </div>
         {/* relatedCourses */}
-        <div className="mb-8">
+        <div className="my-8">
           <h2 className="text-2xl font-semibold mb-4">Related Courses</h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-6 xl:gap-10">
             {relatedCourses.map((course, index) => {
