@@ -334,7 +334,7 @@ const ManagerUser = () => {
               contentLabel={"Tài Khoản"}
               placeHolder={"Nhập Tài Khoản"}
               name={"taiKhoan"}
-              value={formik.values?.taiKhoan}
+              value={formik.values?.taiKhoan || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
@@ -357,7 +357,7 @@ const ManagerUser = () => {
               contentLabel={"Họ Tên"}
               placeHolder={"Nhập Họ Tên"}
               name={"hoTen"}
-              value={formik.values?.hoTen}
+              value={formik.values?.hoTen || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
@@ -367,7 +367,7 @@ const ManagerUser = () => {
               contentLabel={"Số Điện Thoại"}
               placeHolder={"Nhập Số Điện Thoại"}
               name={"soDT"}
-              value={formik.values?.soDT}
+              value={formik.values?.soDT || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
@@ -377,7 +377,7 @@ const ManagerUser = () => {
               contentLabel={"Email"}
               placeHolder={"Nhập Email"}
               name={"email"}
-              value={formik.values?.email}
+              value={formik.values?.email || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
@@ -407,7 +407,7 @@ const ManagerUser = () => {
               contentLabel={"Nhóm Người Dùng"}
               placeHolder={"Nhập Mã Nhóm"}
               name={"maNhom"}
-              value={formik.values?.maNhom}
+              value={formik.values?.maNhom || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               touched={formik.touched}
