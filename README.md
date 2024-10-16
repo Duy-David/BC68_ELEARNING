@@ -1,5 +1,4 @@
-Đây là dự án ELEARNINHG React sử dụng vite. 
-
+Đây là dự án ELEARNINHG  sử dụng REACTJS 
 
 Phiên bản node là v20.14.0
 
@@ -36,13 +35,14 @@ TK test
 TK :hunggv1
 MK :123456@ABC
 - TKHV
-TK :aaa
-MK :Duy676820
+TK :aaaaaa
+MK :PhuongDuy21122@
 
-link trang tham khảo: https://htmldemo.net/edumall/edumall/index.html
+Link trang tham khảo: https://htmldemo.net/edumall/edumall/index.html
 
 Link youtube : https://www.youtube.com/watch?v=fhlTRaO5nQY&ab_channel=HuuCongBui
 
+Link deploy : https://elearning-lemon-seven.vercel.app/
 
 
 

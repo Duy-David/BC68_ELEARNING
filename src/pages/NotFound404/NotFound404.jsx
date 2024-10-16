@@ -1,10 +1,11 @@
-import React from 'react';
-import Lottie from 'lottie-react';
-import AnimationFoundNot from '../../assets/animation/AnimationFoundNot.json';
-import { Link } from 'react-router-dom';
-import { pathDefault } from '../../common/path';
+import React from "react";
+import Lottie from "lottie-react";
+import AnimationFoundNot from "../../assets/animation/AnimationFoundNot.json";
+import { Link, useNavigate } from "react-router-dom";
+import { pathDefault } from "../../common/path";
 
 const NotFound404 = () => {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-5 h-screen bg-black">
       <div></div>
@@ -12,12 +13,14 @@ const NotFound404 = () => {
         {/* animation  */}
         <Lottie animationData={AnimationFoundNot} loop={true} />
         {/* button */}
-        <Link
-          to={pathDefault.homePage}
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-center"
+        <button
+          onClick={() => {
+            navigate(pathDefault.homePage);
+          }}
+          className="bg-blue-500 mx-auto hover:bg-blue-500/70 text-white py-2 px-4 rounded-md text-center"
         >
-          <button>Trở về trang chủ</button>
-        </Link>
+          Back to HomePage
+        </button>
       </div>
     </div>
   );

@@ -180,7 +180,7 @@ const PersonalInformation = () => {
               {" "} 
               {user?.maLoaiNguoiDung == "HV" ? (
                 <>
-                  <UserOutlined className="iconUser text-[190px]  bg-[#a23f6e] text-white rounded-lg" />
+                  <UserOutlined className="iconUser text-[190px]  bg-[#a23f6e]  text-white rounded-full" />
                 </>
               ) : (
                 <>

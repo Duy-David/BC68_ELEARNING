@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Modal } from "antd";
 import InputCustom from "../../component/Input/InputCustom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +20,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   const { handleNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [failedAttempts, setFailedAttempts] = useState(0);
   const {
     handleSubmit,
     values,
@@ -38,7 +38,6 @@ const LoginPage = ({ handleCancel, openRegister }) => {
       try {
         const result = await authService.signIn(values);
         // lưu local storage và redux store
- 
         setLocalStorage("user", result.data);
         dispatch(setValueUser(result.data));
         // chuyển hướng người dùng
@@ -48,7 +47,17 @@ const LoginPage = ({ handleCancel, openRegister }) => {
           navigate(location.pathname);
         }, 1000);
       } catch (error) {
+        setFailedAttempts((prev) => prev + 1);
         handleNotification(`${error.response.data}`, "error");
+        if (failedAttempts + 1 >= 5) {
+          handleNotification(
+            "Đăng nhập sai quá 5 lần, chuyển hướng đến Google",
+            "error"
+          );
+          setTimeout(() => {
+            window.location.href = "https://www.google.com";
+          }, 1000);
+        }
       }
     },
     validationSchema: yup.object({
