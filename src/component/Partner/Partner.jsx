@@ -1,5 +1,7 @@
 import React from "react";
 import "./partner.scss";
+import { useNavigate } from "react-router-dom";
+import { pathDefault } from "../../common/path";
 const Partner = () => {
   const partners = [
     {
@@ -33,6 +35,8 @@ const Partner = () => {
       logo: "/png/partners/client-logo-12.png",
     },
   ];
+  const navigate = useNavigate();
+  
   return (
     <>
       <section className=" container py-12 px-3 mx-auto">
@@ -46,7 +50,12 @@ const Partner = () => {
               You can list your partners or instructors's brands here to show
               off your site's reputation and students can trust you more.
             </p>
-            <button className="btn-partner px-6 py-3 rounded-lg transition duration-300 mt-5">
+            <button
+              className="btn-partner px-6 py-3 rounded-lg transition duration-300 mt-5"
+              onClick={() => {
+                navigate(pathDefault.underConstruction);
+              }}
+            >
               View all Partners
             </button>
           </div>

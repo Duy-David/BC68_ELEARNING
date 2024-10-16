@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import "../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 import icon from "/svg/AboutUS/carousel.svg";
+import { useNavigate } from "react-router-dom";
+import { pathDefault } from "../../common/path";
 
 const AboutUs = () => {
   let settings = {
@@ -74,7 +76,7 @@ const AboutUs = () => {
       image: "/png/avatar-02.png", // Thay ảnh phù hợp nếu có
     },
   ];
-
+  const navigate = useNavigate();
   return (
     <>
       <section className=" container py-12 mx-auto px-3">
@@ -87,7 +89,12 @@ const AboutUs = () => {
               One-stop solution for any eLearning center, online courses. People
               love EduMall because they can create their sites with ease here.
             </p>
-            <button className="btn-aboutUS px-6 py-3 rounded-lg transition duration-300 mt-5">
+            <button
+              className="btn-aboutUS px-6 py-3 rounded-lg transition duration-300 mt-5"
+              onClick={() => {
+                navigate(pathDefault.underConstruction)
+              }}
+            >
               View all
             </button>
           </div>
