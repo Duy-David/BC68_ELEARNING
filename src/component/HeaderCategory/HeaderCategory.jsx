@@ -6,14 +6,14 @@ import IconCategory from "../Icon/Iconheaders";
 import useResponsive from "../../hooks/useResponsive";
 
 const HeaderCategory = () => {
-  const breakpoints = {
-    xs: 468,
+  const isResponsive = useResponsive({
+    fixsm: 675,
     sm: 640,
     md: 768,
     lg: 1024,
-  };
+  })
 
-  const isResponsive = useResponsive(breakpoints);
+  // const isResponsive = useResponsive(breakpoints);
   const [listCourseCategory, setListCoursCategory] = useState([]);
   useEffect(() => {
     quanLyKhoaHocService
@@ -34,28 +34,8 @@ const HeaderCategory = () => {
       </Link>
     ),
   }));
-  // const renderCategory = () => {
-  //   // // Ẩn ở xs
-  //   // if (isResponsive.xs) {
-  //   //   return null;
-  //   // }
-
-  //   // Hiện từ sm đến md (415px - 768px)
-  //   // if (!isResponsive.xs && isResponsive.md) {
-  //   //   return <span>Category</span>;
-  //   // }
-  //   // if (!isResponsive.md && isResponsive.lg) {
-  //   //   return null;
-  //   // }
-  //   // Hiện khi > lg (lớn hơn 1024px)
-  //   if (!isResponsive.lg
-  //     || (isResponsive.md && !isResponsive.xs)
-  //   ) {
-  //     return <span>Category</span>;
-  //   } else {
-  //     return null;
-  //   }
-  // };
+ 
+  
   return (
     <Dropdown
       menu={{
@@ -67,17 +47,7 @@ const HeaderCategory = () => {
       <Button>
         <div className="category_icon flex">
           <IconCategory />
-          {isResponsive.xs ? (
-            <></>
-          ) : isResponsive.xs && !isResponsive.md ? (
-            isResponsive.lg ? (
-              <></>
-            ) : (
-              <span>Category</span>
-            )
-          ) : (
-            <span>Category</span>
-          )}
+          {!isResponsive.fixsm ? <span>Category</span> : <></>}
         </div>
       </Button>
     </Dropdown>

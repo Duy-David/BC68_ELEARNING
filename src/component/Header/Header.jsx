@@ -38,7 +38,6 @@ const Header = () => {
     };
   }, []);
 
-  // Đưa trạng thái Modal User lên redux
   const openLogin = () => {
     dispatch(
       setStatusModal({
@@ -77,14 +76,14 @@ const Header = () => {
       }`}
     >
       <div className="container">
-        <div className="header_wrapper flex items-center justify-center md:justify-between">
-          <div className="header_logo mr-7">
+        <div className="header_wrapper flex items-center justify-between md:justify-between">
+          <div className="header_logo mr-0 min-[414px]:mr-[9vw] min-[498px]:mr-[26vw] sm:mr-7">
             <Link to={pathDefault.homePage}>
               <IconLogo />
             </Link>
           </div>
 
-          <div className="header_category divider">
+          <div className="header_category border-l-0 sm:border-l-2 pl-7 py-1">
             <HeaderCategory />
           </div>
 
@@ -117,12 +116,12 @@ const Header = () => {
                     Sign Up
                   </button>
                   <LoginPage
-                    handleCancel={closeLogin} // Hàm đóng modal
-                    openRegister={openRegister} // Chuyển sang Modal đăng ký
+                    handleCancel={closeLogin}
+                    openRegister={openRegister}
                   />
                   <Register
-                    handleCancel={closeRegister} // Hàm đóng modal
-                    openLogin={openLogin} // Chuyển sang Modal đăng nhập
+                    handleCancel={closeRegister}
+                    openLogin={openLogin}
                   />
                 </div>
               </>
