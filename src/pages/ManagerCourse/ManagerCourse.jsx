@@ -343,7 +343,7 @@ const ManagerCourse = () => {
         return (
           <Space size="small" className="">
             <button
-              className="bg-green-500 text-white py-2 px-2  rounded-md duration-300 hover:bg-green-500/80 "
+              className="text-white  py-2 px-3 bg-blue-500 rounded-md font-bold hover:bg-blue-500/70z "
               onClick={() =>
                 navigate(`/admin/ghi-danh-khoa-hoc/${record.maKhoaHoc}`)
               }
@@ -365,13 +365,13 @@ const ManagerCourse = () => {
                     handleNotification(err.response.data, "error");
                   });
               }}
-              className=" bg-red-500 text-white py-2 px-4 rounded-md duration-300 hover:bg-red-500/90 "
+              className=" text-white enrollBtn py-2 px-3 bg-red-500 rounded-md font-bold hover:bg-red-500/70 "
             >
               Xóa{" "}
             </button>
             <button
               onClick={() => showModal(record)}
-              className="bg-yellow-500 text-white py-2 px-4 rounded-md duration-300 hover:bg-yellow-500/90"
+              className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-500/70"
             >
               Sửa
             </button>

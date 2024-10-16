@@ -86,7 +86,7 @@ const AdminTemplate = () => {
                     onClick={handleBackToHomePage}
                     style={{ marginRight: "20px" }}
                   >
-                    Back to HomePage
+                    Quay lại trang chủ
                   </Button>
                 </div>
                 <div className="pr-5">

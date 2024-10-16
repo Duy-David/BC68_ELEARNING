@@ -16,8 +16,6 @@ const ManagerUser = () => {
   const [userData, setUserData] = useState([]);
   const [isDisable, setIsDisable] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [newDeleteUser, setNewDeleteUser] = useState(false);
-  const [updateUser, setUpdateUser] = useState(false);
   const [hideBtn, setHideBtn] = useState();
   const [newUserArr, setNewUserArr] = useState(false);
   const navigate = useNavigate();
@@ -79,13 +77,13 @@ const ManagerUser = () => {
                 )}`
               )
             }
-            className="text-white deleteBtn py-2 px-3 bg-blue-500 rounded-md font-bold hover:bg-blue-600"
+            className="text-white enrollBtn py-2 px-3 bg-blue-500 rounded-md font-bold hover:bg-blue-500/70"
           >
             Ghi Danh
           </button>
           <button
             onClick={() => handleDelete(record.taiKhoan)}
-            className="text-white deleteBtn py-2 px-3 bg-red-500 rounded-md font-bold hover:bg-red-600"
+            className="text-white deleteBtn py-2 px-3 bg-red-500 rounded-md font-bold hover:bg-red-500/70"
           >
             Xoá
           </button>
@@ -94,7 +92,7 @@ const ManagerUser = () => {
               handleEdit(record.taiKhoan);
               // setUpdateUser(true);
             }}
-            className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-600"
+            className="text-white editBtn py-2 px-3 bg-orange-500 rounded-md font-bold hover:bg-orange-500/70"
           >
             Sửa
           </button>

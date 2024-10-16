@@ -13,13 +13,13 @@ const UnderConstructionPage = () => {
         <Lottie animationData={AniUnderConstruction} loop={true} />
         <div className="flex items-center justify-between">
           <h3 className="text-[#E89F69] text-lg">
-            TRANG ĐANG ĐƯỢC XÂY DỰNG. VUI LÒNG QUAY LẠI SAU
+          THIS PAGE IS UNDER CONSTRUCTION. PLEASE COME BACK LATER
           </h3>
           <Link
             to={pathDefault.homePage}
             className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-center"
           >
-            <button>Trở về trang chủ</button>
+            <button>Back to HomePage</button>
           </Link>
         </div>
       </div>
