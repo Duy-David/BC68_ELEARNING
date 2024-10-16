@@ -7,6 +7,7 @@ import useResponsive from "../../hooks/useResponsive";
 
 const HeaderCategory = () => {
   const isResponsive = useResponsive({
+    fixsm: 675,
     sm: 640,
     md: 768,
     lg: 1024,
@@ -41,10 +42,10 @@ const HeaderCategory = () => {
       arrow
     >
       <Button>
-      <div className="category_icon flex">
-        <IconCategory />
-        {!isResponsive.lg ? <span>Category</span> : <></>}
-      </div>
+        <div className="category_icon flex">
+          <IconCategory />
+          {!isResponsive.fixsm ? <span>Category</span> : <></>}
+        </div>
       </Button>
     </Dropdown>
   );
