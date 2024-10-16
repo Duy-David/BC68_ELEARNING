@@ -1,15 +1,6 @@
 import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
-// import Usertemplate from "../template/Usertemplate/Usertemplate";
 import { pathChildren, pathDefault } from "../common/path";
-// import HomePage from "../pages/Home/HomePage";
-// import Register from "../pages/Register/Register";
-// import LoginPage from "../pages/LoginPage/LoginPage";
-// import CourseCatelogies from "../pages/CourseCatelogies/CourseCatelogies";
-// import DetailCourse from "../pages/DetailCourse/DetailCourse";
-// import PersonalInformation from "../pages/PersonalInformation/PersonalInformation";
-// import SearchCourseResult from "../pages/SearchCourse/SearchCourseResult";
-// import AdminTemplate from "../template/Admintemplate/AdminTemplate";
 import { Skeleton } from "antd";
 import { svgPathData } from "@fortawesome/free-brands-svg-icons/faAirbnb";
 // import ManagerUserRegister from "";
@@ -108,14 +99,7 @@ const useRoutesCustom = () => {
         },
       ],
     },
-    // {
-    //   path: pathDefault.register,
-    //   element: <Register />,
-    // },
-    // {
-    //   path: pathDefault.login,
-    //   element: <LoginPage />,
-    // },
+    
     {
       path: pathDefault.admin,
       element: (
