@@ -15,7 +15,7 @@ const Instructor = () => {
     {
       title: "Access To Education",
       description:
-        "Create an account to receive our newsletter, course recommendations, and promotions.",
+        "Create an account to receive our newsletter, course recommendations.",
       buttonText: "Register for free",
       imageSrc: "../../../png/Instructor/banner-image-laptop.png",
       altText: "Access Education",
