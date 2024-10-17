@@ -41,7 +41,7 @@ const DetailCourse = () => {
      data models.`,
   ];
   const [detailCourse, setDetailCourse] = useState(null);
-
+  const [listCourse, setListCourse] = useState([]);
   useEffect(() => {
     quanLyKhoaHocService
       .getThongTinKhoaHoc(maKhoaHoc)
@@ -53,24 +53,33 @@ const DetailCourse = () => {
       });
   }, [maKhoaHoc]);
 
-  const { listCourse } = useSelector((state) => state.courseSlice);
+  // const { listCourse } = useSelector((state) => state.courseSlice);
   // useEffect(() => {
   //   if (listCourse.length === 0) {
-  //     dispatch(fetchCourses()); 
+  //     dispatch(fetchCourses());
   //   }
-  // }, [listCourse, dispatch]);
-  const relatedCourses = detailCourse
-    ? listCourse
-        .filter(
-          (course) =>
-            course?.danhMucKhoaHoc.maDanhMucKhoahoc ===
-              detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc &&
-            course.maKhoaHoc !== detailCourse.maKhoaHoc
-        )
-        .sort((a, b) => b.luotXem - a.luotXem)
-        .slice(0, 5)
-    : [];
-
+  // }, [listCourse, dispatch]);Hello
+  useEffect(() => {
+    if (listCourse.length === 0) {
+      quanLyKhoaHocService
+        .getDanhSachKhoaHoc()
+        .then((res) => {
+          setListCourse(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [listCourse]);
+  const relatedCourses = listCourse
+    .filter(
+      (course) =>
+        course?.danhMucKhoaHoc.maDanhMucKhoahoc ===
+          detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc &&
+        course?.maKhoaHoc !== detailCourse?.maKhoaHoc
+    )
+    .sort((a, b) => b.luotXem - a.luotXem)
+    .slice(0, 5);
   return (
     <WithLoading>
       <div className="container mx-auto pb-10 px-3">
