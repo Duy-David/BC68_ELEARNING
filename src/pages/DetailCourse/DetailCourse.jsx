@@ -6,11 +6,9 @@ import CourseInfo from "../../component/CourseInfo/CourseInfo";
 import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
 import WithLoading from "../../component/WithLoading/WithLoading";
-import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../component/CourseCard/CourseCard";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
-  const dispatch = useDispatch();
   const learningObjectives = [
     "Ready to begin working on real-world data modeling projects.",
     "Expanded responsibilities as part of an existing role.",
@@ -41,7 +39,7 @@ const DetailCourse = () => {
      data models.`,
   ];
   const [detailCourse, setDetailCourse] = useState(null);
-  const [listCourse, setListCourse] = useState([]);
+  // const [listCourse, setListCourse] = useState([]);
   useEffect(() => {
     quanLyKhoaHocService
       .getThongTinKhoaHoc(maKhoaHoc)
@@ -53,24 +51,20 @@ const DetailCourse = () => {
       });
   }, [maKhoaHoc]);
 
-  // const { listCourse } = useSelector((state) => state.courseSlice);
   // useEffect(() => {
   //   if (listCourse.length === 0) {
-  //     dispatch(fetchCourses());
+  //     quanLyKhoaHocService
+  //       .getDanhSachKhoaHoc()
+  //       .then((res) => {
+  //         setListCourse(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
   //   }
-  // }, [listCourse, dispatch]);Hello
-  useEffect(() => {
-    if (listCourse.length === 0) {
-      quanLyKhoaHocService
-        .getDanhSachKhoaHoc()
-        .then((res) => {
-          setListCourse(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [listCourse]);
+  // }, [listCourse]);
+  const listCourse = JSON.parse(localStorage.getItem("listCourse"))
+  console.log(listCourse)
   const relatedCourses = listCourse
     .filter(
       (course) =>

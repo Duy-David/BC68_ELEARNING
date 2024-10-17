@@ -27,7 +27,7 @@ const ManagerUser = () => {
 
   // AntDesign Table
   const columns = (handleDelete, handleEdit) => [
-    {
+    { 
       title: "Tài Khoản",
       dataIndex: "taiKhoan",
       key: "taiKhoan",
