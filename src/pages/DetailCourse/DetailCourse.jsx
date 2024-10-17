@@ -54,11 +54,11 @@ const DetailCourse = () => {
   }, [maKhoaHoc]);
 
   const { listCourse } = useSelector((state) => state.courseSlice);
-  useEffect(() => {
-    if (listCourse.length === 0) {
-      dispatch(fetchCourses()); // Assuming you have a Redux action to fetch the list of courses
-    }
-  }, [listCourse, dispatch]);
+  // useEffect(() => {
+  //   if (listCourse.length === 0) {
+  //     dispatch(fetchCourses()); 
+  //   }
+  // }, [listCourse, dispatch]);
   const relatedCourses = detailCourse
     ? listCourse
         .filter(
