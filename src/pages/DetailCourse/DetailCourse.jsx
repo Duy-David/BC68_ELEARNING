@@ -6,10 +6,11 @@ import CourseInfo from "../../component/CourseInfo/CourseInfo";
 import CheckIcon from "../../component/Icon/CheckIcon";
 import DateToWords from "../../component/DateToWords/DateToWords";
 import WithLoading from "../../component/WithLoading/WithLoading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../component/CourseCard/CourseCard";
 const DetailCourse = () => {
   const { maKhoaHoc } = useParams();
+  const dispatch = useDispatch();
   const learningObjectives = [
     "Ready to begin working on real-world data modeling projects.",
     "Expanded responsibilities as part of an existing role.",
@@ -53,15 +54,23 @@ const DetailCourse = () => {
   }, [maKhoaHoc]);
 
   const { listCourse } = useSelector((state) => state.courseSlice);
-  const relatedCourses = listCourse
-    .filter(
-      (course) =>
-        course?.danhMucKhoaHoc.maDanhMucKhoahoc ==
-          detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc &&
-        course.maKhoaHoc !== detailCourse.maKhoaHoc
-    )
-    .sort((a, b) => b.luotXem - a.luotXem)
-    .slice(0, 5);
+  useEffect(() => {
+    if (listCourse.length === 0) {
+      dispatch(fetchCourses()); // Assuming you have a Redux action to fetch the list of courses
+    }
+  }, [listCourse, dispatch]);
+  const relatedCourses = detailCourse
+    ? listCourse
+        .filter(
+          (course) =>
+            course?.danhMucKhoaHoc.maDanhMucKhoahoc ===
+              detailCourse?.danhMucKhoaHoc.maDanhMucKhoahoc &&
+            course.maKhoaHoc !== detailCourse.maKhoaHoc
+        )
+        .sort((a, b) => b.luotXem - a.luotXem)
+        .slice(0, 5)
+    : [];
+
   return (
     <WithLoading>
       <div className="container mx-auto pb-10 px-3">
