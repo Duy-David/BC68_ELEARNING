@@ -36,13 +36,21 @@ const Course = () => {
         console.log(err);
       });
   }, [dispatch]);
+
   const { listCourse, listCourseCategory } = useSelector(
     (state) => state.courseSlice
   );
-  const [activeTab, setActiveTab] = useState(
-    listCourseCategory[0]?.maDanhMuc || ""
-  );
+  // const [activeTab, setActiveTab] = useState(
+  //   listCourseCategory[0]?.maDanhMuc || ""
+  // );
+  const [activeTab, setActiveTab] = useState("");
 
+  useEffect(() => {
+    if (listCourseCategory.length > 0) {
+      setActiveTab(listCourseCategory[0].maDanhMuc);
+    }
+  }, [listCourseCategory]);
+  
   const handleTabClick = (maDanhMuc) => {
     setActiveTab(maDanhMuc);
   };
