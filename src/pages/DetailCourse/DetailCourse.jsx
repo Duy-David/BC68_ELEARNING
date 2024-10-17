@@ -39,7 +39,7 @@ const DetailCourse = () => {
      data models.`,
   ];
   const [detailCourse, setDetailCourse] = useState(null);
-  // const [listCourse, setListCourse] = useState([]);
+  const [listCourse, setListCourse] = useState([]);
   useEffect(() => {
     quanLyKhoaHocService
       .getThongTinKhoaHoc(maKhoaHoc)
@@ -51,20 +51,18 @@ const DetailCourse = () => {
       });
   }, [maKhoaHoc]);
 
-  // useEffect(() => {
-  //   if (listCourse.length === 0) {
-  //     quanLyKhoaHocService
-  //       .getDanhSachKhoaHoc()
-  //       .then((res) => {
-  //         setListCourse(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [listCourse]);
-  const listCourse = JSON.parse(localStorage.getItem("listCourse"))||[]
-  // console.log(listCourse)
+  useEffect(() => {
+    if (listCourse.length === 0) {
+      quanLyKhoaHocService
+        .getDanhSachKhoaHoc()
+        .then((res) => {
+          setListCourse(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [listCourse]);
   const relatedCourses = listCourse
     .filter(
       (course) =>
