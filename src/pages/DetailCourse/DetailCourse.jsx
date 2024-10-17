@@ -63,7 +63,7 @@ const DetailCourse = () => {
   //       });
   //   }
   // }, [listCourse]);
-  const listCourse = JSON.parse(localStorage.getItem("listCourse"))
+  const listCourse = JSON.parse(localStorage.getItem("listCourse"))||[]
   // console.log(listCourse)
   const relatedCourses = listCourse
     .filter(
