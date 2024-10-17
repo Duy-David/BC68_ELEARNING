@@ -64,7 +64,7 @@ const DetailCourse = () => {
   //   }
   // }, [listCourse]);
   const listCourse = JSON.parse(localStorage.getItem("listCourse"))
-  console.log(listCourse)
+  // console.log(listCourse)
   const relatedCourses = listCourse
     .filter(
       (course) =>
