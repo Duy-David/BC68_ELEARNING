@@ -14,10 +14,10 @@ Phiên bản node là v20.14.0
 - Thư viện lottie-react cho việc chạy animation (done)
 - Thư viện fontansome cho việc lấy icon  (done)
 - Thư viện react-slick cho việc chay carousel(done)
-- Thư viện lottie-react cho việc sữ dụng animaition
-- Thư viện react-scroll-to-top cho việc back to top
-- Thư viện react-highlight-words dùng để làm nổi bật các từ trong một đoạn văn bản lớn
-- Thư viện parallax-js dùng để chạy anhimation trong banner
+- Thư viện lottie-react cho việc sữ dụng animaition(done)
+- Thư viện react-scroll-to-top cho việc back to top(done)
+- Thư viện react-highlight-words dùng để làm nổi bật các từ trong một đoạn văn bản lớn(done)
+- Thư viện parallax-js dùng để chạy anhimation trong banner(done)
 
 ### Ghi chú về các thư mục trong dự án:
 - **assets**: chứa các file phương tiện như âm thanh, hình ảnh, animation,font
