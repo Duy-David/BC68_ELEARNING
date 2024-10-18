@@ -40,4 +40,4 @@ TK test:
 
 - Link trang tham khảo: https://htmldemo.net/edumall/edumall/index.html
 - Link youtube: https://www.youtube.com/watch?v=fhlTRaO5nQY
-- Link deploy:  https://elearning-lemon-seven.vercel.app
+- Link deploy: https://bc-68-elearning.vercel.app/
