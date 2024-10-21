@@ -325,7 +325,8 @@ const EnrollCourse = () => {
           <Table
             className="font-sans text-base"
             columns={columns}
-            dataSource={searchWaitList}
+            // dataSource={searchWaitList}
+            dataSource={searchWaitList.map(user => ({ ...user, key: user.taiKhoan }))}
           />
         </div>
         <hr className="my-5" />
@@ -345,7 +346,8 @@ const EnrollCourse = () => {
           <Table
             className="font-sans text-base"
             columns={enrolledColumns}
-            dataSource={searchEnrolledList}
+            // dataSource={searchEnrolledList}
+            dataSource={searchEnrolledList.map(user => ({ ...user, key: user.taiKhoan }))}
           />
         </div>
       </div>
