@@ -22,11 +22,11 @@ const Homepage = () => {
       const scrollPosition = window.scrollY
 
       setIsVisible({
-        features: scrollPosition > 300,
-        categories: scrollPosition > 500,
+        features: scrollPosition > 200,
+        categories: scrollPosition > 350,
         course: scrollPosition > 700,
-        aboutUs: scrollPosition > 1400,
-        instructor: scrollPosition > 1900,
+        aboutUs: scrollPosition > 1300,
+        instructor: scrollPosition > 1700,
         partner: scrollPosition > 2100,
       });
     };

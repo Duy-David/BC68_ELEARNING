@@ -8,10 +8,21 @@ import WithLoading from "../../component/WithLoading/WithLoading";
 
 const CourseCatelogies = () => {
   const { maDanhMuc } = useParams();
-  //  const [listCourse, setListCourse] = useState([]);
+   const [listCourse, setListCourse] = useState([]);
   const [categoryName, setCategoryName] = useState("");
-  const { listCourse } = useSelector((state) => state.courseSlice);
-
+  // const { listCourse } = useSelector((state) => state.courseSlice);
+  useEffect(() => {
+    if (listCourse.length === 0) {
+      quanLyKhoaHocService
+        .getDanhSachKhoaHoc()
+        .then((res) => {
+          setListCourse(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [listCourse]);
   const filteredCourses = listCourse.filter(
     (course) =>
       course.danhMucKhoaHoc.maDanhMucKhoahoc === maDanhMuc.replace(":", "")
@@ -45,7 +56,7 @@ const CourseCatelogies = () => {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 xl:gap-10 ">
           {filteredCourses.map((course, index) => (
-            <div className="course-item" key={course.maKhoaHoc}>
+            <div className="course-item" key={index}>
               <CourseCard course={course} />
             </div>
           ))}
