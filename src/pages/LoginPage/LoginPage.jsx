@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "antd";
 import InputCustom from "../../component/Input/InputCustom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,8 +15,8 @@ import { notiValidate } from "../../common/notiValidate";
 import FeatureInDev from "../NotFound404/FeatureInDev";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import FacebookLogin from "react-facebook-login";
 
+import { FacebookProvider, LoginButton } from "react-facebook";
 const LoginPage = ({ handleCancel, openRegister }) => {
   const dispatch = useDispatch();
   const { setStatusModal } = useSelector((store) => store.headerSlice);
@@ -103,17 +103,17 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   const handleGoogleLoginFailure = (error) => {
     handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
   };
-
-  const responseFacebook = (response) => {
-
-    if (response) {
-      const userInfo = response.name.replace(/\s+/g, "");
-      console.log(userInfo); // Kiểm tra thông tin sau khi giải mã
+  const responseFacebook = (data) => {
+    console.log(data)
+    if (data && data.profile) {
+      const userInfo = data.profile.name.replace(/\s+/g, "");
+      console.log(userInfo);
       const userData = {
-        taiKhoan: userInfo, // Giả sử email nằm trong token
-        matKhau: "", // Tùy chọn
+        taiKhoan: userInfo,
+        matKhau: "", // Optional
       };
-      // Lưu vào local storage và redux store
+
+      // Save to local storage and redux store
       setLocalStorage("user", userData);
       dispatch(setValueUser(userData));
       handleNotification("Đăng nhập thành công", "success");
@@ -124,6 +124,11 @@ const LoginPage = ({ handleCancel, openRegister }) => {
     } else {
       handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
     }
+  };
+
+  const handleErrorFacebook = (error) => {
+    console.log(error);
+    handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
   };
   return (
     <>
@@ -228,19 +233,23 @@ const LoginPage = ({ handleCancel, openRegister }) => {
                 </>
               }
             /> */}
-            <FacebookLogin
-              appId="586249857242389"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={responseFacebook}
-              cssClass="custom-google-login-button font-[500] text-md flex items-center px-[12px] py-[7px] gap-2 border-[2px] rounded-md hover:border-[#d2e3fc]"
-              icon={
-                <FontAwesomeIcon
-                  icon={faSquareFacebook}
-                  className="h-5 text-blue-800"
-                />
-              }
-            />
+
+            <FacebookProvider appId="586249857242389">
+              <LoginButton
+                scope="email"
+                onCompleted={responseFacebook}
+                onError={handleErrorFacebook}
+              >
+                <div class="custom-google-login-button font-[500] text-md flex items-center px-[12px] py-[7px] gap-2 border-[2px] rounded-md hover:border-[#d2e3fc]">
+                  <FontAwesomeIcon
+                    icon={faSquareFacebook}
+                    className="h-5 text-blue-800"
+                  />
+                  Login with Facebook
+                </div>
+              </LoginButton>
+            </FacebookProvider>
+
             <GoogleOAuthProvider clientId="153095424782-ghdei8uml5ak6ulosu7oej9t36bhpccl.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={handleGoogleLoginSuccess}
