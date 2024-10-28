@@ -1,0 +1,95 @@
+body:has(.adminPage) .userOnline .ant-space-item:has(.iconUser)::before,
+.adminPage .userOnline .ant-space-item:has(.iconUser)::before {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+body:has(.adminPage) .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:first-child {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.adminPage .userOnline .ant-space-item:has(.iconUser)::before {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+body:has(.adminPage) .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:first-child {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.featureInDev .ant-message-notice-content {
+  background-color: #fafafc !important;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content {
+  flex-direction: column;
+  padding: 0 50px 20px;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg {
+  width: 300px;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st0 {
+  fill: #5c6f77;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st1 {
+  fill: #dfdfdf;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st2 {
+  fill: #ffffff;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st3 {
+  fill: #0071dc;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st4 {
+  fill: #f3f3f3;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st5 {
+  fill: #415560;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st6 {
+  fill: #0d0d0e;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st7 {
+  fill: #fabea8;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st8 {
+  fill: #fda68a;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st9 {
+  fill: #fe715e;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st10 {
+  fill: #f69875;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st11 {
+  fill: #210b04;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st12 {
+  fill: #2f3e46;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st13 {
+  fill: #f11d3d;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st14 {
+  fill: #bf5847;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st15 {
+  fill: #072c35;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st16 {
+  fill: #fad4b0;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st17 {
+  fill: #bf5547;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st18 {
+  fill: #fcc0a9;
+}
+.featureInDev .ant-message-notice-content .ant-message-custom-content svg .st19 {
+  fill: #0a0a0c;
+}/*# sourceMappingURL=admin-template.css.map */

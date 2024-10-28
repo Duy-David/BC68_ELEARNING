@@ -1,0 +1,34 @@
+.about-title span::after {
+  content: "";
+  position: absolute;
+  width: 91px;
+  height: 12px;
+  bottom: -18%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-45px);
+  background-image: url(./svg/AboutUS/headline-curve.svg);
+}
+
+.btn-aboutUS {
+  background-color: #f8f8f8;
+  color: #0071dc;
+}
+.btn-aboutUS:hover {
+  background-color: #0071dc;
+  color: white;
+}
+
+.slick-active button::before {
+  font-size: 10px !important;
+}
+
+.about-item {
+  width: 90% !important;
+  background: #f8f8f8;
+}
+
+.testimonial-img {
+  width: 32px;
+  transform: scale(-1);
+}/*# sourceMappingURL=aboutUs.css.map */
