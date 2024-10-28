@@ -13,6 +13,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { notiValidate } from "../../common/notiValidate";
 import FeatureInDev from "../NotFound404/FeatureInDev";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import FacebookLogin from "react-facebook-login";
 
 const LoginPage = ({ handleCancel, openRegister }) => {
   const dispatch = useDispatch();
@@ -37,10 +40,8 @@ const LoginPage = ({ handleCancel, openRegister }) => {
     onSubmit: async (values) => {
       try {
         const result = await authService.signIn(values);
-        // lưu local storage và redux store
         setLocalStorage("user", result.data);
         dispatch(setValueUser(result.data));
-        // chuyển hướng người dùng
         handleNotification("Đăng nhập thành công", "success");
         handleCancel();
         setTimeout(() => {
@@ -71,13 +72,61 @@ const LoginPage = ({ handleCancel, openRegister }) => {
         ),
     }),
   });
+  const handleGoogleLoginSuccess = (credentialResponse) => {
+    const token = credentialResponse.credential;
+    // Lấy token từ response
 
+    if (token) {
+      // Giải mã JWT để lấy thông tin người dùng
+      const { name } = jwtDecode(token); // Cần cài thư viện jwt_decode
+      const userInfo = name.replace(/\s+/g, "");
+      console.log(userInfo); // Kiểm tra thông tin sau khi giải mã
+
+      const userData = {
+        taiKhoan: userInfo, // Giả sử email nằm trong token
+        matKhau: "", // Tùy chọn
+      };
+
+      // Lưu vào local storage và redux store
+      setLocalStorage("user", userData);
+      dispatch(setValueUser(userData));
+      handleNotification("Đăng nhập thành công", "success");
+      handleCancel();
+      setTimeout(() => {
+        navigate(location.pathname);
+      }, 1000);
+    } else {
+      handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
+    }
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+    handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
+  };
+
+  const responseFacebook = (response) => {
+
+    if (response) {
+      const userInfo = response.name.replace(/\s+/g, "");
+      console.log(userInfo); // Kiểm tra thông tin sau khi giải mã
+      const userData = {
+        taiKhoan: userInfo, // Giả sử email nằm trong token
+        matKhau: "", // Tùy chọn
+      };
+      // Lưu vào local storage và redux store
+      setLocalStorage("user", userData);
+      dispatch(setValueUser(userData));
+      handleNotification("Đăng nhập thành công", "success");
+      handleCancel();
+      setTimeout(() => {
+        navigate(location.pathname);
+      }, 1000);
+    } else {
+      handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
+    }
+  };
   return (
     <>
-      {/* <button onClick={showModal} className="btn hover:text-blue-600">
-        Log In
-      </button> */}
-
       <Modal
         wrapClassName="header_user_modal"
         title="Login"
@@ -152,21 +201,21 @@ const LoginPage = ({ handleCancel, openRegister }) => {
           <p className="text-center text-[16px] line_deco">
             <span>or Log-in with</span>
           </p>
-          <div className="flex justify-evenly ">
-            <FeatureInDev
-              typeLabel="button"
-              className="font-bold text-lg flex items-center gap-3 border-2 px-7 py-3 rounded-md hover:border-[#252525]"
-              contentLabel={
-                <>
-                  <FontAwesomeIcon
-                    icon={faSquareFacebook}
-                    className="h-5 text-blue-800"
-                  />
-                  Facebook
-                </>
-              }
-            />
-            <FeatureInDev
+          <div className="flex justify-evenly font-medium ">
+            {/* <FeatureInDev
+                typeLabel="button"
+                className="font-bold text-lg flex items-center gap-3 border-2 px-7 py-3 rounded-md hover:border-[#252525]"
+                contentLabel={
+                  <>
+                    <FontAwesomeIcon
+                      icon={faSquareFacebook}
+                      className="h-5 text-blue-800"
+                    />
+                    Facebook
+                  </>
+                }
+              /> */}
+            {/* <FeatureInDev
               typeLabel="button"
               className="font-bold text-lg flex items-center gap-3 border-2 px-7 py-3 rounded-md hover:border-[#252525]"
               contentLabel={
@@ -178,7 +227,27 @@ const LoginPage = ({ handleCancel, openRegister }) => {
                   Google
                 </>
               }
+            /> */}
+            <FacebookLogin
+              appId="586249857242389"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="custom-google-login-button font-[500] text-md flex items-center px-[12px] py-[7px] gap-2 border-[2px] rounded-md hover:border-[#d2e3fc]"
+              icon={
+                <FontAwesomeIcon
+                  icon={faSquareFacebook}
+                  className="h-5 text-blue-800"
+                />
+              }
             />
+            <GoogleOAuthProvider clientId="153095424782-ghdei8uml5ak6ulosu7oej9t36bhpccl.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onFailure={handleGoogleLoginFailure}
+                scope="profile email"
+              ></GoogleLogin>
+            </GoogleOAuthProvider>
           </div>
         </form>
       </Modal>

@@ -163,15 +163,16 @@ const LoggedInUserInfo = () => {
             {user.hoTen}
           </span>
 
-          {user.maLoaiNguoiDung == "HV" ? (
-            <>
-              <UserOutlined className="iconUser text-xl bg-[#a23f6e] text-white p-[6px] rounded-full" />
-            </>
-          ) : (
+          {user.maLoaiNguoiDung == "GV" ? (
             <>
               <span className="iconUser text-xl bg-[#cdaa35] text-white px-[6px] py-[4px] rounded-full">
                 <FontAwesomeIcon icon={faMedal} />
               </span>
+            </>
+          ) : (
+            <>
+              {" "}
+              <UserOutlined className="iconUser text-xl bg-[#a23f6e] text-white p-[6px] rounded-full" />
             </>
           )}
         </Space>
