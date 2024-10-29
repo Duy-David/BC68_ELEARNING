@@ -74,20 +74,17 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   });
   const handleGoogleLoginSuccess = (credentialResponse) => {
     const token = credentialResponse.credential;
-    // Lấy token từ response
 
     if (token) {
-      // Giải mã JWT để lấy thông tin người dùng
-      const { name } = jwtDecode(token); // Cần cài thư viện jwt_decode
+      const { name } = jwtDecode(token);
       const userInfo = name.replace(/\s+/g, "");
-      console.log(userInfo); // Kiểm tra thông tin sau khi giải mã
+      console.log(userInfo);
 
       const userData = {
-        taiKhoan: userInfo, // Giả sử email nằm trong token
-        matKhau: "", // Tùy chọn
+        taiKhoan: userInfo,
+        matKhau: "",
       };
 
-      // Lưu vào local storage và redux store
       setLocalStorage("user", userData);
       dispatch(setValueUser(userData));
       handleNotification("Đăng nhập thành công", "success");
@@ -103,8 +100,38 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   const handleGoogleLoginFailure = (error) => {
     handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
   };
+
+  const [isFbSdkLoaded, setIsFbSdkLoaded] = useState(false);
+
+  useEffect(() => {
+    if (window.FB) {
+      setIsFbSdkLoaded(true);
+    } else {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: "586249857242389",
+          autoLogAppEvents: true,
+          xfbml: true,
+          version: "v12.0",
+        });
+        setIsFbSdkLoaded(true);
+      };
+
+      // Tải SDK
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+    }
+  }, []);
+
   const responseFacebook = (data) => {
-    console.log(data)
+    console.log(data);
     if (data && data.profile) {
       const userInfo = data.profile.name.replace(/\s+/g, "");
       console.log(userInfo);
@@ -127,7 +154,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
   };
 
   const handleErrorFacebook = (error) => {
-    console.log(error);
+    console.error(error);
     handleNotification("Đã xảy ra lỗi trong quá trình đăng nhập", "error");
   };
   return (
@@ -233,22 +260,23 @@ const LoginPage = ({ handleCancel, openRegister }) => {
                 </>
               }
             /> */}
-
-            <FacebookProvider appId="586249857242389">
-              <LoginButton
-                scope="email"
-                onCompleted={responseFacebook}
-                onError={handleErrorFacebook}
-              >
-                <div class="custom-google-login-button font-[500] text-md flex items-center px-[12px] py-[7px] gap-2 border-[2px] rounded-md hover:border-[#d2e3fc]">
-                  <FontAwesomeIcon
-                    icon={faSquareFacebook}
-                    className="h-5 text-blue-800"
-                  />
-                  Login with Facebook
-                </div>
-              </LoginButton>
-            </FacebookProvider>
+            {isFbSdkLoaded && (
+              <FacebookProvider appId="586249857242389">
+                <LoginButton
+                  // scope="email"
+                  onCompleted={responseFacebook}
+                  onError={handleErrorFacebook}
+                >
+                  <div class="custom-google-login-button font-[500] text-md flex items-center px-[12px] py-[7px] gap-2 border-[2px] rounded-md hover:border-[#d2e3fc]">
+                    <FontAwesomeIcon
+                      icon={faSquareFacebook}
+                      className="h-5 text-blue-800"
+                    />
+                    Login with Facebook
+                  </div>
+                </LoginButton>
+              </FacebookProvider>
+            )}
 
             <GoogleOAuthProvider clientId="153095424782-ghdei8uml5ak6ulosu7oej9t36bhpccl.apps.googleusercontent.com">
               <GoogleLogin
