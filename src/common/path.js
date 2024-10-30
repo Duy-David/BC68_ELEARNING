@@ -19,7 +19,7 @@ export const pathChildren = {
   managerUser: pathDefault.admin + "/manager-user",
   managerUserRegister: pathDefault.admin + "/manager-user-register/:taiKhoan",
   createUser: pathDefault.admin + "/create-user",
-  managerCourse: pathDefault.admin + "/manager-Course",
-  createCourse: pathDefault.admin + "/create-Course",
+  managerCourse: pathDefault.admin + "/manager-course",
+  createCourse: pathDefault.admin + "/create-course",
   enrollCourse: pathDefault.admin + "/ghi-danh-khoa-hoc/:maKhoaHoc",
 };

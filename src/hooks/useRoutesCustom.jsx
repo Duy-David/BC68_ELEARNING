@@ -1,9 +1,10 @@
-import React, { Suspense } from "react";
-import { useRoutes } from "react-router-dom";
+import React, { Suspense, useContext, useEffect } from "react";
+import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 import { pathChildren, pathDefault } from "../common/path";
 import { Skeleton } from "antd";
-import { svgPathData } from "@fortawesome/free-brands-svg-icons/faAirbnb";
-// import ManagerUserRegister from "";
+import { useDispatch, useSelector } from "react-redux";
+import { NotificationContext } from "../App";
+import { setStatusModal } from "../redux/headerSlice";
 
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
@@ -48,6 +49,37 @@ const ManagerUserRegister = React.lazy(() =>
   import("../pages/ManagerUserRegister/ManagerUserRegister")
 );
 const useRoutesCustom = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.authSlice);
+  const openLogin = () => {
+    dispatch(
+      setStatusModal({
+        isLogin: true,
+        isRegister: false,
+      })
+    );
+  };
+  const protectedRoutes = [
+    pathDefault.admin,
+    pathChildren.managerCourse,
+    pathChildren.managerUser,
+    pathChildren.managerUserRegister,
+    pathChildren.createCourse,
+    pathChildren.createUser,
+    pathChildren.enrollCourse,
+    "/admin",
+  ];
+  useEffect(() => {
+    if (!user) {
+      if (protectedRoutes.includes(location.pathname)) {
+        openLogin();
+        navigate(pathDefault.homePage);
+      }
+    }
+  }, [user, location.pathname, navigate]);
+
   const routes = useRoutes([
     {
       path: pathDefault.homePage,
@@ -99,7 +131,7 @@ const useRoutesCustom = () => {
         },
       ],
     },
-    
+
     {
       path: pathDefault.admin,
       element: (
