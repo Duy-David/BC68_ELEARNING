@@ -272,7 +272,7 @@ const LoginPage = ({ handleCancel, openRegister }) => {
                       icon={faSquareFacebook}
                       className="h-5 text-blue-800"
                     />
-                    Login with Facebook
+                    Sign in with Facebook
                   </div>
                 </LoginButton>
               </FacebookProvider>
