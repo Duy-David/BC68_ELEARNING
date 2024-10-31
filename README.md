@@ -21,6 +21,8 @@ Phiên bản node là v20.14.0
 - Thư viện parallax-js dùng để chạy anhimation trong banner(done)
 - Thư viện react-facebook dùng để đăng nhập bằng facebook(done)
 - Thư viện react-oauth/google dùng để đăng nhập bằng google(done)
+- Thư viện jwt-decode dùng để phân tích token
+
 
 ### Ghi chú về các thư mục trong dự án:
 
