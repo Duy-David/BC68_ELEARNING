@@ -46,8 +46,8 @@ const HeaderCategory = () => {
     >
       <Button>
         <div className="category_icon flex">
-          <IconCategory />
-          {!isResponsive.fixsm ? <span>Category</span> : <></>}
+          <IconCategory className={" transition-all"} />
+          {!isResponsive.fixsm ? <span className=" transition-all">Category</span> : <></>}
         </div>
       </Button>
     </Dropdown>

@@ -14,6 +14,7 @@ const Course = () => {
     sm: 640,
     md: 768,
     lg: 1024,
+    xl: 1280
   });
 
   const dispatch = useDispatch();
@@ -83,7 +84,7 @@ const Course = () => {
         </h2>
 
         <div className="mb-2">
-          {!isResponsive.lg ? (
+          {!isResponsive.xl ? (
             <div className="flex flex-wrap justify-center md:gap-3 gap-5">
               {listCourseCategory.map((category) => (
                 <button
@@ -110,9 +111,9 @@ const Course = () => {
                 arrow
               >
                 {/* <Button> */}
-                  <div className="category_icon flex space-x-2">
-                    <span>Category</span>
-                    <IconCategory />
+                  <div className="category_icon flex space-x-2 group hover:text-blue-500">
+                    <span className="text-xl font-medium text-justify group-hover:text-blue-500  transition-all">Category</span>
+                    <IconCategory className={" group-hover:text-blue-500  transition-all "}/>
                   </div>
                 {/* </Button> */}
               </Dropdown>
