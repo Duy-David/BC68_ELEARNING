@@ -74,6 +74,10 @@ const CourseInfo = ({ detailCourse }) => {
         onClick={() => {
           if (user) {
             handleAddToCart();
+            handleNotification(
+              "Khóa học đã được thêm vào giỏ hàng thành công ",
+              "success"
+            );
           } else {
             handleNotification(
               "Tính năng cần phải được đăng nhập mới thực hiện được",

@@ -110,7 +110,18 @@ const MyCourses = () => {
                   <hr></hr>
                   <div className="flex mt-2 mb-5">
                     <div className="flex w-1/2 mr-5">
-                      <img src={course.hinhAnh} className="w-full h-60"></img>
+                      <img
+                        src={
+                          course?.hinhAnh ||
+                          "/png/course/hinhAnhCourse.png"
+                        }
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/png/course/hinhAnhCourse.png";
+                        }}
+                        alt="Course"
+                        className="w-full h-60"
+                      />
                     </div>
                     <div className="flex-row w-full">
                       <h3 className="text-lg font-semibold mb-3">
@@ -288,8 +299,11 @@ const MyCourses = () => {
                           >
                             Cancel registration
                           </Button>
-                          <Tag color="#2db7f5" className="px-[15px] py-[4px] rounded-[6px] text-sm text-center">
-                          Course is awaiting confirmation 
+                          <Tag
+                            color="#2db7f5"
+                            className="px-[15px] py-[4px] rounded-[6px] text-sm text-center"
+                          >
+                            Course is awaiting confirmation
                           </Tag>
                         </div>
                       )}

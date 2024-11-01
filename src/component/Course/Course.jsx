@@ -111,7 +111,7 @@ const Course = () => {
                 arrow
               >
                 {/* <Button> */}
-                  <div className="category_icon flex space-x-2 group hover:text-blue-500">
+                  <div className="category_icon flex space-x-2 group hover:text-blue-500 cursor-pointer">
                     <span className="text-xl font-medium text-justify group-hover:text-blue-500  transition-all">Category</span>
                     <IconCategory className={" group-hover:text-blue-500  transition-all "}/>
                   </div>

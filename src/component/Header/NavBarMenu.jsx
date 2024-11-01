@@ -120,7 +120,7 @@ const NavBarMenu = ({ openNav }) => {
             placement="bottom"
             arrow={!openNav}
           >
-            <Link>
+            <Link className="text-center">
               <span>EduMall</span>
               <FontAwesomeIcon icon={faChevronDown} />
             </Link>

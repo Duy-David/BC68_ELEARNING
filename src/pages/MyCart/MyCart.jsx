@@ -49,9 +49,14 @@ const MyCart = () => {
   const dataSource = cartItems.map((item, i) => ({
     key: i,
     image: (
+    
       <img
-        src={item.hinhAnh}
-        alt={item.tenKhoaHoc}
+        src={item?.hinhAnh || "/png/course/hinhAnhCourse.png"}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "/png/course/hinhAnhCourse.png";
+        }}
+        alt="Course"
         className="w-20 object-cover"
       />
     ),

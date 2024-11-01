@@ -51,7 +51,11 @@ const CartPopOver = () => {
                 </button>
                 <div className="header_cart__thumbnail">
                   <img
-                    src={course.hinhAnh}
+                    src={course?.hinhAnh || "/png/course/hinhAnhCourse.png"}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/png/course/hinhAnhCourse.png";
+                    }}
                     alt={course.tenKhoaHoc}
                     width={80}
                     height={93}
@@ -123,7 +127,10 @@ const CartPopOver = () => {
     >
       <button className="header_cart_btn ">
         {" "}
-        <FontAwesomeIcon icon={faBasketShopping} />
+        <FontAwesomeIcon
+          icon={faBasketShopping}
+          className="hover:text-blue-500"
+        />
         {cartItems.length !== 0 && <span>{cartItems.length}</span>}
       </button>
     </Popover>
